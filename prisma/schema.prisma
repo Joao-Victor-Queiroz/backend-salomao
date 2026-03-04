@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Cargo {
+  COORDENADOR_GERAL
+  FORMADOR
+  COORDENADOR_FREQUENCIA
+  COORDENADOR_CAIXINHA
+  ANIMADOR_FREQUENCIA
+  ANIMADOR_CAIXINHA
+  ANIMADOR
+}
+
+enum StatusFrequencia {
+  P
+  FNJ
+  FJ
+}
+
+model Animador {
+  id    String   @id @default(uuid())
+  nomeAnimador String
+  email String @unique
+  password String
+  cargo Cargo @default(ANIMADOR)
+  grupoId String?
+  grupo Grupo? @relation(fields: [grupoId], references: [id])
+}
+
+model Grupo {
+  id String @id @default(uuid())
+  nomeGrupo String
+  animadores Animador[]
+  crismandos Crismando[]
+}
+
+model Crismando {
+  id String @id @default(uuid())
+  nomeCrismando String
+  cpf String
+  idade Int 
+  dataNascimento DateTime
+  cidadeNascimento String
+  estadoNascimento String
+  endereco String
+  numEndereco String
+  complemento String
+  bairro String
+  cep String
+  telefoneCrismando String
+  nomePai String
+  nomeMae String
+  telefonePai String
+  telefoneMae String
+  batizado String
+  primeiraEucaristia String
+  justificativa String
+  ativo Boolean @default(true)
+  frequencias Frequencia[]
+  caixinhas Caixinha[]
+  grupoId String?
+  grupo Grupo? @relation(fields: [grupoId], references: [id])
+}
+
+model Frequencia {
+  id String @id @default(uuid())
+  crismandoId String
+  crismando Crismando? @relation(fields: [crismandoId], references: [id])
+  status StatusFrequencia
+  dataFrequencia DateTime
+  justificativa String?
+}
+
+model Caixinha {
+  id String @id @default(uuid())
+  crismandoId String
+  crismando Crismando? @relation(fields: [crismandoId], references: [id])
+  valorPago Float
+  dataPagamento DateTime
+}
