@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CrismandoService } from './crismando.service';
 import { CreateCrismandoDto } from './dto/create-crismando.dto';
 import { UpdateCrismandoDto } from './dto/update-crismando.dto';
@@ -7,28 +15,31 @@ import { UpdateCrismandoDto } from './dto/update-crismando.dto';
 export class CrismandoController {
   constructor(private readonly crismandoService: CrismandoService) {}
 
-  @Post()
+  @Post('criar-crismando')
   create(@Body() createCrismandoDto: CreateCrismandoDto) {
-    return this.crismandoService.create(createCrismandoDto);
+    return this.crismandoService.createCrismando(createCrismandoDto);
   }
 
   @Get()
   findAll() {
-    return this.crismandoService.findAll();
+    return this.crismandoService.findAllCrismandos();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.crismandoService.findOne(+id);
+    return this.crismandoService.findOneCrismando(id); //o "+id" convertia para número
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCrismandoDto: UpdateCrismandoDto) {
-    return this.crismandoService.update(+id, updateCrismandoDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateCrismandoDto: UpdateCrismandoDto,
+  ) {
+    return this.crismandoService.updateCrismando(id, updateCrismandoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.crismandoService.remove(+id);
+    return this.crismandoService.removeCrismando(id);
   }
 }

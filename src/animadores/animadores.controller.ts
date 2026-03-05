@@ -27,7 +27,7 @@ export class AnimadoresController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.animadoresService.findOne(+id);
+    return this.animadoresService.findOne(id);
   }
 
   // @UseGuards(JwtAuthGuard)
@@ -45,6 +45,6 @@ export class AnimadoresController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.animadoresService.remove(+id);
+    return this.animadoresService.removeAnimador(id);
   }
 }

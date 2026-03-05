@@ -27,7 +27,7 @@ export class AnimadoresService {
   }
 
   findAll() {
-    return `This action returns all animadores`;
+    return this.prisma.animador.findMany();
   }
 
   async findAnimador(email: string): Promise<Animador | null> {
@@ -42,15 +42,19 @@ export class AnimadoresService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} animador`;
+  findOne(id: string) {
+    return this.prisma.animador.findUnique({
+      where: { id: id },
+    });
   }
 
   // update(id: number, updateAnimadorDto: UpdateAnimadorDto) {
   //   return `This action updates a #${id} animador`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} animador`;
+  removeAnimador(id: string) {
+    return this.prisma.animador.delete({
+      where: { id: id },
+    });
   }
 }

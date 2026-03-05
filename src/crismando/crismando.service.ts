@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCrismandoDto } from './dto/create-crismando.dto';
 import { UpdateCrismandoDto } from './dto/update-crismando.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class CrismandoService {
-  create(createCrismandoDto: CreateCrismandoDto) {
-    return 'This action adds a new crismando';
+  constructor(private prisma: PrismaService) {}
+
+  createCrismando(createCrismandoDto: CreateCrismandoDto) {
+    return this.prisma.crismando.create({
+      data: createCrismandoDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all crismando`;
+  findAllCrismandos() {
+    return this.prisma.crismando.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} crismando`;
+  findOneCrismando(id: string) {
+    return this.prisma.crismando.findUnique({
+      where: { id: id },
+    });
   }
 
-  update(id: number, updateCrismandoDto: UpdateCrismandoDto) {
-    return `This action updates a #${id} crismando`;
+  updateCrismando(id: string, updateCrismandoDto: UpdateCrismandoDto) {
+    return this.prisma.crismando.update({
+      data: updateCrismandoDto,
+      where: { id: id },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} crismando`;
+  removeCrismando(id: string) {
+    return this.prisma.crismando.delete({
+      where: { id: id },
+    });
   }
 }
