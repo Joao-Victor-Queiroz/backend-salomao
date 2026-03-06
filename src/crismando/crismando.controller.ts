@@ -20,7 +20,7 @@ export class CrismandoController {
     return this.crismandoService.createCrismando(createCrismandoDto);
   }
 
-  @Get()
+  @Get('todos')
   findAll() {
     return this.crismandoService.findAllCrismandos();
   }

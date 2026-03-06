@@ -78,7 +78,7 @@ model Crismando {
 model Frequencia {
   id String @id @default(uuid())
   crismandoId String
-  crismando Crismando? @relation(fields: [crismandoId], references: [id])
+  crismando Crismando? @relation(fields: [crismandoId], references: [id], onDelete: Cascade)
   status StatusFrequencia
   dataFrequencia DateTime
   justificativa String?
@@ -87,7 +87,7 @@ model Frequencia {
 model Caixinha {
   id String @id @default(uuid())
   crismandoId String
-  crismando Crismando? @relation(fields: [crismandoId], references: [id])
+  crismando Crismando? @relation(fields: [crismandoId], references: [id], onDelete: Cascade)
   valorPago Float
   dataPagamento DateTime
 }

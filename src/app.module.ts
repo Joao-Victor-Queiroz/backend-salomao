@@ -4,10 +4,16 @@ import { AppService } from './app.service';
 import { AnimadoresModule } from './animadores/animadores.module';
 import { AuthModule } from './auth/auth.module';
 import { CrismandoModule } from './crismando/crismando.module';
+import { FrequenciaModule } from './frequencia/frequencia.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './config/allExceptions.filter';
 
 @Module({
-  imports: [AnimadoresModule, AuthModule, CrismandoModule],
+  imports: [AnimadoresModule, AuthModule, CrismandoModule, FrequenciaModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_FILTER, useClass: AllExceptionsFilter },
+  ],
 })
 export class AppModule {}
