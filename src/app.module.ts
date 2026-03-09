@@ -7,9 +7,16 @@ import { CrismandoModule } from './crismando/crismando.module';
 import { FrequenciaModule } from './frequencia/frequencia.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './config/allExceptions.filter';
+import { GrupoModule } from './grupo/grupo.module';
 
 @Module({
-  imports: [AnimadoresModule, AuthModule, CrismandoModule, FrequenciaModule],
+  imports: [
+    AnimadoresModule,
+    AuthModule,
+    CrismandoModule,
+    FrequenciaModule,
+    GrupoModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,

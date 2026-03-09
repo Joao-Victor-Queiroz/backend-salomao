@@ -20,7 +20,7 @@ export class CrismandoController {
     return this.crismandoService.createCrismando(createCrismandoDto);
   }
 
-  @Get('todos')
+  @Get('todos-crismandos')
   findAll() {
     return this.crismandoService.findAllCrismandos();
   }
@@ -30,7 +30,7 @@ export class CrismandoController {
     return this.crismandoService.findOneCrismando(id); //o "+id" convertia para número
   }
 
-  @Patch(':id')
+  @Patch('atualizar-crismando/:id')
   update(
     @Param('id') id: string,
     @Body() updateCrismandoDto: UpdateCrismandoDto,
@@ -38,7 +38,7 @@ export class CrismandoController {
     return this.crismandoService.updateCrismando(id, updateCrismandoDto);
   }
 
-  @Delete(':id')
+  @Delete('remover-crismando/:id')
   remove(@Param('id') id: string) {
     return this.crismandoService.removeCrismando(id);
   }

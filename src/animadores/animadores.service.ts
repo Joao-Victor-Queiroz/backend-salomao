@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAnimadorDto } from './dto/create-animador.dto';
-// import { UpdateAnimadorDto } from './dto/update-animador.dto';
+import { UpdateAnimadorDto } from './dto/update-animador.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Animador } from '../generated/prisma/client';
 
@@ -48,9 +48,12 @@ export class AnimadoresService {
     });
   }
 
-  // update(id: number, updateAnimadorDto: UpdateAnimadorDto) {
-  //   return `This action updates a #${id} animador`;
-  // }
+  update(id: string, updateAnimadorDto: UpdateAnimadorDto) {
+    return this.prisma.animador.update({
+      where: { id: id },
+      data: updateAnimadorDto,
+    });
+  }
 
   removeAnimador(id: string) {
     return this.prisma.animador.delete({
