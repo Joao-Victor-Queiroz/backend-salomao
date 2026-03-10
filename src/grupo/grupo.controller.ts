@@ -10,6 +10,7 @@ import {
 import { GrupoService } from './grupo.service';
 import { CreateGrupoDto } from './dto/create-grupo.dto';
 import { UpdateGrupoDto } from './dto/update-grupo.dto';
+import { AddCrismandosDto } from './dto/add-crismandos.dto';
 
 @Controller('grupo')
 export class GrupoController {
@@ -28,6 +29,14 @@ export class GrupoController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.grupoService.findOne(id);
+  }
+
+  @Post('adicionar-crismandos/:id')
+  addCrismandos(
+    @Param('id') id: string,
+    @Body() addCrismandosDto: AddCrismandosDto,
+  ) {
+    return this.grupoService.addCrismandos(id, addCrismandosDto);
   }
 
   @Patch('atualizar-grupo/:id')

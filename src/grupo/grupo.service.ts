@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateGrupoDto } from './dto/create-grupo.dto';
 import { UpdateGrupoDto } from './dto/update-grupo.dto';
 import { PrismaService } from 'src/prisma.service';
+import { AddCrismandosDto } from './dto/add-crismandos.dto';
 
 @Injectable()
 export class GrupoService {
@@ -22,6 +23,28 @@ export class GrupoService {
   findOne(id: string) {
     return this.prisma.grupo.findUnique({
       where: { id: id },
+      include: {
+        crismandos: {
+          select: {
+            id: true,
+            nomeCrismando: true,
+            idade: true,
+          },
+        },
+      },
+    });
+  }
+
+  addCrismandos(id: string, addCrismandosDto: AddCrismandosDto) {
+    return this.prisma.grupo.update({
+      where: { id: id },
+      data: {
+        crismandos: {
+          connect: addCrismandosDto.crismandos.map((crismando) => ({
+            id: crismando,
+          })),
+        },
+      },
     });
   }
 
