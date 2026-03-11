@@ -31,12 +31,20 @@ export class GrupoController {
     return this.grupoService.findOne(id);
   }
 
-  @Post('adicionar-crismandos/:id')
+  @Patch('adicionar-crismandos/:id')
   addCrismandos(
     @Param('id') id: string,
     @Body() addCrismandosDto: AddCrismandosDto,
   ) {
     return this.grupoService.addCrismandos(id, addCrismandosDto);
+  }
+
+  @Patch('remover-crismando/:idGrupo/:idCrismando')
+  removerCrismando(
+    @Param('idGrupo') idGrupo: string,
+    @Param('idCrismando') idCrismando: string,
+  ) {
+    return this.grupoService.removerCrismando(idGrupo, idCrismando);
   }
 
   @Patch('atualizar-grupo/:id')

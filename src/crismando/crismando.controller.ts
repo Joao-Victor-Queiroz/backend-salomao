@@ -25,6 +25,11 @@ export class CrismandoController {
     return this.crismandoService.findAllCrismandos();
   }
 
+  // @Get('aniversariantes')
+  // buscarAniversarios(@Query() query: BuscarAniversariosDto) {
+  //   return this.crismandoService.buscarAniversarios(query.start, query.end);
+  // }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.crismandoService.findOneCrismando(id); //o "+id" convertia para número

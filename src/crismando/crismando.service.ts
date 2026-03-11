@@ -13,6 +13,27 @@ export class CrismandoService {
     });
   }
 
+  // buscarAniversarios(start: string, end: string) {
+  //   if (start > end) {
+  //     return this.prisma.$queryRaw`
+  //   SELECT * FROM "Crismando"
+  //   WHERE (
+  //     TO_CHAR("dataNascimento", 'MM-DD') >= ${start}
+  //     OR
+  //     TO_CHAR("dataNAscimento", 'MM-DD') <= ${end}
+  //   )
+  //   `;
+  //   }
+  //   return this.prisma.$queryRawUnsafe(`
+  //   SELECT * FROM "Crismando"
+  //   WHERE (
+  //     TO_CHAR("dataNascimento", 'MM-DD') >= ${start}
+  //     AND
+  //     TO_CHAR("dataNascimento", 'MM-DD') <= ${end}
+  //   )
+  //   `);
+  // }
+
   findAllCrismandos() {
     return this.prisma.crismando.findMany();
   }
@@ -20,6 +41,14 @@ export class CrismandoService {
   findOneCrismando(id: string) {
     return this.prisma.crismando.findUnique({
       where: { id: id },
+      include: {
+        grupo: {
+          select: {
+            nomeGrupo: true,
+          },
+        },
+        frequencias: true,
+      },
     });
   }
 

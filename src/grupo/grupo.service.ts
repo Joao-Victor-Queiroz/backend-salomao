@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateGrupoDto } from './dto/create-grupo.dto';
 import { UpdateGrupoDto } from './dto/update-grupo.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -25,6 +25,7 @@ export class GrupoService {
       where: { id: id },
       include: {
         crismandos: {
+          orderBy: { nomeCrismando: 'asc' },
           select: {
             id: true,
             nomeCrismando: true,
@@ -35,7 +36,27 @@ export class GrupoService {
     });
   }
 
-  addCrismandos(id: string, addCrismandosDto: AddCrismandosDto) {
+  async addCrismandos(id: string, addCrismandosDto: AddCrismandosDto) {
+    const crismandosJaAlocados = await this.prisma.crismando.findMany({
+      where: {
+        id: { in: addCrismandosDto.crismandos },
+        grupoId: { not: null },
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (crismandosJaAlocados.length > 0) {
+      const ids = crismandosJaAlocados
+        .map((crismando) => crismando.id)
+        .join(', ');
+      throw new BadRequestException(
+        'Os seguintes ids estão em um grupo: ',
+        ids,
+      );
+    }
+
     return this.prisma.grupo.update({
       where: { id: id },
       data: {
@@ -43,6 +64,22 @@ export class GrupoService {
           connect: addCrismandosDto.crismandos.map((crismando) => ({
             id: crismando,
           })),
+        },
+      },
+      include: {
+        crismandos: true,
+      },
+    });
+  }
+
+  removerCrismando(idGrupo: string, idCrismando: string) {
+    return this.prisma.grupo.update({
+      where: { id: idGrupo },
+      data: {
+        crismandos: {
+          disconnect: {
+            id: idCrismando,
+          },
         },
       },
     });
