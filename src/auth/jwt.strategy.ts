@@ -19,13 +19,18 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: Payload) {
+    console.log('Payload extraído: ', payload);
     const user = await this.prisma.animador.findUnique({
       where: { id: payload.sub },
+      omit: { password: true },
     });
+
+    console.log(user);
 
     if (!user) {
       throw new UnauthorizedException();
     }
+    console.log('Usuário encontrado: ', user);
     return user;
   }
 }

@@ -8,6 +8,8 @@ import { FrequenciaModule } from './frequencia/frequencia.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './config/allExceptions.filter';
 import { GrupoModule } from './grupo/grupo.module';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -21,6 +23,7 @@ import { GrupoModule } from './grupo/grupo.module';
   providers: [
     AppService,
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
 })
 export class AppModule {}
