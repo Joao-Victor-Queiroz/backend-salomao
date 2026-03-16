@@ -191,6 +191,7 @@ export type AnimadorWhereInput = {
   cargo?: Prisma.EnumCargoFilter<"Animador"> | $Enums.Cargo
   grupoId?: Prisma.StringNullableFilter<"Animador"> | string | null
   grupo?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
+  sessions?: Prisma.RefreshTokenListRelationFilter
 }
 
 export type AnimadorOrderByWithRelationInput = {
@@ -201,6 +202,7 @@ export type AnimadorOrderByWithRelationInput = {
   cargo?: Prisma.SortOrder
   grupoId?: Prisma.SortOrderInput | Prisma.SortOrder
   grupo?: Prisma.GrupoOrderByWithRelationInput
+  sessions?: Prisma.RefreshTokenOrderByRelationAggregateInput
 }
 
 export type AnimadorWhereUniqueInput = Prisma.AtLeast<{
@@ -214,6 +216,7 @@ export type AnimadorWhereUniqueInput = Prisma.AtLeast<{
   cargo?: Prisma.EnumCargoFilter<"Animador"> | $Enums.Cargo
   grupoId?: Prisma.StringNullableFilter<"Animador"> | string | null
   grupo?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
+  sessions?: Prisma.RefreshTokenListRelationFilter
 }, "id" | "email">
 
 export type AnimadorOrderByWithAggregationInput = {
@@ -247,6 +250,7 @@ export type AnimadorCreateInput = {
   password: string
   cargo?: $Enums.Cargo
   grupo?: Prisma.GrupoCreateNestedOneWithoutAnimadoresInput
+  sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
 }
 
 export type AnimadorUncheckedCreateInput = {
@@ -256,6 +260,7 @@ export type AnimadorUncheckedCreateInput = {
   password: string
   cargo?: $Enums.Cargo
   grupoId?: string | null
+  sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
 }
 
 export type AnimadorUpdateInput = {
@@ -265,6 +270,7 @@ export type AnimadorUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
   grupo?: Prisma.GrupoUpdateOneWithoutAnimadoresNestedInput
+  sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
 }
 
 export type AnimadorUncheckedUpdateInput = {
@@ -274,6 +280,7 @@ export type AnimadorUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
   grupoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
 }
 
 export type AnimadorCreateManyInput = {
@@ -339,6 +346,11 @@ export type AnimadorOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type AnimadorScalarRelationFilter = {
+  is?: Prisma.AnimadorWhereInput
+  isNot?: Prisma.AnimadorWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -393,12 +405,27 @@ export type AnimadorUncheckedUpdateManyWithoutGrupoNestedInput = {
   deleteMany?: Prisma.AnimadorScalarWhereInput | Prisma.AnimadorScalarWhereInput[]
 }
 
+export type AnimadorCreateNestedOneWithoutSessionsInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutSessionsInput, Prisma.AnimadorUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutSessionsInput
+  connect?: Prisma.AnimadorWhereUniqueInput
+}
+
+export type AnimadorUpdateOneRequiredWithoutSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutSessionsInput, Prisma.AnimadorUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutSessionsInput
+  upsert?: Prisma.AnimadorUpsertWithoutSessionsInput
+  connect?: Prisma.AnimadorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimadorUpdateToOneWithWhereWithoutSessionsInput, Prisma.AnimadorUpdateWithoutSessionsInput>, Prisma.AnimadorUncheckedUpdateWithoutSessionsInput>
+}
+
 export type AnimadorCreateWithoutGrupoInput = {
   id?: string
   nomeAnimador: string
   email: string
   password: string
   cargo?: $Enums.Cargo
+  sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
 }
 
 export type AnimadorUncheckedCreateWithoutGrupoInput = {
@@ -407,6 +434,7 @@ export type AnimadorUncheckedCreateWithoutGrupoInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
 }
 
 export type AnimadorCreateOrConnectWithoutGrupoInput = {
@@ -447,6 +475,58 @@ export type AnimadorScalarWhereInput = {
   grupoId?: Prisma.StringNullableFilter<"Animador"> | string | null
 }
 
+export type AnimadorCreateWithoutSessionsInput = {
+  id?: string
+  nomeAnimador: string
+  email: string
+  password: string
+  cargo?: $Enums.Cargo
+  grupo?: Prisma.GrupoCreateNestedOneWithoutAnimadoresInput
+}
+
+export type AnimadorUncheckedCreateWithoutSessionsInput = {
+  id?: string
+  nomeAnimador: string
+  email: string
+  password: string
+  cargo?: $Enums.Cargo
+  grupoId?: string | null
+}
+
+export type AnimadorCreateOrConnectWithoutSessionsInput = {
+  where: Prisma.AnimadorWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimadorCreateWithoutSessionsInput, Prisma.AnimadorUncheckedCreateWithoutSessionsInput>
+}
+
+export type AnimadorUpsertWithoutSessionsInput = {
+  update: Prisma.XOR<Prisma.AnimadorUpdateWithoutSessionsInput, Prisma.AnimadorUncheckedUpdateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.AnimadorCreateWithoutSessionsInput, Prisma.AnimadorUncheckedCreateWithoutSessionsInput>
+  where?: Prisma.AnimadorWhereInput
+}
+
+export type AnimadorUpdateToOneWithWhereWithoutSessionsInput = {
+  where?: Prisma.AnimadorWhereInput
+  data: Prisma.XOR<Prisma.AnimadorUpdateWithoutSessionsInput, Prisma.AnimadorUncheckedUpdateWithoutSessionsInput>
+}
+
+export type AnimadorUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  grupo?: Prisma.GrupoUpdateOneWithoutAnimadoresNestedInput
+}
+
+export type AnimadorUncheckedUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  grupoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type AnimadorCreateManyGrupoInput = {
   id?: string
   nomeAnimador: string
@@ -461,6 +541,7 @@ export type AnimadorUpdateWithoutGrupoInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
 }
 
 export type AnimadorUncheckedUpdateWithoutGrupoInput = {
@@ -469,6 +550,7 @@ export type AnimadorUncheckedUpdateWithoutGrupoInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
 }
 
 export type AnimadorUncheckedUpdateManyWithoutGrupoInput = {
@@ -480,6 +562,35 @@ export type AnimadorUncheckedUpdateManyWithoutGrupoInput = {
 }
 
 
+/**
+ * Count Type AnimadorCountOutputType
+ */
+
+export type AnimadorCountOutputType = {
+  sessions: number
+}
+
+export type AnimadorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  sessions?: boolean | AnimadorCountOutputTypeCountSessionsArgs
+}
+
+/**
+ * AnimadorCountOutputType without action
+ */
+export type AnimadorCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AnimadorCountOutputType
+   */
+  select?: Prisma.AnimadorCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * AnimadorCountOutputType without action
+ */
+export type AnimadorCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefreshTokenWhereInput
+}
+
 
 export type AnimadorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -489,6 +600,8 @@ export type AnimadorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   cargo?: boolean
   grupoId?: boolean
   grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
+  sessions?: boolean | Prisma.Animador$sessionsArgs<ExtArgs>
+  _count?: boolean | Prisma.AnimadorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["animador"]>
 
 export type AnimadorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -523,6 +636,8 @@ export type AnimadorSelectScalar = {
 export type AnimadorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomeAnimador" | "email" | "password" | "cargo" | "grupoId", ExtArgs["result"]["animador"]>
 export type AnimadorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
+  sessions?: boolean | Prisma.Animador$sessionsArgs<ExtArgs>
+  _count?: boolean | Prisma.AnimadorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AnimadorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
@@ -535,6 +650,7 @@ export type $AnimadorPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Animador"
   objects: {
     grupo: Prisma.$GrupoPayload<ExtArgs> | null
+    sessions: Prisma.$RefreshTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -938,6 +1054,7 @@ readonly fields: AnimadorFieldRefs;
 export interface Prisma__AnimadorClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   grupo<T extends Prisma.Animador$grupoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animador$grupoArgs<ExtArgs>>): Prisma.Prisma__GrupoClient<runtime.Types.Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  sessions<T extends Prisma.Animador$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animador$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1385,6 +1502,30 @@ export type Animador$grupoArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   include?: Prisma.GrupoInclude<ExtArgs> | null
   where?: Prisma.GrupoWhereInput
+}
+
+/**
+ * Animador.sessions
+ */
+export type Animador$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RefreshToken
+   */
+  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RefreshToken
+   */
+  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
+  where?: Prisma.RefreshTokenWhereInput
+  orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[]
+  cursor?: Prisma.RefreshTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
 }
 
 /**

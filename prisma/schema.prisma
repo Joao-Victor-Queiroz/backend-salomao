@@ -38,6 +38,7 @@ model Animador {
   cargo Cargo @default(ANIMADOR)
   grupoId String?
   grupo Grupo? @relation(fields: [grupoId], references: [id])
+  sessions RefreshToken[]
 }
 
 model Grupo {
@@ -90,4 +91,13 @@ model Caixinha {
   crismando Crismando? @relation(fields: [crismandoId], references: [id], onDelete: Cascade)
   valorPago Float
   dataPagamento DateTime
+}
+
+model RefreshToken {
+  id String @id @default(uuid())
+  token String
+  animadorId String
+  animador Animador @relation(fields: [animadorId], references: [id])
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 }

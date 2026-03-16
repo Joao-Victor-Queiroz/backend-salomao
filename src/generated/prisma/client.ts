@@ -62,3 +62,8 @@ export type Frequencia = Prisma.FrequenciaModel
  * 
  */
 export type Caixinha = Prisma.CaixinhaModel
+/**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = Prisma.RefreshTokenModel

@@ -55,7 +55,8 @@ export const ModelName = {
   Grupo: 'Grupo',
   Crismando: 'Crismando',
   Frequencia: 'Frequencia',
-  Caixinha: 'Caixinha'
+  Caixinha: 'Caixinha',
+  RefreshToken: 'RefreshToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -141,6 +142,17 @@ export const CaixinhaScalarFieldEnum = {
 } as const
 
 export type CaixinhaScalarFieldEnum = (typeof CaixinhaScalarFieldEnum)[keyof typeof CaixinhaScalarFieldEnum]
+
+
+export const RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  animadorId: 'animadorId',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
 export const SortOrder = {
