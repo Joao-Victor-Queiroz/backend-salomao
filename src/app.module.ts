@@ -10,7 +10,7 @@ import { AllExceptionsFilter } from './config/allExceptions.filter';
 import { GrupoModule } from './grupo/grupo.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
-import { RoleGuard } from './roles.guard';
+import { RoleGuard } from 'src/auth/guards/roles.guard';
 
 @Module({
   imports: [

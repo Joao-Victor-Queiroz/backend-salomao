@@ -12,8 +12,8 @@ import { CrismandoService } from './crismando.service';
 import { CreateCrismandoDto } from './dto/create-crismando.dto';
 import { UpdateCrismandoDto } from './dto/update-crismando.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { RoleGuard } from 'src/roles.guard';
-import { Role } from 'src/roles.decorator';
+import { RoleGuard } from 'src/auth/guards/roles.guard';
+import { Role } from 'src/auth/decorators/roles.decorator';
 import { Cargo } from 'src/generated/prisma/enums';
 @Controller('crismando')
 export class CrismandoController {
