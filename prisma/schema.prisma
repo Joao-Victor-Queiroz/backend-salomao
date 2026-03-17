@@ -100,4 +100,5 @@ model RefreshToken {
   animador Animador @relation(fields: [animadorId], references: [id])
   createdAt DateTime @default(now())
   expiresAt DateTime
+  revokedAt DateTime?
 }

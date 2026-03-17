@@ -18,4 +18,16 @@ export class AuthController {
   async signin(@Body() body: { email: string; password: string }) {
     return this.authService.signIn(body.email, body.password);
   }
+
+  @Public()
+  @Post('refresh-token')
+  async refreshToken(@Body() body: { token: string }) {
+    return this.authService.refreshToken(body.token);
+  }
+
+  @Public()
+  @Post('logout')
+  async logout(@Body() body: { token: string }) {
+    return this.authService.logout(body.token);
+  }
 }

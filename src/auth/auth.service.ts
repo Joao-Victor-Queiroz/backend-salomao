@@ -8,6 +8,8 @@ import * as bcrypt from 'bcrypt';
 import { Animador } from 'src/generated/prisma/client';
 import { CreateAnimadorDto } from 'src/animadores/dto/create-animador.dto';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from 'src/prisma.service';
+import * as crypto from 'node:crypto';
 
 export type AnimadorSemSenha = Omit<Animador, 'password'>;
 
@@ -16,6 +18,7 @@ export class AuthService {
   constructor(
     private animadoresService: AnimadoresService,
     private jwtService: JwtService,
+    private prisma: PrismaService,
   ) {}
 
   async signUp(createAnimadorDto: CreateAnimadorDto) {
@@ -53,7 +56,99 @@ export class AuthService {
 
     const accessToken = await this.jwtService.signAsync(payload);
 
-    return { accessToken };
+    return {
+      accessToken,
+      refreshToken: await this.createRefreshToken(animador.id),
+    };
+  }
+
+  async createRefreshToken(animadorId: string) {
+    const durationInDays = 7;
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + durationInDays);
+
+    const token = crypto.randomUUID();
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    await this.prisma.refreshToken.create({
+      data: {
+        token: hashedToken,
+        animadorId: animadorId,
+        expiresAt: expiresAt,
+      },
+    });
+
+    return token;
+  }
+
+  async refreshToken(token: string) {
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    const tokenData = await this.prisma.refreshToken.findFirst({
+      where: { token: hashedToken },
+      include: { animador: true },
+    });
+
+    if (!tokenData) {
+      throw new UnauthorizedException('Token inválido');
+    }
+
+    if (tokenData.expiresAt < new Date()) {
+      await this.prisma.refreshToken.delete({
+        where: { id: tokenData.id },
+      });
+      throw new UnauthorizedException('Token expirado');
+    }
+
+    if (tokenData.revokedAt !== null) {
+      await this.prisma.refreshToken.delete({
+        where: { id: tokenData.id },
+      });
+      throw new UnauthorizedException('Token revogado');
+    }
+
+    await this.prisma.refreshToken.delete({
+      where: { id: tokenData.id },
+    });
+
+    const newRefreshToken = await this.createRefreshToken(
+      tokenData.animador.id,
+    );
+
+    const payload = {
+      sub: tokenData.animador.id,
+      cargo: tokenData.animador.cargo,
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload);
+
+    return { accessToken, newRefreshToken };
+  }
+
+  async logout(token: string) {
+    console.log('Token recebido: ', token);
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    console.log('Hashed token: ', hashedToken);
+
+    const tokenData = await this.prisma.refreshToken.findFirst({
+      where: { token: hashedToken },
+    });
+
+    if (!tokenData) {
+      console.log('Não foi possível encontrar o token');
+    }
+
+    console.log('Token: ', tokenData);
+
+    if (tokenData) {
+      await this.prisma.refreshToken.delete({
+        where: { id: tokenData.id },
+      });
+      console.log('Token deletado');
+    }
+
+    return { message: 'Logout realizado com sucesso.' };
   }
 
   async validateUser(email: string, password: string) {
