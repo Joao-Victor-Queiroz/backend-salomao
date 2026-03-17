@@ -7,6 +7,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { PUBLIC_KEY } from 'src/is-public.decorator';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
+import { AuthErrorCode } from 'src/common/enums/auth-error-codes.enum';
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor(private reflector: Reflector) {
@@ -27,14 +28,14 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   handleRequest(err: any, user: any, info: any): any {
     if (info instanceof TokenExpiredError) {
       throw new UnauthorizedException({
-        errorCode: 'TOKEN_EXPIRED',
+        errorCode: AuthErrorCode.TOKEN_EXPIRED,
         message: 'Token expirado',
       });
     }
 
     if (info instanceof JsonWebTokenError || err || !user) {
       throw new UnauthorizedException({
-        errorCode: 'TOKEN_INVALID',
+        errorCode: AuthErrorCode.TOKEN_INVALID,
         message: 'Token inválido ou ausente',
       });
     }

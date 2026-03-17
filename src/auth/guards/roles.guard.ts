@@ -1,8 +1,14 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { Cargo } from '../../generated/prisma/enums';
 import { ROLES_KEY } from '../decorators/roles.decorator';
+import { AuthErrorCode } from 'src/common/enums/auth-error-codes.enum';
 
 interface RequestWithUser extends Request {
   user: {
@@ -34,11 +40,16 @@ export class RoleGuard implements CanActivate {
     console.log('Roles Requeridas:', requiredRoles);
     console.log('Usuário na Requisição:', user);
 
-    if (!user || !user.cargo) {
+    const hasPermission = requiredRoles.includes(user.cargo);
+
+    if (!user || !hasPermission) {
       console.log('Bloqueado: Usuário sem cargo ou não autenticado.');
-      return false;
+      throw new ForbiddenException({
+        message: 'O cargo do usuário não permite esta ação.',
+        errorCode: AuthErrorCode.UNAUTHORIZED_ROLE,
+      });
     }
 
-    return user && user.cargo && requiredRoles.includes(user.cargo);
+    return true;
   }
 }
