@@ -10,6 +10,8 @@ import { Response, Request } from 'express';
 
 interface ValidationExceptionResponse {
   message: string;
+  errorCode?: string;
+  [key: string]: any; // caso outros campos surjam
 }
 
 @Catch()
@@ -29,12 +31,22 @@ export class AllExceptionsFilter implements ExceptionFilter {
     let message =
       exception instanceof Error ? exception.message : 'Internal Server Error';
 
+    let extraFields = {};
+
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       const exceptionResponse =
         exception.getResponse() as ValidationExceptionResponse;
 
-      message = exceptionResponse.message || message;
+      if (typeof exceptionResponse === 'object' && exceptionResponse !== null) {
+        const { message: msg, ...rest } = exceptionResponse;
+        message = msg || message;
+        extraFields = rest;
+      } else {
+        message = exceptionResponse || message;
+      }
+    } else if (exception instanceof Error) {
+      message = exception.message;
     }
 
     this.logger.error(
@@ -47,6 +59,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       timeStamp: new Date().toLocaleDateString('pt-BR'),
       path: request.url,
       message: message,
+      ...extraFields,
     });
   }
 }
