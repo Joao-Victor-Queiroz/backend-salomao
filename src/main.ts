@@ -14,7 +14,7 @@ async function bootstrap() {
     }),
   );
 
-  app.set('trust proxy', true);
+  app.set('trust proxy', true); // imporante para aplicações em nuvem, para que a aplicação busque o IP real do usuário
   app.use(cookieParser());
 
   app.enableCors({
