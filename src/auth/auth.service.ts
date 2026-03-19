@@ -39,7 +39,7 @@ export class AuthService {
     });
   }
 
-  async signIn(email: string, password: string) {
+  async signIn(email: string, password: string, ip: string, userAgent: string) {
     const animador = await this.animadoresService.findAnimador(email);
 
     if (!animador) {
@@ -58,11 +58,16 @@ export class AuthService {
 
     return {
       accessToken,
-      refreshToken: await this.createRefreshToken(animador.id),
+      refreshToken: await this.createRefreshToken(animador.id, ip, userAgent),
+      user: {
+        id: animador.id,
+        nome: animador.nomeAnimador,
+        cargo: animador.cargo,
+      },
     };
   }
 
-  async createRefreshToken(animadorId: string) {
+  async createRefreshToken(animadorId: string, ip: string, userAgent: string) {
     const durationInDays = 7;
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + durationInDays);
@@ -75,13 +80,15 @@ export class AuthService {
         token: hashedToken,
         animadorId: animadorId,
         expiresAt: expiresAt,
+        ipAdress: ip,
+        userAgent: userAgent,
       },
     });
 
     return token;
   }
 
-  async refreshToken(token: string) {
+  async refreshToken(token: string, ip: string, userAgent: string) {
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
     const tokenData = await this.prisma.refreshToken.findFirst({
@@ -91,6 +98,15 @@ export class AuthService {
 
     if (!tokenData) {
       throw new UnauthorizedException('Token inválido');
+    }
+
+    if (tokenData.ipAdress !== ip || tokenData.userAgent !== userAgent) {
+      await this.prisma.refreshToken.delete({
+        where: { id: tokenData.id },
+      });
+      throw new UnauthorizedException(
+        'Sessão inválida. Por favor, faça login novamente.',
+      );
     }
 
     if (tokenData.expiresAt < new Date()) {
@@ -113,6 +129,8 @@ export class AuthService {
 
     const newRefreshToken = await this.createRefreshToken(
       tokenData.animador.id,
+      ip,
+      userAgent,
     );
 
     const payload = {
@@ -135,17 +153,12 @@ export class AuthService {
       where: { token: hashedToken },
     });
 
-    if (!tokenData) {
-      console.log('Não foi possível encontrar o token');
-    }
-
     console.log('Token: ', tokenData);
 
     if (tokenData) {
       await this.prisma.refreshToken.delete({
         where: { id: tokenData.id },
       });
-      console.log('Token deletado');
     }
 
     return { message: 'Logout realizado com sucesso.' };

@@ -13,6 +13,13 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  const adapter = app.getHttpAdapter();
+
+  if (typeof adapter.getInstance === 'function') {
+    adapter.getInstance().set('trust proxy', true);
+  }
+
   app.use(cookieParser());
 
   app.enableCors({
