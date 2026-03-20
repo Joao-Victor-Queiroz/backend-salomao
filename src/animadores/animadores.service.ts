@@ -27,7 +27,9 @@ export class AnimadoresService {
   }
 
   findAll() {
-    return this.prisma.animador.findMany();
+    return this.prisma.animador.findMany({
+      omit: { password: true, grupoId: true },
+    });
   }
 
   async findAnimador(email: string): Promise<Animador | null> {

@@ -10,7 +10,9 @@ import {
 import { FrequenciaService } from './frequencia.service';
 import { CreateFrequenciaDto } from './dto/create-frequencia.dto';
 import { UpdateFrequenciaDto } from './dto/update-frequencia.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('frequencia')
 export class FrequenciaController {
   constructor(private readonly frequenciaService: FrequenciaService) {}

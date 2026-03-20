@@ -10,7 +10,10 @@ import {
 import { AnimadoresService } from './animadores.service';
 import { CreateAnimadorDto } from './dto/create-animador.dto';
 import { UpdateAnimadorDto } from './dto/update-animador.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { AnimadorResponseDto } from './dto/animador-response.dto';
 
+@ApiBearerAuth()
 @Controller('animadores')
 export class AnimadoresController {
   constructor(private readonly animadoresService: AnimadoresService) {}
@@ -21,7 +24,7 @@ export class AnimadoresController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<AnimadorResponseDto[]> {
     return this.animadoresService.findAll();
   }
 
@@ -30,11 +33,6 @@ export class AnimadoresController {
     return this.animadoresService.findOne(id);
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Get('profile')
-  // getProfile(@CurrentUser() user: any) {
-  //   return this.animadoresService.findById(user.id);
-  // }
   @Patch('atualizar-animador/:id')
   update(
     @Param('id') id: string,

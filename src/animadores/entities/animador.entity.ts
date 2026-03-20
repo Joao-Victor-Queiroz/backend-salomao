@@ -7,6 +7,6 @@ export class Animador {
   email: string;
   password: string;
   cargo: Cargo;
-  grupoId?: string;
+  grupoId: string;
   grupo?: Grupo;
 }

@@ -11,7 +11,10 @@ import { GrupoService } from './grupo.service';
 import { CreateGrupoDto } from './dto/create-grupo.dto';
 import { UpdateGrupoDto } from './dto/update-grupo.dto';
 import { AddCrismandosDto } from './dto/add-crismandos.dto';
+import { GrupoResponseDto } from './dto/grupo-response.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('grupo')
 export class GrupoController {
   constructor(private readonly grupoService: GrupoService) {}
@@ -22,7 +25,7 @@ export class GrupoController {
   }
 
   @Get('todos-grupos')
-  findAll() {
+  findAll(): Promise<GrupoResponseDto[]> {
     return this.grupoService.findAll();
   }
 

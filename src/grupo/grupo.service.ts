@@ -17,7 +17,9 @@ export class GrupoService {
   }
 
   findAll() {
-    return this.prisma.grupo.findMany();
+    return this.prisma.grupo.findMany({
+      include: { crismandos: true, animadores: true },
+    });
   }
 
   findOne(id: string) {
@@ -30,6 +32,13 @@ export class GrupoService {
             id: true,
             nomeCrismando: true,
             idade: true,
+          },
+        },
+        animadores: {
+          orderBy: { nomeAnimador: 'asc' },
+          select: {
+            id: true,
+            nomeAnimador: true,
           },
         },
       },

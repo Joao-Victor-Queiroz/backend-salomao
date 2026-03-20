@@ -15,6 +15,9 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RoleGuard } from 'src/auth/guards/roles.guard';
 import { Role } from 'src/auth/decorators/roles.decorator';
 import { Cargo } from 'src/generated/prisma/enums';
+import { ApiBearerAuth } from '@nestjs/swagger';
+
+@ApiBearerAuth()
 @Controller('crismando')
 export class CrismandoController {
   constructor(private readonly crismandoService: CrismandoService) {}
