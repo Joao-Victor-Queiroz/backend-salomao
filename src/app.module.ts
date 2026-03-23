@@ -11,6 +11,7 @@ import { GrupoModule } from './grupo/grupo.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { RoleGuard } from 'src/auth/guards/roles.guard';
+import { CaixinhaModule } from './caixinha/caixinha.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { RoleGuard } from 'src/auth/guards/roles.guard';
     CrismandoModule,
     FrequenciaModule,
     GrupoModule,
+    CaixinhaModule,
   ],
   controllers: [AppController],
   providers: [

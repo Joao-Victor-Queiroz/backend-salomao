@@ -15,7 +15,14 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RoleGuard } from 'src/auth/guards/roles.guard';
 import { Role } from 'src/auth/decorators/roles.decorator';
 import { Cargo } from 'src/generated/prisma/enums';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiBody,
+  ApiCreatedResponse,
+} from '@nestjs/swagger';
+import { CrismandosListResponseDto } from './dto/responses/crismandos-list.dto';
+import { CrismandoEntity } from './entities/crismando.entity';
 
 @ApiBearerAuth()
 @Controller('crismando')
@@ -23,11 +30,17 @@ export class CrismandoController {
   constructor(private readonly crismandoService: CrismandoService) {}
 
   @Post('criar-crismando')
+  @ApiBody({ type: CreateCrismandoDto })
+  @ApiCreatedResponse({
+    type: CreateCrismandoDto,
+    description: 'Requisição para registrar um novo crismando.',
+  })
   create(@Body() createCrismandoDto: CreateCrismandoDto) {
     return this.crismandoService.createCrismando(createCrismandoDto);
   }
 
   @Get('todos-crismandos')
+  @ApiOkResponse({ type: CrismandosListResponseDto, isArray: true })
   @UseGuards(JwtAuthGuard, RoleGuard)
   @Role(Cargo.ANIMADOR, Cargo.FORMADOR)
   findAll() {
@@ -35,17 +48,17 @@ export class CrismandoController {
     return this.crismandoService.findAllCrismandos();
   }
 
-  // @Get('aniversariantes')
-  // buscarAniversarios(@Query() query: BuscarAniversariosDto) {
-  //   return this.crismandoService.buscarAniversarios(query.start, query.end);
-  // }
-
   @Get(':id')
+  @ApiOkResponse({
+    type: CrismandoEntity,
+    description: 'Retorna os dados de um crismando.',
+  })
   findOne(@Param('id') id: string) {
     return this.crismandoService.findOneCrismando(id); //o "+id" convertia para número
   }
 
   @Patch('atualizar-crismando/:id')
+  @ApiBody({ type: UpdateCrismandoDto })
   update(
     @Param('id') id: string,
     @Body() updateCrismandoDto: UpdateCrismandoDto,

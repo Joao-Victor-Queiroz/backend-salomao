@@ -13,29 +13,30 @@ export class CrismandoService {
     });
   }
 
-  // buscarAniversarios(start: string, end: string) {
-  //   if (start > end) {
-  //     return this.prisma.$queryRaw`
-  //   SELECT * FROM "Crismando"
-  //   WHERE (
-  //     TO_CHAR("dataNascimento", 'MM-DD') >= ${start}
-  //     OR
-  //     TO_CHAR("dataNAscimento", 'MM-DD') <= ${end}
-  //   )
-  //   `;
-  //   }
-  //   return this.prisma.$queryRawUnsafe(`
-  //   SELECT * FROM "Crismando"
-  //   WHERE (
-  //     TO_CHAR("dataNascimento", 'MM-DD') >= ${start}
-  //     AND
-  //     TO_CHAR("dataNascimento", 'MM-DD') <= ${end}
-  //   )
-  //   `);
-  // }
+  async findAllCrismandos() {
+    const crismandos = await this.prisma.crismando.findMany({
+      select: {
+        id: true,
+        nomeCrismando: true,
+        idade: true,
+        dataNascimento: true,
+        ativo: true,
+        grupo: {
+          select: {
+            nomeGrupo: true,
+          },
+        },
+      },
+    });
 
-  findAllCrismandos() {
-    return this.prisma.crismando.findMany();
+    return crismandos.map((crismando) => ({
+      id: crismando.id,
+      nomeCrismando: crismando.nomeCrismando,
+      idade: crismando.idade,
+      dataNascimento: crismando.dataNascimento,
+      ativo: crismando.ativo,
+      nomeGrupo: crismando.grupo?.nomeGrupo || 'Sem Grupo',
+    }));
   }
 
   findOneCrismando(id: string) {
@@ -48,6 +49,7 @@ export class CrismandoService {
           },
         },
         frequencias: true,
+        caixinhas: true,
       },
     });
   }
