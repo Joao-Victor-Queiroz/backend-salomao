@@ -73,7 +73,7 @@ model Crismando {
   frequencias Frequencia[]
   caixinhas Caixinha[]
   grupoId String?
-  grupo Grupo? @relation(fields: [grupoId], references: [id])
+  grupo Grupo? @relation(fields: [grupoId], references: [id], onDelete: SetNull)
 }
 
 model Frequencia {

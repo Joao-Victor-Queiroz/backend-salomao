@@ -103,7 +103,7 @@ export class GrupoService {
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return this.prisma.grupo.delete({
       where: { id: id },
     });
