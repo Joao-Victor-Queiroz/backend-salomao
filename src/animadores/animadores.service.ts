@@ -52,12 +52,8 @@ export class AnimadoresService {
   }
 
   update(id: string, updateAnimadorDto: UpdateAnimadorDto, user: Payload) {
-    const userHasRole = (
-      [Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA] as Cargo[]
-    ).includes(user.cargo);
-
-    if (!userHasRole && user.sub !== id) {
-      throw new ForbiddenException('Você não pode excluir este animador');
+    if (!this.canAccess(id, user)) {
+      throw new ForbiddenException('Você não pode atualizar este animador');
     }
 
     return this.prisma.animador.update({
@@ -67,16 +63,20 @@ export class AnimadoresService {
   }
 
   removeAnimador(id: string, user: Payload) {
-    const userHasRole = (
-      [Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA] as Cargo[]
-    ).includes(user.cargo);
-
-    if (!userHasRole && user.sub !== id) {
+    if (!this.canAccess(id, user)) {
       throw new ForbiddenException('Você não pode excluir este animador');
     }
 
     return this.prisma.animador.delete({
       where: { id: id },
     });
+  }
+  private canAccess(targetId: string, user: Payload): boolean {
+    const isUser = user.sub === targetId;
+    const hasRequiredRole = (
+      [Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA] as Cargo[]
+    ).includes(user.cargo);
+
+    return isUser || hasRequiredRole;
   }
 }
