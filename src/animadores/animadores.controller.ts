@@ -39,8 +39,9 @@ export class AnimadoresController {
   update(
     @Param('id') id: string,
     @Body() updateAnimadorDto: UpdateAnimadorDto,
+    @GetUser() user: Payload,
   ) {
-    return this.animadoresService.update(id, updateAnimadorDto);
+    return this.animadoresService.update(id, updateAnimadorDto, user);
   }
 
   @Delete('remover-animador/:id')
