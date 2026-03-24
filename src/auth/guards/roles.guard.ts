@@ -10,10 +10,11 @@ import { Cargo } from '../../generated/prisma/enums';
 import { ROLES_KEY } from '../decorators/roles.decorator';
 import { AuthErrorCode } from 'src/common/enums/auth-error-codes.enum';
 
-interface RequestWithUser extends Request {
+export interface RequestWithUser extends Request {
   user: {
     sub: string;
     cargo: Cargo;
+    grupoId: string;
   };
 }
 

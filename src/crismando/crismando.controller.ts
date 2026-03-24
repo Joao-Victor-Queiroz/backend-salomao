@@ -23,6 +23,8 @@ import {
 } from '@nestjs/swagger';
 import { CrismandosListResponseDto } from './dto/responses/crismandos-list.dto';
 import { CrismandoEntity } from './entities/crismando.entity';
+import type { Payload } from 'src/auth/jwt.strategy';
+import { GetUser } from 'src/auth/decorators/user.decorator';
 
 @ApiBearerAuth()
 @Controller('crismando')
@@ -42,7 +44,6 @@ export class CrismandoController {
   @Get('todos-crismandos')
   @ApiOkResponse({ type: CrismandosListResponseDto, isArray: true })
   @UseGuards(JwtAuthGuard, RoleGuard)
-  @Role(Cargo.ANIMADOR, Cargo.FORMADOR)
   findAll() {
     console.log('Controller executado');
     return this.crismandoService.findAllCrismandos();
@@ -59,15 +60,26 @@ export class CrismandoController {
 
   @Patch('atualizar-crismando/:id')
   @ApiBody({ type: UpdateCrismandoDto })
+  @Role(
+    Cargo.COORDENADOR_GERAL,
+    Cargo.COORDENADOR_FREQUENCIA,
+    Cargo.ANIMADOR_FREQUENCIA,
+  )
   update(
     @Param('id') id: string,
     @Body() updateCrismandoDto: UpdateCrismandoDto,
+    @GetUser() user: Payload,
   ) {
-    return this.crismandoService.updateCrismando(id, updateCrismandoDto);
+    return this.crismandoService.updateCrismando(id, updateCrismandoDto, user);
   }
 
   @Delete('remover-crismando/:id')
-  remove(@Param('id') id: string) {
-    return this.crismandoService.removeCrismando(id);
+  @Role(
+    Cargo.COORDENADOR_GERAL,
+    Cargo.COORDENADOR_FREQUENCIA,
+    Cargo.ANIMADOR_FREQUENCIA,
+  )
+  remove(@Param('id') id: string, @GetUser() user: Payload) {
+    return this.crismandoService.removeCrismando(id, user);
   }
 }

@@ -3,9 +3,10 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PrismaService } from 'src/prisma.service';
 
-interface Payload {
+export interface Payload {
   sub: string;
   cargo: string;
+  grupoId: string;
 }
 
 @Injectable()

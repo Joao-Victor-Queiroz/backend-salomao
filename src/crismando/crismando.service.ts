@@ -1,7 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateCrismandoDto } from './dto/create-crismando.dto';
 import { UpdateCrismandoDto } from './dto/update-crismando.dto';
 import { PrismaService } from 'src/prisma.service';
+import { Payload } from 'src/auth/jwt.strategy';
+import { Cargo } from 'src/generated/prisma/enums';
 
 @Injectable()
 export class CrismandoService {
@@ -54,16 +60,58 @@ export class CrismandoService {
     });
   }
 
-  updateCrismando(id: string, updateCrismandoDto: UpdateCrismandoDto) {
+  async updateCrismando(
+    idCrismando: string,
+    updateCrismandoDto: UpdateCrismandoDto,
+    user: Payload,
+  ) {
+    const crismando = await this.prisma.crismando.findUnique({
+      where: { id: idCrismando },
+    });
+
+    if (!crismando) {
+      throw new NotFoundException('Crismando não encontrado.');
+    }
+
+    const userHasRoles =
+      user.cargo === Cargo.COORDENADOR_GERAL ||
+      user.cargo === Cargo.COORDENADOR_FREQUENCIA;
+    const userGroup = user.grupoId;
+
+    if (!userHasRoles && crismando.grupoId !== userGroup) {
+      throw new ForbiddenException(
+        'Você não tem permissãoo para editar este crismando',
+      );
+    }
+
     return this.prisma.crismando.update({
       data: updateCrismandoDto,
-      where: { id: id },
+      where: { id: idCrismando },
     });
   }
 
-  removeCrismando(id: string) {
+  async removeCrismando(idCrismando: string, user: Payload) {
+    const crismando = await this.prisma.crismando.findUnique({
+      where: { id: idCrismando },
+    });
+
+    if (!crismando) {
+      throw new NotFoundException('Crismando não encontrado.');
+    }
+
+    const userHasRoles =
+      user.cargo === Cargo.COORDENADOR_GERAL ||
+      user.cargo === Cargo.COORDENADOR_FREQUENCIA;
+    const userGroup = user.grupoId;
+
+    if (!userHasRoles && crismando.grupoId !== userGroup) {
+      throw new ForbiddenException(
+        'Você não tem permissãoo para excluir este crismando',
+      );
+    }
+
     return this.prisma.crismando.delete({
-      where: { id: id },
+      where: { id: idCrismando },
     });
   }
 }
