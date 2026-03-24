@@ -14,11 +14,12 @@ export class FrequenciaService {
       crismandoId: frequencia.crismandoId,
       status: frequencia.status,
       justificativa: frequencia.justificativa,
-      dataFrequencia: dataFrequencia,
+      dataFrequencia: new Date(dataFrequencia),
     }));
 
     return this.prisma.frequencia.createMany({
       data: dadosConvertidos,
+      skipDuplicates: true,
     });
   }
 

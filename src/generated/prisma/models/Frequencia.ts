@@ -196,6 +196,7 @@ export type FrequenciaOrderByWithRelationInput = {
 
 export type FrequenciaWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  crismandoId_dataFrequencia?: Prisma.FrequenciaCrismandoIdDataFrequenciaCompoundUniqueInput
   AND?: Prisma.FrequenciaWhereInput | Prisma.FrequenciaWhereInput[]
   OR?: Prisma.FrequenciaWhereInput[]
   NOT?: Prisma.FrequenciaWhereInput | Prisma.FrequenciaWhereInput[]
@@ -204,7 +205,7 @@ export type FrequenciaWhereUniqueInput = Prisma.AtLeast<{
   dataFrequencia?: Prisma.DateTimeFilter<"Frequencia"> | Date | string
   justificativa?: Prisma.StringNullableFilter<"Frequencia"> | string | null
   crismando?: Prisma.XOR<Prisma.CrismandoNullableScalarRelationFilter, Prisma.CrismandoWhereInput> | null
-}, "id">
+}, "id" | "crismandoId_dataFrequencia">
 
 export type FrequenciaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -291,6 +292,11 @@ export type FrequenciaListRelationFilter = {
 
 export type FrequenciaOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type FrequenciaCrismandoIdDataFrequenciaCompoundUniqueInput = {
+  crismandoId: string
+  dataFrequencia: Date | string
 }
 
 export type FrequenciaCountOrderByAggregateInput = {

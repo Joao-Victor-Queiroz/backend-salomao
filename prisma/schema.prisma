@@ -53,7 +53,7 @@ model Crismando {
   nomeCrismando String
   cpf String
   idade Int 
-  dataNascimento DateTime
+  dataNascimento DateTime @db.Date
   cidadeNascimento String
   estadoNascimento String
   endereco String
@@ -81,8 +81,10 @@ model Frequencia {
   crismandoId String
   crismando Crismando? @relation(fields: [crismandoId], references: [id], onDelete: Cascade)
   status StatusFrequencia
-  dataFrequencia DateTime
+  dataFrequencia DateTime @db.Date
   justificativa String?
+
+  @@unique([crismandoId, dataFrequencia])
 }
 
 model Caixinha {
@@ -90,7 +92,7 @@ model Caixinha {
   crismandoId String
   crismando Crismando? @relation(fields: [crismandoId], references: [id], onDelete: Cascade)
   valorPago Float
-  dataPagamento DateTime
+  dataPagamento DateTime @db.Date
 }
 
 model RefreshToken {
@@ -99,7 +101,7 @@ model RefreshToken {
   animadorId String
   animador Animador @relation(fields: [animadorId], references: [id])
   createdAt DateTime @default(now())
-  expiresAt DateTime
+  expiresAt DateTime 
   revokedAt DateTime?
   userAgent String?
   ipAdress String?
