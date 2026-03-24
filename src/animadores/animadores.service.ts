@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateAnimadorDto } from './dto/create-animador.dto';
 import { UpdateAnimadorDto } from './dto/update-animador.dto';
 import { PrismaService } from 'src/prisma.service';
-import { Animador } from '../generated/prisma/client';
+import { Animador, Cargo } from '../generated/prisma/client';
+import type { Payload } from 'src/auth/jwt.strategy';
 
 @Injectable()
 export class AnimadoresService {
@@ -50,14 +51,30 @@ export class AnimadoresService {
     });
   }
 
-  update(id: string, updateAnimadorDto: UpdateAnimadorDto) {
+  update(id: string, updateAnimadorDto: UpdateAnimadorDto, user: Payload) {
+    const userHasRole = (
+      [Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA] as Cargo[]
+    ).includes(user.cargo);
+
+    if (!userHasRole && user.sub !== id) {
+      throw new ForbiddenException('Você não pode excluir este animador');
+    }
+
     return this.prisma.animador.update({
       where: { id: id },
       data: updateAnimadorDto,
     });
   }
 
-  removeAnimador(id: string) {
+  removeAnimador(id: string, user: Payload) {
+    const userHasRole = (
+      [Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA] as Cargo[]
+    ).includes(user.cargo);
+
+    if (!userHasRole && user.sub !== id) {
+      throw new ForbiddenException('Você não pode excluir este animador');
+    }
+
     return this.prisma.animador.delete({
       where: { id: id },
     });
