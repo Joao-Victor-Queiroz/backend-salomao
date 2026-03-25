@@ -5,13 +5,21 @@ import { PrismaService } from 'src/prisma.service';
 import { Animador, Cargo } from '../generated/prisma/client';
 import type { Payload } from 'src/auth/jwt.strategy';
 
+const GRUPO_ID = process.env.GRUPO_ANIMADORES_ID;
 @Injectable()
 export class AnimadoresService {
   constructor(private prisma: PrismaService) {}
 
   async criarAnimador(data: CreateAnimadorDto): Promise<Animador> {
     return this.prisma.animador.create({
-      data,
+      data: {
+        ...data,
+        grupoAnimador: {
+          connect: {
+            id: GRUPO_ID,
+          },
+        },
+      },
     });
   }
 
@@ -22,14 +30,14 @@ export class AnimadoresService {
     await this.prisma.animador.update({
       where: { id: animadorId },
       data: {
-        grupoId: grupoId,
+        grupoCrismandoId: grupoId,
       },
     });
   }
 
   findAll() {
     return this.prisma.animador.findMany({
-      omit: { password: true, grupoId: true },
+      omit: { password: true, grupoCrismandoId: true },
     });
   }
 

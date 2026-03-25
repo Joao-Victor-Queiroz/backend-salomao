@@ -4,6 +4,7 @@ import { UpdateGrupoDto } from './dto/update-grupo.dto';
 import { PrismaService } from 'src/prisma.service';
 import { AddCrismandosDto } from './dto/add-crismandos.dto';
 
+const GRUPO_ID = process.env.GRUPO_ANIMADORES_ID;
 @Injectable()
 export class GrupoService {
   constructor(private prisma: PrismaService) {}
@@ -17,12 +18,10 @@ export class GrupoService {
   }
 
   findAll() {
-    return this.prisma.grupo.findMany({
-      include: { crismandos: true, animadores: true },
-    });
+    return this.prisma.grupo.findMany();
   }
 
-  findOne(id: string) {
+  findGrupoCrismandos(id: string) {
     return this.prisma.grupo.findUnique({
       where: { id: id },
       include: {
@@ -34,7 +33,22 @@ export class GrupoService {
             idade: true,
           },
         },
-        animadores: {
+        animadoresMinisterio: {
+          orderBy: { nomeAnimador: 'asc' },
+          select: {
+            id: true,
+            nomeAnimador: true,
+          },
+        },
+      },
+    });
+  }
+
+  findGrupoAnimadoresFrequencia() {
+    return this.prisma.grupo.findUnique({
+      where: { id: GRUPO_ID },
+      include: {
+        animadoresFrequencia: {
           orderBy: { nomeAnimador: 'asc' },
           select: {
             id: true,

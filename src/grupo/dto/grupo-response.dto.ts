@@ -4,5 +4,6 @@ export class GrupoResponseDto {
   id: string;
   nomeGrupo: string;
   crismandos: Crismando[];
-  animadores: Animador[];
+  animadoresMinisterio: Animador[];
+  animadoresFrequencia: Animador[];
 }

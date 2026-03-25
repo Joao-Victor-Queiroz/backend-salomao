@@ -11,7 +11,6 @@ import { GrupoService } from './grupo.service';
 import { CreateGrupoDto } from './dto/create-grupo.dto';
 import { UpdateGrupoDto } from './dto/update-grupo.dto';
 import { AddCrismandosDto } from './dto/add-crismandos.dto';
-import { GrupoResponseDto } from './dto/grupo-response.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiBearerAuth()
@@ -25,13 +24,18 @@ export class GrupoController {
   }
 
   @Get('todos-grupos')
-  findAll(): Promise<GrupoResponseDto[]> {
+  findAll() {
     return this.grupoService.findAll();
+  }
+
+  @Get('grupo-animadores')
+  findGrupoAnimadoresFrequencia() {
+    return this.grupoService.findGrupoAnimadoresFrequencia();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.grupoService.findOne(id);
+    return this.grupoService.findGrupoCrismandos(id);
   }
 
   @Patch('adicionar-crismandos/:id')
