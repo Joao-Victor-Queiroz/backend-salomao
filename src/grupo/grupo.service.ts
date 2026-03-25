@@ -3,6 +3,7 @@ import { CreateGrupoDto } from './dto/create-grupo.dto';
 import { UpdateGrupoDto } from './dto/update-grupo.dto';
 import { PrismaService } from 'src/prisma.service';
 import { AddCrismandosDto } from './dto/add-crismandos.dto';
+import { AddAnimadoresDto } from './dto/add-animadores.dto';
 
 const GRUPO_ID = process.env.GRUPO_ANIMADORES_ID;
 @Injectable()
@@ -59,7 +60,40 @@ export class GrupoService {
     });
   }
 
-  async addCrismandos(id: string, addCrismandosDto: AddCrismandosDto) {
+  async addAnimadores(idGrupo: string, addAnimadoresDto: AddAnimadoresDto) {
+    const animadoresJaAlocados = await this.prisma.animador.findMany({
+      where: {
+        id: { in: addAnimadoresDto.animadores },
+        grupoCrismandoId: { not: null },
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (animadoresJaAlocados.length > 0) {
+      const ids = animadoresJaAlocados
+        .map((animador) => animador.id)
+        .join(', ');
+      throw new BadRequestException(
+        'Os seguintes ids estão em um grupo: ',
+        ids,
+      );
+    }
+
+    return this.prisma.grupo.update({
+      where: { id: idGrupo },
+      data: {
+        animadoresMinisterio: {
+          connect: addAnimadoresDto.animadores.map((animador) => ({
+            id: animador,
+          })),
+        },
+      },
+    });
+  }
+
+  async addCrismandos(idGrupo: string, addCrismandosDto: AddCrismandosDto) {
     const crismandosJaAlocados = await this.prisma.crismando.findMany({
       where: {
         id: { in: addCrismandosDto.crismandos },
@@ -81,7 +115,7 @@ export class GrupoService {
     }
 
     return this.prisma.grupo.update({
-      where: { id: id },
+      where: { id: idGrupo },
       data: {
         crismandos: {
           connect: addCrismandosDto.crismandos.map((crismando) => ({

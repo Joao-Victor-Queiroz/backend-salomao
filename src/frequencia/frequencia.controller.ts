@@ -48,6 +48,11 @@ export class FrequenciaController {
   }
 
   @Patch(':id')
+  @Role(
+    Cargo.COORDENADOR_GERAL,
+    Cargo.COORDENADOR_FREQUENCIA,
+    Cargo.ANIMADOR_CAIXINHA,
+  )
   update(
     @Param('id') id: string,
     @Body() updateFrequenciaDto: UpdateFrequenciaDto,
@@ -56,6 +61,11 @@ export class FrequenciaController {
   }
 
   @Delete(':id')
+  @Role(
+    Cargo.COORDENADOR_GERAL,
+    Cargo.COORDENADOR_FREQUENCIA,
+    Cargo.ANIMADOR_CAIXINHA,
+  )
   remove(@Param('id') id: string) {
     return this.frequenciaService.removeFrequencia(id);
   }

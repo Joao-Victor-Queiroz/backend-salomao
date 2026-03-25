@@ -23,18 +23,6 @@ export class AnimadoresService {
     });
   }
 
-  async vincularAnimadorAoGrupo(
-    animadorId: string,
-    grupoId: string,
-  ): Promise<void> {
-    await this.prisma.animador.update({
-      where: { id: animadorId },
-      data: {
-        grupoCrismandoId: grupoId,
-      },
-    });
-  }
-
   findAll() {
     return this.prisma.animador.findMany({
       omit: { password: true, grupoCrismandoId: true },
