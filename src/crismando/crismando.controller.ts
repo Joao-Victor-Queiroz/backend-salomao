@@ -23,8 +23,6 @@ import {
 } from '@nestjs/swagger';
 import { CrismandosListResponseDto } from './dto/responses/crismandos-list.dto';
 import { CrismandoEntity } from './entities/crismando.entity';
-import type { Payload } from 'src/auth/jwt.strategy';
-import { GetUser } from 'src/auth/decorators/user.decorator';
 
 @ApiBearerAuth()
 @Controller('crismando')
@@ -68,9 +66,8 @@ export class CrismandoController {
   update(
     @Param('id') id: string,
     @Body() updateCrismandoDto: UpdateCrismandoDto,
-    @GetUser() user: Payload,
   ) {
-    return this.crismandoService.updateCrismando(id, updateCrismandoDto, user);
+    return this.crismandoService.updateCrismando(id, updateCrismandoDto);
   }
 
   @Delete('remover-crismando/:id')
@@ -79,7 +76,7 @@ export class CrismandoController {
     Cargo.COORDENADOR_FREQUENCIA,
     Cargo.ANIMADOR_FREQUENCIA,
   )
-  remove(@Param('id') id: string, @GetUser() user: Payload) {
-    return this.crismandoService.removeCrismando(id, user);
+  remove(@Param('id') id: string) {
+    return this.crismandoService.removeCrismando(id);
   }
 }

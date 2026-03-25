@@ -55,6 +55,7 @@ export const ModelName = {
   Grupo: 'Grupo',
   Crismando: 'Crismando',
   Frequencia: 'Frequencia',
+  FrequenciaAnimador: 'FrequenciaAnimador',
   Caixinha: 'Caixinha',
   RefreshToken: 'RefreshToken'
 } as const
@@ -81,7 +82,8 @@ export const AnimadorScalarFieldEnum = {
   email: 'email',
   password: 'password',
   cargo: 'cargo',
-  grupoId: 'grupoId'
+  grupoAnimadorId: 'grupoAnimadorId',
+  grupoCrismandoId: 'grupoCrismandoId'
 } as const
 
 export type AnimadorScalarFieldEnum = (typeof AnimadorScalarFieldEnum)[keyof typeof AnimadorScalarFieldEnum]
@@ -132,6 +134,18 @@ export const FrequenciaScalarFieldEnum = {
 } as const
 
 export type FrequenciaScalarFieldEnum = (typeof FrequenciaScalarFieldEnum)[keyof typeof FrequenciaScalarFieldEnum]
+
+
+export const FrequenciaAnimadorScalarFieldEnum = {
+  id: 'id',
+  animadorId: 'animadorId',
+  tipo: 'tipo',
+  status: 'status',
+  dataFrequencia: 'dataFrequencia',
+  justificativa: 'justificativa'
+} as const
+
+export type FrequenciaAnimadorScalarFieldEnum = (typeof FrequenciaAnimadorScalarFieldEnum)[keyof typeof FrequenciaAnimadorScalarFieldEnum]
 
 
 export const CaixinhaScalarFieldEnum = {

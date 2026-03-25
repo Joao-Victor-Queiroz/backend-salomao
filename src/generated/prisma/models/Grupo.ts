@@ -158,14 +158,16 @@ export type GrupoWhereInput = {
   NOT?: Prisma.GrupoWhereInput | Prisma.GrupoWhereInput[]
   id?: Prisma.StringFilter<"Grupo"> | string
   nomeGrupo?: Prisma.StringFilter<"Grupo"> | string
-  animadores?: Prisma.AnimadorListRelationFilter
+  animadoresFrequencia?: Prisma.AnimadorListRelationFilter
+  animadoresMinisterio?: Prisma.AnimadorListRelationFilter
   crismandos?: Prisma.CrismandoListRelationFilter
 }
 
 export type GrupoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nomeGrupo?: Prisma.SortOrder
-  animadores?: Prisma.AnimadorOrderByRelationAggregateInput
+  animadoresFrequencia?: Prisma.AnimadorOrderByRelationAggregateInput
+  animadoresMinisterio?: Prisma.AnimadorOrderByRelationAggregateInput
   crismandos?: Prisma.CrismandoOrderByRelationAggregateInput
 }
 
@@ -175,7 +177,8 @@ export type GrupoWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.GrupoWhereInput[]
   NOT?: Prisma.GrupoWhereInput | Prisma.GrupoWhereInput[]
   nomeGrupo?: Prisma.StringFilter<"Grupo"> | string
-  animadores?: Prisma.AnimadorListRelationFilter
+  animadoresFrequencia?: Prisma.AnimadorListRelationFilter
+  animadoresMinisterio?: Prisma.AnimadorListRelationFilter
   crismandos?: Prisma.CrismandoListRelationFilter
 }, "id">
 
@@ -198,28 +201,32 @@ export type GrupoScalarWhereWithAggregatesInput = {
 export type GrupoCreateInput = {
   id?: string
   nomeGrupo: string
-  animadores?: Prisma.AnimadorCreateNestedManyWithoutGrupoInput
+  animadoresFrequencia?: Prisma.AnimadorCreateNestedManyWithoutGrupoAnimadorInput
+  animadoresMinisterio?: Prisma.AnimadorCreateNestedManyWithoutGrupoCrismandoInput
   crismandos?: Prisma.CrismandoCreateNestedManyWithoutGrupoInput
 }
 
 export type GrupoUncheckedCreateInput = {
   id?: string
   nomeGrupo: string
-  animadores?: Prisma.AnimadorUncheckedCreateNestedManyWithoutGrupoInput
+  animadoresFrequencia?: Prisma.AnimadorUncheckedCreateNestedManyWithoutGrupoAnimadorInput
+  animadoresMinisterio?: Prisma.AnimadorUncheckedCreateNestedManyWithoutGrupoCrismandoInput
   crismandos?: Prisma.CrismandoUncheckedCreateNestedManyWithoutGrupoInput
 }
 
 export type GrupoUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeGrupo?: Prisma.StringFieldUpdateOperationsInput | string
-  animadores?: Prisma.AnimadorUpdateManyWithoutGrupoNestedInput
+  animadoresFrequencia?: Prisma.AnimadorUpdateManyWithoutGrupoAnimadorNestedInput
+  animadoresMinisterio?: Prisma.AnimadorUpdateManyWithoutGrupoCrismandoNestedInput
   crismandos?: Prisma.CrismandoUpdateManyWithoutGrupoNestedInput
 }
 
 export type GrupoUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeGrupo?: Prisma.StringFieldUpdateOperationsInput | string
-  animadores?: Prisma.AnimadorUncheckedUpdateManyWithoutGrupoNestedInput
+  animadoresFrequencia?: Prisma.AnimadorUncheckedUpdateManyWithoutGrupoAnimadorNestedInput
+  animadoresMinisterio?: Prisma.AnimadorUncheckedUpdateManyWithoutGrupoCrismandoNestedInput
   crismandos?: Prisma.CrismandoUncheckedUpdateManyWithoutGrupoNestedInput
 }
 
@@ -258,20 +265,36 @@ export type GrupoMinOrderByAggregateInput = {
   nomeGrupo?: Prisma.SortOrder
 }
 
-export type GrupoCreateNestedOneWithoutAnimadoresInput = {
-  create?: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresInput>
-  connectOrCreate?: Prisma.GrupoCreateOrConnectWithoutAnimadoresInput
+export type GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput = {
+  create?: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresFrequenciaInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresFrequenciaInput>
+  connectOrCreate?: Prisma.GrupoCreateOrConnectWithoutAnimadoresFrequenciaInput
   connect?: Prisma.GrupoWhereUniqueInput
 }
 
-export type GrupoUpdateOneWithoutAnimadoresNestedInput = {
-  create?: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresInput>
-  connectOrCreate?: Prisma.GrupoCreateOrConnectWithoutAnimadoresInput
-  upsert?: Prisma.GrupoUpsertWithoutAnimadoresInput
+export type GrupoCreateNestedOneWithoutAnimadoresMinisterioInput = {
+  create?: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresMinisterioInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresMinisterioInput>
+  connectOrCreate?: Prisma.GrupoCreateOrConnectWithoutAnimadoresMinisterioInput
+  connect?: Prisma.GrupoWhereUniqueInput
+}
+
+export type GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput = {
+  create?: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresFrequenciaInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresFrequenciaInput>
+  connectOrCreate?: Prisma.GrupoCreateOrConnectWithoutAnimadoresFrequenciaInput
+  upsert?: Prisma.GrupoUpsertWithoutAnimadoresFrequenciaInput
   disconnect?: Prisma.GrupoWhereInput | boolean
   delete?: Prisma.GrupoWhereInput | boolean
   connect?: Prisma.GrupoWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GrupoUpdateToOneWithWhereWithoutAnimadoresInput, Prisma.GrupoUpdateWithoutAnimadoresInput>, Prisma.GrupoUncheckedUpdateWithoutAnimadoresInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GrupoUpdateToOneWithWhereWithoutAnimadoresFrequenciaInput, Prisma.GrupoUpdateWithoutAnimadoresFrequenciaInput>, Prisma.GrupoUncheckedUpdateWithoutAnimadoresFrequenciaInput>
+}
+
+export type GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput = {
+  create?: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresMinisterioInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresMinisterioInput>
+  connectOrCreate?: Prisma.GrupoCreateOrConnectWithoutAnimadoresMinisterioInput
+  upsert?: Prisma.GrupoUpsertWithoutAnimadoresMinisterioInput
+  disconnect?: Prisma.GrupoWhereInput | boolean
+  delete?: Prisma.GrupoWhereInput | boolean
+  connect?: Prisma.GrupoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GrupoUpdateToOneWithWhereWithoutAnimadoresMinisterioInput, Prisma.GrupoUpdateWithoutAnimadoresMinisterioInput>, Prisma.GrupoUncheckedUpdateWithoutAnimadoresMinisterioInput>
 }
 
 export type GrupoCreateNestedOneWithoutCrismandosInput = {
@@ -290,56 +313,106 @@ export type GrupoUpdateOneWithoutCrismandosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.GrupoUpdateToOneWithWhereWithoutCrismandosInput, Prisma.GrupoUpdateWithoutCrismandosInput>, Prisma.GrupoUncheckedUpdateWithoutCrismandosInput>
 }
 
-export type GrupoCreateWithoutAnimadoresInput = {
+export type GrupoCreateWithoutAnimadoresFrequenciaInput = {
   id?: string
   nomeGrupo: string
+  animadoresMinisterio?: Prisma.AnimadorCreateNestedManyWithoutGrupoCrismandoInput
   crismandos?: Prisma.CrismandoCreateNestedManyWithoutGrupoInput
 }
 
-export type GrupoUncheckedCreateWithoutAnimadoresInput = {
+export type GrupoUncheckedCreateWithoutAnimadoresFrequenciaInput = {
   id?: string
   nomeGrupo: string
+  animadoresMinisterio?: Prisma.AnimadorUncheckedCreateNestedManyWithoutGrupoCrismandoInput
   crismandos?: Prisma.CrismandoUncheckedCreateNestedManyWithoutGrupoInput
 }
 
-export type GrupoCreateOrConnectWithoutAnimadoresInput = {
+export type GrupoCreateOrConnectWithoutAnimadoresFrequenciaInput = {
   where: Prisma.GrupoWhereUniqueInput
-  create: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresInput>
+  create: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresFrequenciaInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresFrequenciaInput>
 }
 
-export type GrupoUpsertWithoutAnimadoresInput = {
-  update: Prisma.XOR<Prisma.GrupoUpdateWithoutAnimadoresInput, Prisma.GrupoUncheckedUpdateWithoutAnimadoresInput>
-  create: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresInput>
+export type GrupoCreateWithoutAnimadoresMinisterioInput = {
+  id?: string
+  nomeGrupo: string
+  animadoresFrequencia?: Prisma.AnimadorCreateNestedManyWithoutGrupoAnimadorInput
+  crismandos?: Prisma.CrismandoCreateNestedManyWithoutGrupoInput
+}
+
+export type GrupoUncheckedCreateWithoutAnimadoresMinisterioInput = {
+  id?: string
+  nomeGrupo: string
+  animadoresFrequencia?: Prisma.AnimadorUncheckedCreateNestedManyWithoutGrupoAnimadorInput
+  crismandos?: Prisma.CrismandoUncheckedCreateNestedManyWithoutGrupoInput
+}
+
+export type GrupoCreateOrConnectWithoutAnimadoresMinisterioInput = {
+  where: Prisma.GrupoWhereUniqueInput
+  create: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresMinisterioInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresMinisterioInput>
+}
+
+export type GrupoUpsertWithoutAnimadoresFrequenciaInput = {
+  update: Prisma.XOR<Prisma.GrupoUpdateWithoutAnimadoresFrequenciaInput, Prisma.GrupoUncheckedUpdateWithoutAnimadoresFrequenciaInput>
+  create: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresFrequenciaInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresFrequenciaInput>
   where?: Prisma.GrupoWhereInput
 }
 
-export type GrupoUpdateToOneWithWhereWithoutAnimadoresInput = {
+export type GrupoUpdateToOneWithWhereWithoutAnimadoresFrequenciaInput = {
   where?: Prisma.GrupoWhereInput
-  data: Prisma.XOR<Prisma.GrupoUpdateWithoutAnimadoresInput, Prisma.GrupoUncheckedUpdateWithoutAnimadoresInput>
+  data: Prisma.XOR<Prisma.GrupoUpdateWithoutAnimadoresFrequenciaInput, Prisma.GrupoUncheckedUpdateWithoutAnimadoresFrequenciaInput>
 }
 
-export type GrupoUpdateWithoutAnimadoresInput = {
+export type GrupoUpdateWithoutAnimadoresFrequenciaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeGrupo?: Prisma.StringFieldUpdateOperationsInput | string
+  animadoresMinisterio?: Prisma.AnimadorUpdateManyWithoutGrupoCrismandoNestedInput
   crismandos?: Prisma.CrismandoUpdateManyWithoutGrupoNestedInput
 }
 
-export type GrupoUncheckedUpdateWithoutAnimadoresInput = {
+export type GrupoUncheckedUpdateWithoutAnimadoresFrequenciaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeGrupo?: Prisma.StringFieldUpdateOperationsInput | string
+  animadoresMinisterio?: Prisma.AnimadorUncheckedUpdateManyWithoutGrupoCrismandoNestedInput
+  crismandos?: Prisma.CrismandoUncheckedUpdateManyWithoutGrupoNestedInput
+}
+
+export type GrupoUpsertWithoutAnimadoresMinisterioInput = {
+  update: Prisma.XOR<Prisma.GrupoUpdateWithoutAnimadoresMinisterioInput, Prisma.GrupoUncheckedUpdateWithoutAnimadoresMinisterioInput>
+  create: Prisma.XOR<Prisma.GrupoCreateWithoutAnimadoresMinisterioInput, Prisma.GrupoUncheckedCreateWithoutAnimadoresMinisterioInput>
+  where?: Prisma.GrupoWhereInput
+}
+
+export type GrupoUpdateToOneWithWhereWithoutAnimadoresMinisterioInput = {
+  where?: Prisma.GrupoWhereInput
+  data: Prisma.XOR<Prisma.GrupoUpdateWithoutAnimadoresMinisterioInput, Prisma.GrupoUncheckedUpdateWithoutAnimadoresMinisterioInput>
+}
+
+export type GrupoUpdateWithoutAnimadoresMinisterioInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeGrupo?: Prisma.StringFieldUpdateOperationsInput | string
+  animadoresFrequencia?: Prisma.AnimadorUpdateManyWithoutGrupoAnimadorNestedInput
+  crismandos?: Prisma.CrismandoUpdateManyWithoutGrupoNestedInput
+}
+
+export type GrupoUncheckedUpdateWithoutAnimadoresMinisterioInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeGrupo?: Prisma.StringFieldUpdateOperationsInput | string
+  animadoresFrequencia?: Prisma.AnimadorUncheckedUpdateManyWithoutGrupoAnimadorNestedInput
   crismandos?: Prisma.CrismandoUncheckedUpdateManyWithoutGrupoNestedInput
 }
 
 export type GrupoCreateWithoutCrismandosInput = {
   id?: string
   nomeGrupo: string
-  animadores?: Prisma.AnimadorCreateNestedManyWithoutGrupoInput
+  animadoresFrequencia?: Prisma.AnimadorCreateNestedManyWithoutGrupoAnimadorInput
+  animadoresMinisterio?: Prisma.AnimadorCreateNestedManyWithoutGrupoCrismandoInput
 }
 
 export type GrupoUncheckedCreateWithoutCrismandosInput = {
   id?: string
   nomeGrupo: string
-  animadores?: Prisma.AnimadorUncheckedCreateNestedManyWithoutGrupoInput
+  animadoresFrequencia?: Prisma.AnimadorUncheckedCreateNestedManyWithoutGrupoAnimadorInput
+  animadoresMinisterio?: Prisma.AnimadorUncheckedCreateNestedManyWithoutGrupoCrismandoInput
 }
 
 export type GrupoCreateOrConnectWithoutCrismandosInput = {
@@ -361,13 +434,15 @@ export type GrupoUpdateToOneWithWhereWithoutCrismandosInput = {
 export type GrupoUpdateWithoutCrismandosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeGrupo?: Prisma.StringFieldUpdateOperationsInput | string
-  animadores?: Prisma.AnimadorUpdateManyWithoutGrupoNestedInput
+  animadoresFrequencia?: Prisma.AnimadorUpdateManyWithoutGrupoAnimadorNestedInput
+  animadoresMinisterio?: Prisma.AnimadorUpdateManyWithoutGrupoCrismandoNestedInput
 }
 
 export type GrupoUncheckedUpdateWithoutCrismandosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeGrupo?: Prisma.StringFieldUpdateOperationsInput | string
-  animadores?: Prisma.AnimadorUncheckedUpdateManyWithoutGrupoNestedInput
+  animadoresFrequencia?: Prisma.AnimadorUncheckedUpdateManyWithoutGrupoAnimadorNestedInput
+  animadoresMinisterio?: Prisma.AnimadorUncheckedUpdateManyWithoutGrupoCrismandoNestedInput
 }
 
 
@@ -376,12 +451,14 @@ export type GrupoUncheckedUpdateWithoutCrismandosInput = {
  */
 
 export type GrupoCountOutputType = {
-  animadores: number
+  animadoresFrequencia: number
+  animadoresMinisterio: number
   crismandos: number
 }
 
 export type GrupoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  animadores?: boolean | GrupoCountOutputTypeCountAnimadoresArgs
+  animadoresFrequencia?: boolean | GrupoCountOutputTypeCountAnimadoresFrequenciaArgs
+  animadoresMinisterio?: boolean | GrupoCountOutputTypeCountAnimadoresMinisterioArgs
   crismandos?: boolean | GrupoCountOutputTypeCountCrismandosArgs
 }
 
@@ -398,7 +475,14 @@ export type GrupoCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * GrupoCountOutputType without action
  */
-export type GrupoCountOutputTypeCountAnimadoresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GrupoCountOutputTypeCountAnimadoresFrequenciaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AnimadorWhereInput
+}
+
+/**
+ * GrupoCountOutputType without action
+ */
+export type GrupoCountOutputTypeCountAnimadoresMinisterioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AnimadorWhereInput
 }
 
@@ -413,7 +497,8 @@ export type GrupoCountOutputTypeCountCrismandosArgs<ExtArgs extends runtime.Type
 export type GrupoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nomeGrupo?: boolean
-  animadores?: boolean | Prisma.Grupo$animadoresArgs<ExtArgs>
+  animadoresFrequencia?: boolean | Prisma.Grupo$animadoresFrequenciaArgs<ExtArgs>
+  animadoresMinisterio?: boolean | Prisma.Grupo$animadoresMinisterioArgs<ExtArgs>
   crismandos?: boolean | Prisma.Grupo$crismandosArgs<ExtArgs>
   _count?: boolean | Prisma.GrupoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["grupo"]>
@@ -435,7 +520,8 @@ export type GrupoSelectScalar = {
 
 export type GrupoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomeGrupo", ExtArgs["result"]["grupo"]>
 export type GrupoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  animadores?: boolean | Prisma.Grupo$animadoresArgs<ExtArgs>
+  animadoresFrequencia?: boolean | Prisma.Grupo$animadoresFrequenciaArgs<ExtArgs>
+  animadoresMinisterio?: boolean | Prisma.Grupo$animadoresMinisterioArgs<ExtArgs>
   crismandos?: boolean | Prisma.Grupo$crismandosArgs<ExtArgs>
   _count?: boolean | Prisma.GrupoCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -445,7 +531,8 @@ export type GrupoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $GrupoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Grupo"
   objects: {
-    animadores: Prisma.$AnimadorPayload<ExtArgs>[]
+    animadoresFrequencia: Prisma.$AnimadorPayload<ExtArgs>[]
+    animadoresMinisterio: Prisma.$AnimadorPayload<ExtArgs>[]
     crismandos: Prisma.$CrismandoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -845,7 +932,8 @@ readonly fields: GrupoFieldRefs;
  */
 export interface Prisma__GrupoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  animadores<T extends Prisma.Grupo$animadoresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Grupo$animadoresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimadorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  animadoresFrequencia<T extends Prisma.Grupo$animadoresFrequenciaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Grupo$animadoresFrequenciaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimadorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  animadoresMinisterio<T extends Prisma.Grupo$animadoresMinisterioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Grupo$animadoresMinisterioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimadorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   crismandos<T extends Prisma.Grupo$crismandosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Grupo$crismandosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrismandoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1266,9 +1354,33 @@ export type GrupoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Grupo.animadores
+ * Grupo.animadoresFrequencia
  */
-export type Grupo$animadoresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Grupo$animadoresFrequenciaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Animador
+   */
+  select?: Prisma.AnimadorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Animador
+   */
+  omit?: Prisma.AnimadorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AnimadorInclude<ExtArgs> | null
+  where?: Prisma.AnimadorWhereInput
+  orderBy?: Prisma.AnimadorOrderByWithRelationInput | Prisma.AnimadorOrderByWithRelationInput[]
+  cursor?: Prisma.AnimadorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AnimadorScalarFieldEnum | Prisma.AnimadorScalarFieldEnum[]
+}
+
+/**
+ * Grupo.animadoresMinisterio
+ */
+export type Grupo$animadoresMinisterioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Animador
    */

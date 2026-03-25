@@ -19,7 +19,9 @@ export class FrequenciaController {
 
   @Post('registrar-frequencia')
   registerFrequencia(@Body() createFrequenciaDto: CreateFrequenciaDto) {
-    return this.frequenciaService.registerFrequencia(createFrequenciaDto);
+    return this.frequenciaService.registerFrequenciaCrismando(
+      createFrequenciaDto,
+    );
   }
 
   @Get(':id')

@@ -30,21 +30,30 @@ enum StatusFrequencia {
   FJ
 }
 
+enum DescricaoFrequenciaAnimador {
+  FORMACAO
+  ENCONTRO
+}
+
 model Animador {
   id    String   @id @default(uuid())
   nomeAnimador String
   email String @unique
   password String
   cargo Cargo @default(ANIMADOR)
-  grupoId String?
-  grupo Grupo? @relation(fields: [grupoId], references: [id])
+  frequencias FrequenciaAnimador[]
+  grupoAnimadorId String?
+  grupoAnimador Grupo? @relation("GrupoFrequencia", fields: [grupoAnimadorId], references: [id])
+  grupoCrismandoId String?
+  grupoCrismando Grupo? @relation("GrupoCrismando", fields: [grupoCrismandoId], references: [id])
   sessions RefreshToken[]
 }
 
 model Grupo {
   id String @id @default(uuid())
   nomeGrupo String
-  animadores Animador[]
+  animadoresFrequencia Animador[] @relation("GrupoFrequencia")
+  animadoresMinisterio Animador[] @relation("GrupoCrismando")
   crismandos Crismando[]
 }
 
@@ -85,6 +94,18 @@ model Frequencia {
   justificativa String?
 
   @@unique([crismandoId, dataFrequencia])
+}
+
+model FrequenciaAnimador {
+  id String @id @default(uuid())
+  animadorId String
+  animador Animador? @relation(fields: [animadorId], references: [id], onDelete: Cascade)
+  tipo DescricaoFrequenciaAnimador
+  status StatusFrequencia
+  dataFrequencia DateTime @db.Date
+  justificativa String?
+
+  @@unique([animadorId, dataFrequencia, tipo])
 }
 
 model Caixinha {

@@ -29,3 +29,11 @@ export const StatusFrequencia = {
 } as const
 
 export type StatusFrequencia = (typeof StatusFrequencia)[keyof typeof StatusFrequencia]
+
+
+export const DescricaoFrequenciaAnimador = {
+  FORMACAO: 'FORMACAO',
+  ENCONTRO: 'ENCONTRO'
+} as const
+
+export type DescricaoFrequenciaAnimador = (typeof DescricaoFrequenciaAnimador)[keyof typeof DescricaoFrequenciaAnimador]

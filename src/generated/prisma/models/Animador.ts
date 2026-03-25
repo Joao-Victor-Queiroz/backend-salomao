@@ -30,7 +30,8 @@ export type AnimadorMinAggregateOutputType = {
   email: string | null
   password: string | null
   cargo: $Enums.Cargo | null
-  grupoId: string | null
+  grupoAnimadorId: string | null
+  grupoCrismandoId: string | null
 }
 
 export type AnimadorMaxAggregateOutputType = {
@@ -39,7 +40,8 @@ export type AnimadorMaxAggregateOutputType = {
   email: string | null
   password: string | null
   cargo: $Enums.Cargo | null
-  grupoId: string | null
+  grupoAnimadorId: string | null
+  grupoCrismandoId: string | null
 }
 
 export type AnimadorCountAggregateOutputType = {
@@ -48,7 +50,8 @@ export type AnimadorCountAggregateOutputType = {
   email: number
   password: number
   cargo: number
-  grupoId: number
+  grupoAnimadorId: number
+  grupoCrismandoId: number
   _all: number
 }
 
@@ -59,7 +62,8 @@ export type AnimadorMinAggregateInputType = {
   email?: true
   password?: true
   cargo?: true
-  grupoId?: true
+  grupoAnimadorId?: true
+  grupoCrismandoId?: true
 }
 
 export type AnimadorMaxAggregateInputType = {
@@ -68,7 +72,8 @@ export type AnimadorMaxAggregateInputType = {
   email?: true
   password?: true
   cargo?: true
-  grupoId?: true
+  grupoAnimadorId?: true
+  grupoCrismandoId?: true
 }
 
 export type AnimadorCountAggregateInputType = {
@@ -77,7 +82,8 @@ export type AnimadorCountAggregateInputType = {
   email?: true
   password?: true
   cargo?: true
-  grupoId?: true
+  grupoAnimadorId?: true
+  grupoCrismandoId?: true
   _all?: true
 }
 
@@ -159,7 +165,8 @@ export type AnimadorGroupByOutputType = {
   email: string
   password: string
   cargo: $Enums.Cargo
-  grupoId: string | null
+  grupoAnimadorId: string | null
+  grupoCrismandoId: string | null
   _count: AnimadorCountAggregateOutputType | null
   _min: AnimadorMinAggregateOutputType | null
   _max: AnimadorMaxAggregateOutputType | null
@@ -189,8 +196,11 @@ export type AnimadorWhereInput = {
   email?: Prisma.StringFilter<"Animador"> | string
   password?: Prisma.StringFilter<"Animador"> | string
   cargo?: Prisma.EnumCargoFilter<"Animador"> | $Enums.Cargo
-  grupoId?: Prisma.StringNullableFilter<"Animador"> | string | null
-  grupo?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
+  grupoAnimadorId?: Prisma.StringNullableFilter<"Animador"> | string | null
+  grupoCrismandoId?: Prisma.StringNullableFilter<"Animador"> | string | null
+  frequencias?: Prisma.FrequenciaAnimadorListRelationFilter
+  grupoAnimador?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
+  grupoCrismando?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
   sessions?: Prisma.RefreshTokenListRelationFilter
 }
 
@@ -200,8 +210,11 @@ export type AnimadorOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
-  grupoId?: Prisma.SortOrderInput | Prisma.SortOrder
-  grupo?: Prisma.GrupoOrderByWithRelationInput
+  grupoAnimadorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  grupoCrismandoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  frequencias?: Prisma.FrequenciaAnimadorOrderByRelationAggregateInput
+  grupoAnimador?: Prisma.GrupoOrderByWithRelationInput
+  grupoCrismando?: Prisma.GrupoOrderByWithRelationInput
   sessions?: Prisma.RefreshTokenOrderByRelationAggregateInput
 }
 
@@ -214,8 +227,11 @@ export type AnimadorWhereUniqueInput = Prisma.AtLeast<{
   nomeAnimador?: Prisma.StringFilter<"Animador"> | string
   password?: Prisma.StringFilter<"Animador"> | string
   cargo?: Prisma.EnumCargoFilter<"Animador"> | $Enums.Cargo
-  grupoId?: Prisma.StringNullableFilter<"Animador"> | string | null
-  grupo?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
+  grupoAnimadorId?: Prisma.StringNullableFilter<"Animador"> | string | null
+  grupoCrismandoId?: Prisma.StringNullableFilter<"Animador"> | string | null
+  frequencias?: Prisma.FrequenciaAnimadorListRelationFilter
+  grupoAnimador?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
+  grupoCrismando?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
   sessions?: Prisma.RefreshTokenListRelationFilter
 }, "id" | "email">
 
@@ -225,7 +241,8 @@ export type AnimadorOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
-  grupoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  grupoAnimadorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  grupoCrismandoId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AnimadorCountOrderByAggregateInput
   _max?: Prisma.AnimadorMaxOrderByAggregateInput
   _min?: Prisma.AnimadorMinOrderByAggregateInput
@@ -240,7 +257,8 @@ export type AnimadorScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Animador"> | string
   password?: Prisma.StringWithAggregatesFilter<"Animador"> | string
   cargo?: Prisma.EnumCargoWithAggregatesFilter<"Animador"> | $Enums.Cargo
-  grupoId?: Prisma.StringNullableWithAggregatesFilter<"Animador"> | string | null
+  grupoAnimadorId?: Prisma.StringNullableWithAggregatesFilter<"Animador"> | string | null
+  grupoCrismandoId?: Prisma.StringNullableWithAggregatesFilter<"Animador"> | string | null
 }
 
 export type AnimadorCreateInput = {
@@ -249,7 +267,9 @@ export type AnimadorCreateInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
-  grupo?: Prisma.GrupoCreateNestedOneWithoutAnimadoresInput
+  frequencias?: Prisma.FrequenciaAnimadorCreateNestedManyWithoutAnimadorInput
+  grupoAnimador?: Prisma.GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput
+  grupoCrismando?: Prisma.GrupoCreateNestedOneWithoutAnimadoresMinisterioInput
   sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
 }
 
@@ -259,7 +279,9 @@ export type AnimadorUncheckedCreateInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
-  grupoId?: string | null
+  grupoAnimadorId?: string | null
+  grupoCrismandoId?: string | null
+  frequencias?: Prisma.FrequenciaAnimadorUncheckedCreateNestedManyWithoutAnimadorInput
   sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
 }
 
@@ -269,7 +291,9 @@ export type AnimadorUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
-  grupo?: Prisma.GrupoUpdateOneWithoutAnimadoresNestedInput
+  frequencias?: Prisma.FrequenciaAnimadorUpdateManyWithoutAnimadorNestedInput
+  grupoAnimador?: Prisma.GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput
+  grupoCrismando?: Prisma.GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput
   sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
 }
 
@@ -279,7 +303,9 @@ export type AnimadorUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
-  grupoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frequencias?: Prisma.FrequenciaAnimadorUncheckedUpdateManyWithoutAnimadorNestedInput
   sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
 }
 
@@ -289,7 +315,8 @@ export type AnimadorCreateManyInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
-  grupoId?: string | null
+  grupoAnimadorId?: string | null
+  grupoCrismandoId?: string | null
 }
 
 export type AnimadorUpdateManyMutationInput = {
@@ -306,7 +333,8 @@ export type AnimadorUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
-  grupoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AnimadorCountOrderByAggregateInput = {
@@ -315,7 +343,8 @@ export type AnimadorCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
-  grupoId?: Prisma.SortOrder
+  grupoAnimadorId?: Prisma.SortOrder
+  grupoCrismandoId?: Prisma.SortOrder
 }
 
 export type AnimadorMaxOrderByAggregateInput = {
@@ -324,7 +353,8 @@ export type AnimadorMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
-  grupoId?: Prisma.SortOrder
+  grupoAnimadorId?: Prisma.SortOrder
+  grupoCrismandoId?: Prisma.SortOrder
 }
 
 export type AnimadorMinOrderByAggregateInput = {
@@ -333,7 +363,8 @@ export type AnimadorMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
-  grupoId?: Prisma.SortOrder
+  grupoAnimadorId?: Prisma.SortOrder
+  grupoCrismandoId?: Prisma.SortOrder
 }
 
 export type AnimadorListRelationFilter = {
@@ -344,6 +375,11 @@ export type AnimadorListRelationFilter = {
 
 export type AnimadorOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type AnimadorNullableScalarRelationFilter = {
+  is?: Prisma.AnimadorWhereInput | null
+  isNot?: Prisma.AnimadorWhereInput | null
 }
 
 export type AnimadorScalarRelationFilter = {
@@ -363,46 +399,104 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
-export type AnimadorCreateNestedManyWithoutGrupoInput = {
-  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoInput> | Prisma.AnimadorCreateWithoutGrupoInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoInput[]
-  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoInput | Prisma.AnimadorCreateOrConnectWithoutGrupoInput[]
-  createMany?: Prisma.AnimadorCreateManyGrupoInputEnvelope
+export type AnimadorCreateNestedManyWithoutGrupoAnimadorInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoAnimadorInput, Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput> | Prisma.AnimadorCreateWithoutGrupoAnimadorInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput[]
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoAnimadorInput | Prisma.AnimadorCreateOrConnectWithoutGrupoAnimadorInput[]
+  createMany?: Prisma.AnimadorCreateManyGrupoAnimadorInputEnvelope
   connect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
 }
 
-export type AnimadorUncheckedCreateNestedManyWithoutGrupoInput = {
-  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoInput> | Prisma.AnimadorCreateWithoutGrupoInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoInput[]
-  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoInput | Prisma.AnimadorCreateOrConnectWithoutGrupoInput[]
-  createMany?: Prisma.AnimadorCreateManyGrupoInputEnvelope
+export type AnimadorCreateNestedManyWithoutGrupoCrismandoInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoCrismandoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput> | Prisma.AnimadorCreateWithoutGrupoCrismandoInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput[]
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoCrismandoInput | Prisma.AnimadorCreateOrConnectWithoutGrupoCrismandoInput[]
+  createMany?: Prisma.AnimadorCreateManyGrupoCrismandoInputEnvelope
   connect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
 }
 
-export type AnimadorUpdateManyWithoutGrupoNestedInput = {
-  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoInput> | Prisma.AnimadorCreateWithoutGrupoInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoInput[]
-  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoInput | Prisma.AnimadorCreateOrConnectWithoutGrupoInput[]
-  upsert?: Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoInput | Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoInput[]
-  createMany?: Prisma.AnimadorCreateManyGrupoInputEnvelope
+export type AnimadorUncheckedCreateNestedManyWithoutGrupoAnimadorInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoAnimadorInput, Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput> | Prisma.AnimadorCreateWithoutGrupoAnimadorInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput[]
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoAnimadorInput | Prisma.AnimadorCreateOrConnectWithoutGrupoAnimadorInput[]
+  createMany?: Prisma.AnimadorCreateManyGrupoAnimadorInputEnvelope
+  connect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+}
+
+export type AnimadorUncheckedCreateNestedManyWithoutGrupoCrismandoInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoCrismandoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput> | Prisma.AnimadorCreateWithoutGrupoCrismandoInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput[]
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoCrismandoInput | Prisma.AnimadorCreateOrConnectWithoutGrupoCrismandoInput[]
+  createMany?: Prisma.AnimadorCreateManyGrupoCrismandoInputEnvelope
+  connect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+}
+
+export type AnimadorUpdateManyWithoutGrupoAnimadorNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoAnimadorInput, Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput> | Prisma.AnimadorCreateWithoutGrupoAnimadorInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput[]
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoAnimadorInput | Prisma.AnimadorCreateOrConnectWithoutGrupoAnimadorInput[]
+  upsert?: Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoAnimadorInput | Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoAnimadorInput[]
+  createMany?: Prisma.AnimadorCreateManyGrupoAnimadorInputEnvelope
   set?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
   disconnect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
   delete?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
   connect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
-  update?: Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoInput | Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoInput[]
-  updateMany?: Prisma.AnimadorUpdateManyWithWhereWithoutGrupoInput | Prisma.AnimadorUpdateManyWithWhereWithoutGrupoInput[]
+  update?: Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoAnimadorInput | Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoAnimadorInput[]
+  updateMany?: Prisma.AnimadorUpdateManyWithWhereWithoutGrupoAnimadorInput | Prisma.AnimadorUpdateManyWithWhereWithoutGrupoAnimadorInput[]
   deleteMany?: Prisma.AnimadorScalarWhereInput | Prisma.AnimadorScalarWhereInput[]
 }
 
-export type AnimadorUncheckedUpdateManyWithoutGrupoNestedInput = {
-  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoInput> | Prisma.AnimadorCreateWithoutGrupoInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoInput[]
-  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoInput | Prisma.AnimadorCreateOrConnectWithoutGrupoInput[]
-  upsert?: Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoInput | Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoInput[]
-  createMany?: Prisma.AnimadorCreateManyGrupoInputEnvelope
+export type AnimadorUpdateManyWithoutGrupoCrismandoNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoCrismandoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput> | Prisma.AnimadorCreateWithoutGrupoCrismandoInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput[]
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoCrismandoInput | Prisma.AnimadorCreateOrConnectWithoutGrupoCrismandoInput[]
+  upsert?: Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoCrismandoInput | Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoCrismandoInput[]
+  createMany?: Prisma.AnimadorCreateManyGrupoCrismandoInputEnvelope
   set?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
   disconnect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
   delete?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
   connect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
-  update?: Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoInput | Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoInput[]
-  updateMany?: Prisma.AnimadorUpdateManyWithWhereWithoutGrupoInput | Prisma.AnimadorUpdateManyWithWhereWithoutGrupoInput[]
+  update?: Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoCrismandoInput | Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoCrismandoInput[]
+  updateMany?: Prisma.AnimadorUpdateManyWithWhereWithoutGrupoCrismandoInput | Prisma.AnimadorUpdateManyWithWhereWithoutGrupoCrismandoInput[]
   deleteMany?: Prisma.AnimadorScalarWhereInput | Prisma.AnimadorScalarWhereInput[]
+}
+
+export type AnimadorUncheckedUpdateManyWithoutGrupoAnimadorNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoAnimadorInput, Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput> | Prisma.AnimadorCreateWithoutGrupoAnimadorInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput[]
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoAnimadorInput | Prisma.AnimadorCreateOrConnectWithoutGrupoAnimadorInput[]
+  upsert?: Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoAnimadorInput | Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoAnimadorInput[]
+  createMany?: Prisma.AnimadorCreateManyGrupoAnimadorInputEnvelope
+  set?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+  disconnect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+  delete?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+  connect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+  update?: Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoAnimadorInput | Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoAnimadorInput[]
+  updateMany?: Prisma.AnimadorUpdateManyWithWhereWithoutGrupoAnimadorInput | Prisma.AnimadorUpdateManyWithWhereWithoutGrupoAnimadorInput[]
+  deleteMany?: Prisma.AnimadorScalarWhereInput | Prisma.AnimadorScalarWhereInput[]
+}
+
+export type AnimadorUncheckedUpdateManyWithoutGrupoCrismandoNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoCrismandoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput> | Prisma.AnimadorCreateWithoutGrupoCrismandoInput[] | Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput[]
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutGrupoCrismandoInput | Prisma.AnimadorCreateOrConnectWithoutGrupoCrismandoInput[]
+  upsert?: Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoCrismandoInput | Prisma.AnimadorUpsertWithWhereUniqueWithoutGrupoCrismandoInput[]
+  createMany?: Prisma.AnimadorCreateManyGrupoCrismandoInputEnvelope
+  set?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+  disconnect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+  delete?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+  connect?: Prisma.AnimadorWhereUniqueInput | Prisma.AnimadorWhereUniqueInput[]
+  update?: Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoCrismandoInput | Prisma.AnimadorUpdateWithWhereUniqueWithoutGrupoCrismandoInput[]
+  updateMany?: Prisma.AnimadorUpdateManyWithWhereWithoutGrupoCrismandoInput | Prisma.AnimadorUpdateManyWithWhereWithoutGrupoCrismandoInput[]
+  deleteMany?: Prisma.AnimadorScalarWhereInput | Prisma.AnimadorScalarWhereInput[]
+}
+
+export type AnimadorCreateNestedOneWithoutFrequenciasInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutFrequenciasInput, Prisma.AnimadorUncheckedCreateWithoutFrequenciasInput>
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutFrequenciasInput
+  connect?: Prisma.AnimadorWhereUniqueInput
+}
+
+export type AnimadorUpdateOneWithoutFrequenciasNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimadorCreateWithoutFrequenciasInput, Prisma.AnimadorUncheckedCreateWithoutFrequenciasInput>
+  connectOrCreate?: Prisma.AnimadorCreateOrConnectWithoutFrequenciasInput
+  upsert?: Prisma.AnimadorUpsertWithoutFrequenciasInput
+  disconnect?: Prisma.AnimadorWhereInput | boolean
+  delete?: Prisma.AnimadorWhereInput | boolean
+  connect?: Prisma.AnimadorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimadorUpdateToOneWithWhereWithoutFrequenciasInput, Prisma.AnimadorUpdateWithoutFrequenciasInput>, Prisma.AnimadorUncheckedUpdateWithoutFrequenciasInput>
 }
 
 export type AnimadorCreateNestedOneWithoutSessionsInput = {
@@ -419,48 +513,84 @@ export type AnimadorUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AnimadorUpdateToOneWithWhereWithoutSessionsInput, Prisma.AnimadorUpdateWithoutSessionsInput>, Prisma.AnimadorUncheckedUpdateWithoutSessionsInput>
 }
 
-export type AnimadorCreateWithoutGrupoInput = {
+export type AnimadorCreateWithoutGrupoAnimadorInput = {
   id?: string
   nomeAnimador: string
   email: string
   password: string
   cargo?: $Enums.Cargo
+  frequencias?: Prisma.FrequenciaAnimadorCreateNestedManyWithoutAnimadorInput
+  grupoCrismando?: Prisma.GrupoCreateNestedOneWithoutAnimadoresMinisterioInput
   sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
 }
 
-export type AnimadorUncheckedCreateWithoutGrupoInput = {
+export type AnimadorUncheckedCreateWithoutGrupoAnimadorInput = {
   id?: string
   nomeAnimador: string
   email: string
   password: string
   cargo?: $Enums.Cargo
+  grupoCrismandoId?: string | null
+  frequencias?: Prisma.FrequenciaAnimadorUncheckedCreateNestedManyWithoutAnimadorInput
   sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
 }
 
-export type AnimadorCreateOrConnectWithoutGrupoInput = {
+export type AnimadorCreateOrConnectWithoutGrupoAnimadorInput = {
   where: Prisma.AnimadorWhereUniqueInput
-  create: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoInput>
+  create: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoAnimadorInput, Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput>
 }
 
-export type AnimadorCreateManyGrupoInputEnvelope = {
-  data: Prisma.AnimadorCreateManyGrupoInput | Prisma.AnimadorCreateManyGrupoInput[]
+export type AnimadorCreateManyGrupoAnimadorInputEnvelope = {
+  data: Prisma.AnimadorCreateManyGrupoAnimadorInput | Prisma.AnimadorCreateManyGrupoAnimadorInput[]
   skipDuplicates?: boolean
 }
 
-export type AnimadorUpsertWithWhereUniqueWithoutGrupoInput = {
-  where: Prisma.AnimadorWhereUniqueInput
-  update: Prisma.XOR<Prisma.AnimadorUpdateWithoutGrupoInput, Prisma.AnimadorUncheckedUpdateWithoutGrupoInput>
-  create: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoInput>
+export type AnimadorCreateWithoutGrupoCrismandoInput = {
+  id?: string
+  nomeAnimador: string
+  email: string
+  password: string
+  cargo?: $Enums.Cargo
+  frequencias?: Prisma.FrequenciaAnimadorCreateNestedManyWithoutAnimadorInput
+  grupoAnimador?: Prisma.GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput
+  sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
 }
 
-export type AnimadorUpdateWithWhereUniqueWithoutGrupoInput = {
-  where: Prisma.AnimadorWhereUniqueInput
-  data: Prisma.XOR<Prisma.AnimadorUpdateWithoutGrupoInput, Prisma.AnimadorUncheckedUpdateWithoutGrupoInput>
+export type AnimadorUncheckedCreateWithoutGrupoCrismandoInput = {
+  id?: string
+  nomeAnimador: string
+  email: string
+  password: string
+  cargo?: $Enums.Cargo
+  grupoAnimadorId?: string | null
+  frequencias?: Prisma.FrequenciaAnimadorUncheckedCreateNestedManyWithoutAnimadorInput
+  sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
 }
 
-export type AnimadorUpdateManyWithWhereWithoutGrupoInput = {
+export type AnimadorCreateOrConnectWithoutGrupoCrismandoInput = {
+  where: Prisma.AnimadorWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoCrismandoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput>
+}
+
+export type AnimadorCreateManyGrupoCrismandoInputEnvelope = {
+  data: Prisma.AnimadorCreateManyGrupoCrismandoInput | Prisma.AnimadorCreateManyGrupoCrismandoInput[]
+  skipDuplicates?: boolean
+}
+
+export type AnimadorUpsertWithWhereUniqueWithoutGrupoAnimadorInput = {
+  where: Prisma.AnimadorWhereUniqueInput
+  update: Prisma.XOR<Prisma.AnimadorUpdateWithoutGrupoAnimadorInput, Prisma.AnimadorUncheckedUpdateWithoutGrupoAnimadorInput>
+  create: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoAnimadorInput, Prisma.AnimadorUncheckedCreateWithoutGrupoAnimadorInput>
+}
+
+export type AnimadorUpdateWithWhereUniqueWithoutGrupoAnimadorInput = {
+  where: Prisma.AnimadorWhereUniqueInput
+  data: Prisma.XOR<Prisma.AnimadorUpdateWithoutGrupoAnimadorInput, Prisma.AnimadorUncheckedUpdateWithoutGrupoAnimadorInput>
+}
+
+export type AnimadorUpdateManyWithWhereWithoutGrupoAnimadorInput = {
   where: Prisma.AnimadorScalarWhereInput
-  data: Prisma.XOR<Prisma.AnimadorUpdateManyMutationInput, Prisma.AnimadorUncheckedUpdateManyWithoutGrupoInput>
+  data: Prisma.XOR<Prisma.AnimadorUpdateManyMutationInput, Prisma.AnimadorUncheckedUpdateManyWithoutGrupoAnimadorInput>
 }
 
 export type AnimadorScalarWhereInput = {
@@ -472,7 +602,84 @@ export type AnimadorScalarWhereInput = {
   email?: Prisma.StringFilter<"Animador"> | string
   password?: Prisma.StringFilter<"Animador"> | string
   cargo?: Prisma.EnumCargoFilter<"Animador"> | $Enums.Cargo
-  grupoId?: Prisma.StringNullableFilter<"Animador"> | string | null
+  grupoAnimadorId?: Prisma.StringNullableFilter<"Animador"> | string | null
+  grupoCrismandoId?: Prisma.StringNullableFilter<"Animador"> | string | null
+}
+
+export type AnimadorUpsertWithWhereUniqueWithoutGrupoCrismandoInput = {
+  where: Prisma.AnimadorWhereUniqueInput
+  update: Prisma.XOR<Prisma.AnimadorUpdateWithoutGrupoCrismandoInput, Prisma.AnimadorUncheckedUpdateWithoutGrupoCrismandoInput>
+  create: Prisma.XOR<Prisma.AnimadorCreateWithoutGrupoCrismandoInput, Prisma.AnimadorUncheckedCreateWithoutGrupoCrismandoInput>
+}
+
+export type AnimadorUpdateWithWhereUniqueWithoutGrupoCrismandoInput = {
+  where: Prisma.AnimadorWhereUniqueInput
+  data: Prisma.XOR<Prisma.AnimadorUpdateWithoutGrupoCrismandoInput, Prisma.AnimadorUncheckedUpdateWithoutGrupoCrismandoInput>
+}
+
+export type AnimadorUpdateManyWithWhereWithoutGrupoCrismandoInput = {
+  where: Prisma.AnimadorScalarWhereInput
+  data: Prisma.XOR<Prisma.AnimadorUpdateManyMutationInput, Prisma.AnimadorUncheckedUpdateManyWithoutGrupoCrismandoInput>
+}
+
+export type AnimadorCreateWithoutFrequenciasInput = {
+  id?: string
+  nomeAnimador: string
+  email: string
+  password: string
+  cargo?: $Enums.Cargo
+  grupoAnimador?: Prisma.GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput
+  grupoCrismando?: Prisma.GrupoCreateNestedOneWithoutAnimadoresMinisterioInput
+  sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
+}
+
+export type AnimadorUncheckedCreateWithoutFrequenciasInput = {
+  id?: string
+  nomeAnimador: string
+  email: string
+  password: string
+  cargo?: $Enums.Cargo
+  grupoAnimadorId?: string | null
+  grupoCrismandoId?: string | null
+  sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
+}
+
+export type AnimadorCreateOrConnectWithoutFrequenciasInput = {
+  where: Prisma.AnimadorWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimadorCreateWithoutFrequenciasInput, Prisma.AnimadorUncheckedCreateWithoutFrequenciasInput>
+}
+
+export type AnimadorUpsertWithoutFrequenciasInput = {
+  update: Prisma.XOR<Prisma.AnimadorUpdateWithoutFrequenciasInput, Prisma.AnimadorUncheckedUpdateWithoutFrequenciasInput>
+  create: Prisma.XOR<Prisma.AnimadorCreateWithoutFrequenciasInput, Prisma.AnimadorUncheckedCreateWithoutFrequenciasInput>
+  where?: Prisma.AnimadorWhereInput
+}
+
+export type AnimadorUpdateToOneWithWhereWithoutFrequenciasInput = {
+  where?: Prisma.AnimadorWhereInput
+  data: Prisma.XOR<Prisma.AnimadorUpdateWithoutFrequenciasInput, Prisma.AnimadorUncheckedUpdateWithoutFrequenciasInput>
+}
+
+export type AnimadorUpdateWithoutFrequenciasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  grupoAnimador?: Prisma.GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput
+  grupoCrismando?: Prisma.GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput
+  sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
+}
+
+export type AnimadorUncheckedUpdateWithoutFrequenciasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
 }
 
 export type AnimadorCreateWithoutSessionsInput = {
@@ -481,7 +688,9 @@ export type AnimadorCreateWithoutSessionsInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
-  grupo?: Prisma.GrupoCreateNestedOneWithoutAnimadoresInput
+  frequencias?: Prisma.FrequenciaAnimadorCreateNestedManyWithoutAnimadorInput
+  grupoAnimador?: Prisma.GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput
+  grupoCrismando?: Prisma.GrupoCreateNestedOneWithoutAnimadoresMinisterioInput
 }
 
 export type AnimadorUncheckedCreateWithoutSessionsInput = {
@@ -490,7 +699,9 @@ export type AnimadorUncheckedCreateWithoutSessionsInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
-  grupoId?: string | null
+  grupoAnimadorId?: string | null
+  grupoCrismandoId?: string | null
+  frequencias?: Prisma.FrequenciaAnimadorUncheckedCreateNestedManyWithoutAnimadorInput
 }
 
 export type AnimadorCreateOrConnectWithoutSessionsInput = {
@@ -515,7 +726,9 @@ export type AnimadorUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
-  grupo?: Prisma.GrupoUpdateOneWithoutAnimadoresNestedInput
+  frequencias?: Prisma.FrequenciaAnimadorUpdateManyWithoutAnimadorNestedInput
+  grupoAnimador?: Prisma.GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput
+  grupoCrismando?: Prisma.GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput
 }
 
 export type AnimadorUncheckedUpdateWithoutSessionsInput = {
@@ -524,41 +737,89 @@ export type AnimadorUncheckedUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
-  grupoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frequencias?: Prisma.FrequenciaAnimadorUncheckedUpdateManyWithoutAnimadorNestedInput
 }
 
-export type AnimadorCreateManyGrupoInput = {
+export type AnimadorCreateManyGrupoAnimadorInput = {
   id?: string
   nomeAnimador: string
   email: string
   password: string
   cargo?: $Enums.Cargo
+  grupoCrismandoId?: string | null
 }
 
-export type AnimadorUpdateWithoutGrupoInput = {
+export type AnimadorCreateManyGrupoCrismandoInput = {
+  id?: string
+  nomeAnimador: string
+  email: string
+  password: string
+  cargo?: $Enums.Cargo
+  grupoAnimadorId?: string | null
+}
+
+export type AnimadorUpdateWithoutGrupoAnimadorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  frequencias?: Prisma.FrequenciaAnimadorUpdateManyWithoutAnimadorNestedInput
+  grupoCrismando?: Prisma.GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput
   sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
 }
 
-export type AnimadorUncheckedUpdateWithoutGrupoInput = {
+export type AnimadorUncheckedUpdateWithoutGrupoAnimadorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frequencias?: Prisma.FrequenciaAnimadorUncheckedUpdateManyWithoutAnimadorNestedInput
   sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
 }
 
-export type AnimadorUncheckedUpdateManyWithoutGrupoInput = {
+export type AnimadorUncheckedUpdateManyWithoutGrupoAnimadorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type AnimadorUpdateWithoutGrupoCrismandoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  frequencias?: Prisma.FrequenciaAnimadorUpdateManyWithoutAnimadorNestedInput
+  grupoAnimador?: Prisma.GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput
+  sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
+}
+
+export type AnimadorUncheckedUpdateWithoutGrupoCrismandoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frequencias?: Prisma.FrequenciaAnimadorUncheckedUpdateManyWithoutAnimadorNestedInput
+  sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
+}
+
+export type AnimadorUncheckedUpdateManyWithoutGrupoCrismandoInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomeAnimador?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -567,10 +828,12 @@ export type AnimadorUncheckedUpdateManyWithoutGrupoInput = {
  */
 
 export type AnimadorCountOutputType = {
+  frequencias: number
   sessions: number
 }
 
 export type AnimadorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  frequencias?: boolean | AnimadorCountOutputTypeCountFrequenciasArgs
   sessions?: boolean | AnimadorCountOutputTypeCountSessionsArgs
 }
 
@@ -587,6 +850,13 @@ export type AnimadorCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
 /**
  * AnimadorCountOutputType without action
  */
+export type AnimadorCountOutputTypeCountFrequenciasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FrequenciaAnimadorWhereInput
+}
+
+/**
+ * AnimadorCountOutputType without action
+ */
 export type AnimadorCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.RefreshTokenWhereInput
 }
@@ -598,8 +868,11 @@ export type AnimadorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   email?: boolean
   password?: boolean
   cargo?: boolean
-  grupoId?: boolean
-  grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
+  grupoAnimadorId?: boolean
+  grupoCrismandoId?: boolean
+  frequencias?: boolean | Prisma.Animador$frequenciasArgs<ExtArgs>
+  grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
+  grupoCrismando?: boolean | Prisma.Animador$grupoCrismandoArgs<ExtArgs>
   sessions?: boolean | Prisma.Animador$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.AnimadorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["animador"]>
@@ -610,8 +883,10 @@ export type AnimadorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   password?: boolean
   cargo?: boolean
-  grupoId?: boolean
-  grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
+  grupoAnimadorId?: boolean
+  grupoCrismandoId?: boolean
+  grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
+  grupoCrismando?: boolean | Prisma.Animador$grupoCrismandoArgs<ExtArgs>
 }, ExtArgs["result"]["animador"]>
 
 export type AnimadorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -620,8 +895,10 @@ export type AnimadorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   password?: boolean
   cargo?: boolean
-  grupoId?: boolean
-  grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
+  grupoAnimadorId?: boolean
+  grupoCrismandoId?: boolean
+  grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
+  grupoCrismando?: boolean | Prisma.Animador$grupoCrismandoArgs<ExtArgs>
 }, ExtArgs["result"]["animador"]>
 
 export type AnimadorSelectScalar = {
@@ -630,26 +907,33 @@ export type AnimadorSelectScalar = {
   email?: boolean
   password?: boolean
   cargo?: boolean
-  grupoId?: boolean
+  grupoAnimadorId?: boolean
+  grupoCrismandoId?: boolean
 }
 
-export type AnimadorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomeAnimador" | "email" | "password" | "cargo" | "grupoId", ExtArgs["result"]["animador"]>
+export type AnimadorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomeAnimador" | "email" | "password" | "cargo" | "grupoAnimadorId" | "grupoCrismandoId", ExtArgs["result"]["animador"]>
 export type AnimadorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
+  frequencias?: boolean | Prisma.Animador$frequenciasArgs<ExtArgs>
+  grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
+  grupoCrismando?: boolean | Prisma.Animador$grupoCrismandoArgs<ExtArgs>
   sessions?: boolean | Prisma.Animador$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.AnimadorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AnimadorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
+  grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
+  grupoCrismando?: boolean | Prisma.Animador$grupoCrismandoArgs<ExtArgs>
 }
 export type AnimadorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  grupo?: boolean | Prisma.Animador$grupoArgs<ExtArgs>
+  grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
+  grupoCrismando?: boolean | Prisma.Animador$grupoCrismandoArgs<ExtArgs>
 }
 
 export type $AnimadorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Animador"
   objects: {
-    grupo: Prisma.$GrupoPayload<ExtArgs> | null
+    frequencias: Prisma.$FrequenciaAnimadorPayload<ExtArgs>[]
+    grupoAnimador: Prisma.$GrupoPayload<ExtArgs> | null
+    grupoCrismando: Prisma.$GrupoPayload<ExtArgs> | null
     sessions: Prisma.$RefreshTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -658,7 +942,8 @@ export type $AnimadorPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     email: string
     password: string
     cargo: $Enums.Cargo
-    grupoId: string | null
+    grupoAnimadorId: string | null
+    grupoCrismandoId: string | null
   }, ExtArgs["result"]["animador"]>
   composites: {}
 }
@@ -1053,7 +1338,9 @@ readonly fields: AnimadorFieldRefs;
  */
 export interface Prisma__AnimadorClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  grupo<T extends Prisma.Animador$grupoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animador$grupoArgs<ExtArgs>>): Prisma.Prisma__GrupoClient<runtime.Types.Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  frequencias<T extends Prisma.Animador$frequenciasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animador$frequenciasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FrequenciaAnimadorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  grupoAnimador<T extends Prisma.Animador$grupoAnimadorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animador$grupoAnimadorArgs<ExtArgs>>): Prisma.Prisma__GrupoClient<runtime.Types.Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  grupoCrismando<T extends Prisma.Animador$grupoCrismandoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animador$grupoCrismandoArgs<ExtArgs>>): Prisma.Prisma__GrupoClient<runtime.Types.Result.GetResult<Prisma.$GrupoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sessions<T extends Prisma.Animador$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animador$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1089,7 +1376,8 @@ export interface AnimadorFieldRefs {
   readonly email: Prisma.FieldRef<"Animador", 'String'>
   readonly password: Prisma.FieldRef<"Animador", 'String'>
   readonly cargo: Prisma.FieldRef<"Animador", 'Cargo'>
-  readonly grupoId: Prisma.FieldRef<"Animador", 'String'>
+  readonly grupoAnimadorId: Prisma.FieldRef<"Animador", 'String'>
+  readonly grupoCrismandoId: Prisma.FieldRef<"Animador", 'String'>
 }
     
 
@@ -1486,9 +1774,52 @@ export type AnimadorDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * Animador.grupo
+ * Animador.frequencias
  */
-export type Animador$grupoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Animador$frequenciasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FrequenciaAnimador
+   */
+  select?: Prisma.FrequenciaAnimadorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FrequenciaAnimador
+   */
+  omit?: Prisma.FrequenciaAnimadorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FrequenciaAnimadorInclude<ExtArgs> | null
+  where?: Prisma.FrequenciaAnimadorWhereInput
+  orderBy?: Prisma.FrequenciaAnimadorOrderByWithRelationInput | Prisma.FrequenciaAnimadorOrderByWithRelationInput[]
+  cursor?: Prisma.FrequenciaAnimadorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FrequenciaAnimadorScalarFieldEnum | Prisma.FrequenciaAnimadorScalarFieldEnum[]
+}
+
+/**
+ * Animador.grupoAnimador
+ */
+export type Animador$grupoAnimadorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Grupo
+   */
+  select?: Prisma.GrupoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Grupo
+   */
+  omit?: Prisma.GrupoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GrupoInclude<ExtArgs> | null
+  where?: Prisma.GrupoWhereInput
+}
+
+/**
+ * Animador.grupoCrismando
+ */
+export type Animador$grupoCrismandoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Grupo
    */

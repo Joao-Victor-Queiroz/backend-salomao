@@ -184,6 +184,23 @@ export type EnumStatusFrequenciaWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumStatusFrequenciaFilter<$PrismaModel>
 }
 
+export type EnumDescricaoFrequenciaAnimadorFilter<$PrismaModel = never> = {
+  equals?: $Enums.DescricaoFrequenciaAnimador | Prisma.EnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  in?: $Enums.DescricaoFrequenciaAnimador[] | Prisma.ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DescricaoFrequenciaAnimador[] | Prisma.ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDescricaoFrequenciaAnimadorFilter<$PrismaModel> | $Enums.DescricaoFrequenciaAnimador
+}
+
+export type EnumDescricaoFrequenciaAnimadorWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DescricaoFrequenciaAnimador | Prisma.EnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  in?: $Enums.DescricaoFrequenciaAnimador[] | Prisma.ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DescricaoFrequenciaAnimador[] | Prisma.ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDescricaoFrequenciaAnimadorWithAggregatesFilter<$PrismaModel> | $Enums.DescricaoFrequenciaAnimador
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDescricaoFrequenciaAnimadorFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDescricaoFrequenciaAnimadorFilter<$PrismaModel>
+}
+
 export type FloatFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
@@ -417,6 +434,23 @@ export type NestedEnumStatusFrequenciaWithAggregatesFilter<$PrismaModel = never>
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumStatusFrequenciaFilter<$PrismaModel>
   _max?: Prisma.NestedEnumStatusFrequenciaFilter<$PrismaModel>
+}
+
+export type NestedEnumDescricaoFrequenciaAnimadorFilter<$PrismaModel = never> = {
+  equals?: $Enums.DescricaoFrequenciaAnimador | Prisma.EnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  in?: $Enums.DescricaoFrequenciaAnimador[] | Prisma.ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DescricaoFrequenciaAnimador[] | Prisma.ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDescricaoFrequenciaAnimadorFilter<$PrismaModel> | $Enums.DescricaoFrequenciaAnimador
+}
+
+export type NestedEnumDescricaoFrequenciaAnimadorWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DescricaoFrequenciaAnimador | Prisma.EnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  in?: $Enums.DescricaoFrequenciaAnimador[] | Prisma.ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DescricaoFrequenciaAnimador[] | Prisma.ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDescricaoFrequenciaAnimadorWithAggregatesFilter<$PrismaModel> | $Enums.DescricaoFrequenciaAnimador
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDescricaoFrequenciaAnimadorFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDescricaoFrequenciaAnimadorFilter<$PrismaModel>
 }
 
 export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {

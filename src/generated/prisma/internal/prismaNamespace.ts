@@ -388,6 +388,7 @@ export const ModelName = {
   Grupo: 'Grupo',
   Crismando: 'Crismando',
   Frequencia: 'Frequencia',
+  FrequenciaAnimador: 'FrequenciaAnimador',
   Caixinha: 'Caixinha',
   RefreshToken: 'RefreshToken'
 } as const
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "animador" | "grupo" | "crismando" | "frequencia" | "caixinha" | "refreshToken"
+    modelProps: "animador" | "grupo" | "crismando" | "frequencia" | "frequenciaAnimador" | "caixinha" | "refreshToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -705,6 +706,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FrequenciaAnimador: {
+      payload: Prisma.$FrequenciaAnimadorPayload<ExtArgs>
+      fields: Prisma.FrequenciaAnimadorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FrequenciaAnimadorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FrequenciaAnimadorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>
+        }
+        findFirst: {
+          args: Prisma.FrequenciaAnimadorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FrequenciaAnimadorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>
+        }
+        findMany: {
+          args: Prisma.FrequenciaAnimadorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>[]
+        }
+        create: {
+          args: Prisma.FrequenciaAnimadorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>
+        }
+        createMany: {
+          args: Prisma.FrequenciaAnimadorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FrequenciaAnimadorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>[]
+        }
+        delete: {
+          args: Prisma.FrequenciaAnimadorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>
+        }
+        update: {
+          args: Prisma.FrequenciaAnimadorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>
+        }
+        deleteMany: {
+          args: Prisma.FrequenciaAnimadorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FrequenciaAnimadorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FrequenciaAnimadorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>[]
+        }
+        upsert: {
+          args: Prisma.FrequenciaAnimadorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FrequenciaAnimadorPayload>
+        }
+        aggregate: {
+          args: Prisma.FrequenciaAnimadorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFrequenciaAnimador>
+        }
+        groupBy: {
+          args: Prisma.FrequenciaAnimadorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FrequenciaAnimadorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FrequenciaAnimadorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FrequenciaAnimadorCountAggregateOutputType> | number
+        }
+      }
+    }
     Caixinha: {
       payload: Prisma.$CaixinhaPayload<ExtArgs>
       fields: Prisma.CaixinhaFieldRefs
@@ -898,7 +973,8 @@ export const AnimadorScalarFieldEnum = {
   email: 'email',
   password: 'password',
   cargo: 'cargo',
-  grupoId: 'grupoId'
+  grupoAnimadorId: 'grupoAnimadorId',
+  grupoCrismandoId: 'grupoCrismandoId'
 } as const
 
 export type AnimadorScalarFieldEnum = (typeof AnimadorScalarFieldEnum)[keyof typeof AnimadorScalarFieldEnum]
@@ -949,6 +1025,18 @@ export const FrequenciaScalarFieldEnum = {
 } as const
 
 export type FrequenciaScalarFieldEnum = (typeof FrequenciaScalarFieldEnum)[keyof typeof FrequenciaScalarFieldEnum]
+
+
+export const FrequenciaAnimadorScalarFieldEnum = {
+  id: 'id',
+  animadorId: 'animadorId',
+  tipo: 'tipo',
+  status: 'status',
+  dataFrequencia: 'dataFrequencia',
+  justificativa: 'justificativa'
+} as const
+
+export type FrequenciaAnimadorScalarFieldEnum = (typeof FrequenciaAnimadorScalarFieldEnum)[keyof typeof FrequenciaAnimadorScalarFieldEnum]
 
 
 export const CaixinhaScalarFieldEnum = {
@@ -1083,6 +1171,20 @@ export type ListEnumStatusFrequenciaFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
+ * Reference to a field of type 'DescricaoFrequenciaAnimador'
+ */
+export type EnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DescricaoFrequenciaAnimador'>
+    
+
+
+/**
+ * Reference to a field of type 'DescricaoFrequenciaAnimador[]'
+ */
+export type ListEnumDescricaoFrequenciaAnimadorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DescricaoFrequenciaAnimador[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1194,6 +1296,7 @@ export type GlobalOmitConfig = {
   grupo?: Prisma.GrupoOmit
   crismando?: Prisma.CrismandoOmit
   frequencia?: Prisma.FrequenciaOmit
+  frequenciaAnimador?: Prisma.FrequenciaAnimadorOmit
   caixinha?: Prisma.CaixinhaOmit
   refreshToken?: Prisma.RefreshTokenOmit
 }

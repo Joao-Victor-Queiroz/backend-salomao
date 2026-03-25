@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma.service';
 export class FrequenciaService {
   constructor(private prisma: PrismaService) {}
 
-  registerFrequencia(createFrequenciaDto: CreateFrequenciaDto) {
+  registerFrequenciaCrismando(createFrequenciaDto: CreateFrequenciaDto) {
     const { dataFrequencia, frequencias } = createFrequenciaDto;
 
     const dadosConvertidos = frequencias.map((frequencia) => ({

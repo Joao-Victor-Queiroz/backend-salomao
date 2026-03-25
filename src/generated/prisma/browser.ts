@@ -38,6 +38,11 @@ export type Crismando = Prisma.CrismandoModel
  */
 export type Frequencia = Prisma.FrequenciaModel
 /**
+ * Model FrequenciaAnimador
+ * 
+ */
+export type FrequenciaAnimador = Prisma.FrequenciaAnimadorModel
+/**
  * Model Caixinha
  * 
  */
