@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFrequenciaDto } from './dto/create-frequencia.dto';
 import { UpdateFrequenciaDto } from './dto/update-frequencia.dto';
+import { CreateAnimadorFrequenciaDto } from './dto/register-frequencia-animador.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -18,6 +19,25 @@ export class FrequenciaService {
     }));
 
     return this.prisma.frequencia.createMany({
+      data: dadosConvertidos,
+      skipDuplicates: true,
+    });
+  }
+
+  registerFrequenciaAnimador(
+    createFrequenciaAnimadorDto: CreateAnimadorFrequenciaDto,
+  ) {
+    const { dataFrequencia, frequencias } = createFrequenciaAnimadorDto;
+
+    const dadosConvertidos = frequencias.map((frequencia) => ({
+      animadorId: frequencia.animadorId,
+      status: frequencia.status,
+      tipo: frequencia.tipo,
+      justificativa: frequencia.justificativa,
+      dataFrequencia: new Date(dataFrequencia),
+    }));
+
+    return this.prisma.frequenciaAnimador.createMany({
       data: dadosConvertidos,
       skipDuplicates: true,
     });
