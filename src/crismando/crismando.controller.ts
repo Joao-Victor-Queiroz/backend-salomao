@@ -6,13 +6,10 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 import { CrismandoService } from './crismando.service';
 import { CreateCrismandoDto } from './dto/create-crismando.dto';
 import { UpdateCrismandoDto } from './dto/update-crismando.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { RoleGuard } from 'src/auth/guards/roles.guard';
 import { Role } from 'src/auth/decorators/roles.decorator';
 import { Cargo } from 'src/generated/prisma/enums';
 import {
@@ -21,7 +18,10 @@ import {
   ApiBody,
   ApiCreatedResponse,
 } from '@nestjs/swagger';
-import { CrismandosListResponseDto } from './dto/responses/crismandos-list.dto';
+import {
+  CrismandosListResponseDto,
+  CrismandosSemGrupoDto,
+} from './dto/responses/crismandos-list.dto';
 import { CrismandoEntity } from './entities/crismando.entity';
 
 @ApiBearerAuth()
@@ -41,10 +41,15 @@ export class CrismandoController {
 
   @Get('todos-crismandos')
   @ApiOkResponse({ type: CrismandosListResponseDto, isArray: true })
-  @UseGuards(JwtAuthGuard, RoleGuard)
   findAll() {
     console.log('Controller executado');
     return this.crismandoService.findAllCrismandos();
+  }
+
+  @Get('crismandos-sem-grupo')
+  @ApiOkResponse({ type: CrismandosSemGrupoDto, isArray: true })
+  findCrismandosSemGrupo() {
+    return this.crismandoService.findCrismandosSemGrupo();
   }
 
   @Get(':id')

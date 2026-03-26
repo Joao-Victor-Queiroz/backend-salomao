@@ -19,3 +19,20 @@ export class CrismandosListResponseDto {
   @ApiProperty()
   ativo: boolean;
 }
+
+export class CrismandosSemGrupoDto {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  nomeCrismando: string;
+
+  @ApiProperty()
+  dataNascimento: Date;
+
+  @ApiProperty()
+  idade: number;
+
+  @ApiProperty()
+  ativo: boolean;
+}
