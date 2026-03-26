@@ -30,6 +30,11 @@ export class AnimadoresController {
     return this.animadoresService.findAll();
   }
 
+  @Get('animadores-sem-grupo')
+  findAnimadoresSemGrupo() {
+    return this.animadoresService.findAnimadoresSemGrupo();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.animadoresService.findOne(id);

@@ -29,6 +29,12 @@ export class AnimadoresService {
     });
   }
 
+  findAnimadoresSemGrupo() {
+    return this.prisma.animador.findMany({
+      where: { grupoCrismandoId: null },
+    });
+  }
+
   async findAnimador(email: string): Promise<Animador | null> {
     return this.prisma.animador.findUnique({
       where: { email: email },
