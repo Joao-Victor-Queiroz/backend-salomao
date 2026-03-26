@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateAnimadorDto } from './dto/create-animador.dto';
 import { UpdateAnimadorDto } from './dto/update-animador.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -25,7 +29,7 @@ export class AnimadoresService {
 
   findAll() {
     return this.prisma.animador.findMany({
-      omit: { password: true, grupoCrismandoId: true },
+      omit: { password: true },
     });
   }
 
@@ -47,10 +51,17 @@ export class AnimadoresService {
     });
   }
 
-  findOne(id: string) {
-    return this.prisma.animador.findUnique({
+  async findOne(id: string) {
+    const animador = await this.prisma.animador.findUnique({
       where: { id: id },
+      omit: { password: true },
     });
+
+    if (!animador) {
+      throw new NotFoundException('Animador não encontrado.');
+    }
+
+    return animador;
   }
 
   update(id: string, updateAnimadorDto: UpdateAnimadorDto, user: Payload) {

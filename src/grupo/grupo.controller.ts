@@ -15,6 +15,10 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { Role } from 'src/auth/decorators/roles.decorator';
 import { Cargo } from 'src/generated/prisma/enums';
 import { AddAnimadoresDto } from './dto/add-animadores.dto';
+import {
+  GrupoResponseDto,
+  UniqueGrupoResponseDto,
+} from './dto/grupo-response.dto';
 
 @ApiBearerAuth()
 @Controller('grupo')
@@ -28,7 +32,7 @@ export class GrupoController {
   }
 
   @Get('todos-grupos')
-  findAll() {
+  findAll(): Promise<UniqueGrupoResponseDto[]> {
     return this.grupoService.findAll();
   }
 
@@ -38,7 +42,7 @@ export class GrupoController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<GrupoResponseDto> {
     return this.grupoService.findGrupoCrismandos(id);
   }
 
@@ -55,7 +59,7 @@ export class GrupoController {
     return this.grupoService.addCrismandos(id, addCrismandosDto);
   }
 
-  @Post('adicionar-animadores/:id')
+  @Patch('adicionar-animadores/:id')
   @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA)
   addAnimadores(
     @Param('id') id: string,

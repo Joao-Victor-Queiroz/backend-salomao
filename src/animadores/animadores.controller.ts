@@ -31,12 +31,12 @@ export class AnimadoresController {
   }
 
   @Get('animadores-sem-grupo')
-  findAnimadoresSemGrupo() {
+  findAnimadoresSemGrupo(): Promise<AnimadorResponseDto[]> {
     return this.animadoresService.findAnimadoresSemGrupo();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<AnimadorResponseDto> {
     return this.animadoresService.findOne(id);
   }
 

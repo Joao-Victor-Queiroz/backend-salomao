@@ -11,6 +11,12 @@ export class AnimadorResponseDto {
   @ApiProperty({ example: 'joao@email.com' })
   email: string;
 
+  @ApiProperty({ nullable: true })
+  grupoAnimadorId: string | null;
+
+  @ApiProperty({ nullable: true })
+  grupoCrismandoId: string | null;
+
   @ApiProperty({ enum: Cargo, example: Cargo.ANIMADOR })
   cargo: Cargo;
 }

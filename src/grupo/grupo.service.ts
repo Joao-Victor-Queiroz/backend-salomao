@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateGrupoDto } from './dto/create-grupo.dto';
 import { UpdateGrupoDto } from './dto/update-grupo.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -19,11 +23,13 @@ export class GrupoService {
   }
 
   findAll() {
-    return this.prisma.grupo.findMany();
+    return this.prisma.grupo.findMany({
+      orderBy: { nomeGrupo: 'asc' },
+    });
   }
 
-  findGrupoCrismandos(id: string) {
-    return this.prisma.grupo.findUnique({
+  async findGrupoCrismandos(id: string) {
+    const grupo = await this.prisma.grupo.findUnique({
       where: { id: id },
       include: {
         crismandos: {
@@ -43,10 +49,16 @@ export class GrupoService {
         },
       },
     });
+
+    if (!grupo) {
+      throw new NotFoundException('Grupo não encontrado.');
+    }
+
+    return grupo;
   }
 
-  findGrupoAnimadoresFrequencia() {
-    return this.prisma.grupo.findUnique({
+  async findGrupoAnimadoresFrequencia() {
+    const grupoAnimadores = await this.prisma.grupo.findUnique({
       where: { id: GRUPO_ID },
       include: {
         animadoresFrequencia: {
@@ -58,6 +70,12 @@ export class GrupoService {
         },
       },
     });
+
+    if (!grupoAnimadores) {
+      throw new NotFoundException('Grupo não encontrado.');
+    }
+
+    return grupoAnimadores;
   }
 
   async addAnimadores(idGrupo: string, addAnimadoresDto: AddAnimadoresDto) {
