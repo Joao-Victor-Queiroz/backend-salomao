@@ -82,6 +82,7 @@ export const AnimadorScalarFieldEnum = {
   email: 'email',
   password: 'password',
   cargo: 'cargo',
+  dataNascimento: 'dataNascimento',
   grupoAnimadorId: 'grupoAnimadorId',
   grupoCrismandoId: 'grupoCrismandoId'
 } as const

@@ -30,6 +30,7 @@ export type AnimadorMinAggregateOutputType = {
   email: string | null
   password: string | null
   cargo: $Enums.Cargo | null
+  dataNascimento: Date | null
   grupoAnimadorId: string | null
   grupoCrismandoId: string | null
 }
@@ -40,6 +41,7 @@ export type AnimadorMaxAggregateOutputType = {
   email: string | null
   password: string | null
   cargo: $Enums.Cargo | null
+  dataNascimento: Date | null
   grupoAnimadorId: string | null
   grupoCrismandoId: string | null
 }
@@ -50,6 +52,7 @@ export type AnimadorCountAggregateOutputType = {
   email: number
   password: number
   cargo: number
+  dataNascimento: number
   grupoAnimadorId: number
   grupoCrismandoId: number
   _all: number
@@ -62,6 +65,7 @@ export type AnimadorMinAggregateInputType = {
   email?: true
   password?: true
   cargo?: true
+  dataNascimento?: true
   grupoAnimadorId?: true
   grupoCrismandoId?: true
 }
@@ -72,6 +76,7 @@ export type AnimadorMaxAggregateInputType = {
   email?: true
   password?: true
   cargo?: true
+  dataNascimento?: true
   grupoAnimadorId?: true
   grupoCrismandoId?: true
 }
@@ -82,6 +87,7 @@ export type AnimadorCountAggregateInputType = {
   email?: true
   password?: true
   cargo?: true
+  dataNascimento?: true
   grupoAnimadorId?: true
   grupoCrismandoId?: true
   _all?: true
@@ -165,6 +171,7 @@ export type AnimadorGroupByOutputType = {
   email: string
   password: string
   cargo: $Enums.Cargo
+  dataNascimento: Date
   grupoAnimadorId: string | null
   grupoCrismandoId: string | null
   _count: AnimadorCountAggregateOutputType | null
@@ -196,6 +203,7 @@ export type AnimadorWhereInput = {
   email?: Prisma.StringFilter<"Animador"> | string
   password?: Prisma.StringFilter<"Animador"> | string
   cargo?: Prisma.EnumCargoFilter<"Animador"> | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFilter<"Animador"> | Date | string
   grupoAnimadorId?: Prisma.StringNullableFilter<"Animador"> | string | null
   grupoCrismandoId?: Prisma.StringNullableFilter<"Animador"> | string | null
   frequencias?: Prisma.FrequenciaAnimadorListRelationFilter
@@ -210,6 +218,7 @@ export type AnimadorOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
+  dataNascimento?: Prisma.SortOrder
   grupoAnimadorId?: Prisma.SortOrderInput | Prisma.SortOrder
   grupoCrismandoId?: Prisma.SortOrderInput | Prisma.SortOrder
   frequencias?: Prisma.FrequenciaAnimadorOrderByRelationAggregateInput
@@ -227,6 +236,7 @@ export type AnimadorWhereUniqueInput = Prisma.AtLeast<{
   nomeAnimador?: Prisma.StringFilter<"Animador"> | string
   password?: Prisma.StringFilter<"Animador"> | string
   cargo?: Prisma.EnumCargoFilter<"Animador"> | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFilter<"Animador"> | Date | string
   grupoAnimadorId?: Prisma.StringNullableFilter<"Animador"> | string | null
   grupoCrismandoId?: Prisma.StringNullableFilter<"Animador"> | string | null
   frequencias?: Prisma.FrequenciaAnimadorListRelationFilter
@@ -241,6 +251,7 @@ export type AnimadorOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
+  dataNascimento?: Prisma.SortOrder
   grupoAnimadorId?: Prisma.SortOrderInput | Prisma.SortOrder
   grupoCrismandoId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AnimadorCountOrderByAggregateInput
@@ -257,6 +268,7 @@ export type AnimadorScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Animador"> | string
   password?: Prisma.StringWithAggregatesFilter<"Animador"> | string
   cargo?: Prisma.EnumCargoWithAggregatesFilter<"Animador"> | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeWithAggregatesFilter<"Animador"> | Date | string
   grupoAnimadorId?: Prisma.StringNullableWithAggregatesFilter<"Animador"> | string | null
   grupoCrismandoId?: Prisma.StringNullableWithAggregatesFilter<"Animador"> | string | null
 }
@@ -267,6 +279,7 @@ export type AnimadorCreateInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   frequencias?: Prisma.FrequenciaAnimadorCreateNestedManyWithoutAnimadorInput
   grupoAnimador?: Prisma.GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput
   grupoCrismando?: Prisma.GrupoCreateNestedOneWithoutAnimadoresMinisterioInput
@@ -279,6 +292,7 @@ export type AnimadorUncheckedCreateInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoAnimadorId?: string | null
   grupoCrismandoId?: string | null
   frequencias?: Prisma.FrequenciaAnimadorUncheckedCreateNestedManyWithoutAnimadorInput
@@ -291,6 +305,7 @@ export type AnimadorUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   frequencias?: Prisma.FrequenciaAnimadorUpdateManyWithoutAnimadorNestedInput
   grupoAnimador?: Prisma.GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput
   grupoCrismando?: Prisma.GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput
@@ -303,6 +318,7 @@ export type AnimadorUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frequencias?: Prisma.FrequenciaAnimadorUncheckedUpdateManyWithoutAnimadorNestedInput
@@ -315,6 +331,7 @@ export type AnimadorCreateManyInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoAnimadorId?: string | null
   grupoCrismandoId?: string | null
 }
@@ -325,6 +342,7 @@ export type AnimadorUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AnimadorUncheckedUpdateManyInput = {
@@ -333,6 +351,7 @@ export type AnimadorUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -343,6 +362,7 @@ export type AnimadorCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
+  dataNascimento?: Prisma.SortOrder
   grupoAnimadorId?: Prisma.SortOrder
   grupoCrismandoId?: Prisma.SortOrder
 }
@@ -353,6 +373,7 @@ export type AnimadorMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
+  dataNascimento?: Prisma.SortOrder
   grupoAnimadorId?: Prisma.SortOrder
   grupoCrismandoId?: Prisma.SortOrder
 }
@@ -363,6 +384,7 @@ export type AnimadorMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
   cargo?: Prisma.SortOrder
+  dataNascimento?: Prisma.SortOrder
   grupoAnimadorId?: Prisma.SortOrder
   grupoCrismandoId?: Prisma.SortOrder
 }
@@ -393,6 +415,10 @@ export type StringFieldUpdateOperationsInput = {
 
 export type EnumCargoFieldUpdateOperationsInput = {
   set?: $Enums.Cargo
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -519,6 +545,7 @@ export type AnimadorCreateWithoutGrupoAnimadorInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   frequencias?: Prisma.FrequenciaAnimadorCreateNestedManyWithoutAnimadorInput
   grupoCrismando?: Prisma.GrupoCreateNestedOneWithoutAnimadoresMinisterioInput
   sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
@@ -530,6 +557,7 @@ export type AnimadorUncheckedCreateWithoutGrupoAnimadorInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoCrismandoId?: string | null
   frequencias?: Prisma.FrequenciaAnimadorUncheckedCreateNestedManyWithoutAnimadorInput
   sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
@@ -551,6 +579,7 @@ export type AnimadorCreateWithoutGrupoCrismandoInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   frequencias?: Prisma.FrequenciaAnimadorCreateNestedManyWithoutAnimadorInput
   grupoAnimador?: Prisma.GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput
   sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
@@ -562,6 +591,7 @@ export type AnimadorUncheckedCreateWithoutGrupoCrismandoInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoAnimadorId?: string | null
   frequencias?: Prisma.FrequenciaAnimadorUncheckedCreateNestedManyWithoutAnimadorInput
   sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
@@ -602,6 +632,7 @@ export type AnimadorScalarWhereInput = {
   email?: Prisma.StringFilter<"Animador"> | string
   password?: Prisma.StringFilter<"Animador"> | string
   cargo?: Prisma.EnumCargoFilter<"Animador"> | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFilter<"Animador"> | Date | string
   grupoAnimadorId?: Prisma.StringNullableFilter<"Animador"> | string | null
   grupoCrismandoId?: Prisma.StringNullableFilter<"Animador"> | string | null
 }
@@ -628,6 +659,7 @@ export type AnimadorCreateWithoutFrequenciasInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoAnimador?: Prisma.GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput
   grupoCrismando?: Prisma.GrupoCreateNestedOneWithoutAnimadoresMinisterioInput
   sessions?: Prisma.RefreshTokenCreateNestedManyWithoutAnimadorInput
@@ -639,6 +671,7 @@ export type AnimadorUncheckedCreateWithoutFrequenciasInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoAnimadorId?: string | null
   grupoCrismandoId?: string | null
   sessions?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutAnimadorInput
@@ -666,6 +699,7 @@ export type AnimadorUpdateWithoutFrequenciasInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoAnimador?: Prisma.GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput
   grupoCrismando?: Prisma.GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput
   sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
@@ -677,6 +711,7 @@ export type AnimadorUncheckedUpdateWithoutFrequenciasInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
@@ -688,6 +723,7 @@ export type AnimadorCreateWithoutSessionsInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   frequencias?: Prisma.FrequenciaAnimadorCreateNestedManyWithoutAnimadorInput
   grupoAnimador?: Prisma.GrupoCreateNestedOneWithoutAnimadoresFrequenciaInput
   grupoCrismando?: Prisma.GrupoCreateNestedOneWithoutAnimadoresMinisterioInput
@@ -699,6 +735,7 @@ export type AnimadorUncheckedCreateWithoutSessionsInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoAnimadorId?: string | null
   grupoCrismandoId?: string | null
   frequencias?: Prisma.FrequenciaAnimadorUncheckedCreateNestedManyWithoutAnimadorInput
@@ -726,6 +763,7 @@ export type AnimadorUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   frequencias?: Prisma.FrequenciaAnimadorUpdateManyWithoutAnimadorNestedInput
   grupoAnimador?: Prisma.GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput
   grupoCrismando?: Prisma.GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput
@@ -737,6 +775,7 @@ export type AnimadorUncheckedUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frequencias?: Prisma.FrequenciaAnimadorUncheckedUpdateManyWithoutAnimadorNestedInput
@@ -748,6 +787,7 @@ export type AnimadorCreateManyGrupoAnimadorInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoCrismandoId?: string | null
 }
 
@@ -757,6 +797,7 @@ export type AnimadorCreateManyGrupoCrismandoInput = {
   email: string
   password: string
   cargo?: $Enums.Cargo
+  dataNascimento: Date | string
   grupoAnimadorId?: string | null
 }
 
@@ -766,6 +807,7 @@ export type AnimadorUpdateWithoutGrupoAnimadorInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   frequencias?: Prisma.FrequenciaAnimadorUpdateManyWithoutAnimadorNestedInput
   grupoCrismando?: Prisma.GrupoUpdateOneWithoutAnimadoresMinisterioNestedInput
   sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
@@ -777,6 +819,7 @@ export type AnimadorUncheckedUpdateWithoutGrupoAnimadorInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frequencias?: Prisma.FrequenciaAnimadorUncheckedUpdateManyWithoutAnimadorNestedInput
   sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
@@ -788,6 +831,7 @@ export type AnimadorUncheckedUpdateManyWithoutGrupoAnimadorInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoCrismandoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -797,6 +841,7 @@ export type AnimadorUpdateWithoutGrupoCrismandoInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   frequencias?: Prisma.FrequenciaAnimadorUpdateManyWithoutAnimadorNestedInput
   grupoAnimador?: Prisma.GrupoUpdateOneWithoutAnimadoresFrequenciaNestedInput
   sessions?: Prisma.RefreshTokenUpdateManyWithoutAnimadorNestedInput
@@ -808,6 +853,7 @@ export type AnimadorUncheckedUpdateWithoutGrupoCrismandoInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frequencias?: Prisma.FrequenciaAnimadorUncheckedUpdateManyWithoutAnimadorNestedInput
   sessions?: Prisma.RefreshTokenUncheckedUpdateManyWithoutAnimadorNestedInput
@@ -819,6 +865,7 @@ export type AnimadorUncheckedUpdateManyWithoutGrupoCrismandoInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   cargo?: Prisma.EnumCargoFieldUpdateOperationsInput | $Enums.Cargo
+  dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   grupoAnimadorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -868,6 +915,7 @@ export type AnimadorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   email?: boolean
   password?: boolean
   cargo?: boolean
+  dataNascimento?: boolean
   grupoAnimadorId?: boolean
   grupoCrismandoId?: boolean
   frequencias?: boolean | Prisma.Animador$frequenciasArgs<ExtArgs>
@@ -883,6 +931,7 @@ export type AnimadorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   password?: boolean
   cargo?: boolean
+  dataNascimento?: boolean
   grupoAnimadorId?: boolean
   grupoCrismandoId?: boolean
   grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
@@ -895,6 +944,7 @@ export type AnimadorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   password?: boolean
   cargo?: boolean
+  dataNascimento?: boolean
   grupoAnimadorId?: boolean
   grupoCrismandoId?: boolean
   grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
@@ -907,11 +957,12 @@ export type AnimadorSelectScalar = {
   email?: boolean
   password?: boolean
   cargo?: boolean
+  dataNascimento?: boolean
   grupoAnimadorId?: boolean
   grupoCrismandoId?: boolean
 }
 
-export type AnimadorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomeAnimador" | "email" | "password" | "cargo" | "grupoAnimadorId" | "grupoCrismandoId", ExtArgs["result"]["animador"]>
+export type AnimadorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomeAnimador" | "email" | "password" | "cargo" | "dataNascimento" | "grupoAnimadorId" | "grupoCrismandoId", ExtArgs["result"]["animador"]>
 export type AnimadorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   frequencias?: boolean | Prisma.Animador$frequenciasArgs<ExtArgs>
   grupoAnimador?: boolean | Prisma.Animador$grupoAnimadorArgs<ExtArgs>
@@ -942,6 +993,7 @@ export type $AnimadorPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     email: string
     password: string
     cargo: $Enums.Cargo
+    dataNascimento: Date
     grupoAnimadorId: string | null
     grupoCrismandoId: string | null
   }, ExtArgs["result"]["animador"]>
@@ -1376,6 +1428,7 @@ export interface AnimadorFieldRefs {
   readonly email: Prisma.FieldRef<"Animador", 'String'>
   readonly password: Prisma.FieldRef<"Animador", 'String'>
   readonly cargo: Prisma.FieldRef<"Animador", 'Cargo'>
+  readonly dataNascimento: Prisma.FieldRef<"Animador", 'DateTime'>
   readonly grupoAnimadorId: Prisma.FieldRef<"Animador", 'String'>
   readonly grupoCrismandoId: Prisma.FieldRef<"Animador", 'String'>
 }

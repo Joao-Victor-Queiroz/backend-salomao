@@ -41,6 +41,7 @@ model Animador {
   email String @unique
   password String
   cargo Cargo @default(ANIMADOR)
+  dataNascimento DateTime @db.Date
   frequencias FrequenciaAnimador[]
   grupoAnimadorId String?
   grupoAnimador Grupo? @relation("GrupoFrequencia", fields: [grupoAnimadorId], references: [id])

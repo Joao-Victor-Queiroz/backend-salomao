@@ -63,6 +63,8 @@ export class AuthService {
         id: animador.id,
         nome: animador.nomeAnimador,
         cargo: animador.cargo,
+        grupoAnimadorId: animador.grupoAnimadorId,
+        grupoCrismandoId: animador.grupoCrismandoId,
       },
     };
   }
@@ -86,6 +88,17 @@ export class AuthService {
     });
 
     return token;
+  }
+
+  async myProfile(userId: string) {
+    console.log('Id recebido: ', userId);
+
+    const user = await this.animadoresService.findById(userId);
+
+    if (!user) {
+      throw new UnauthorizedException('Usuário não encontrado');
+    }
+    return user;
   }
 
   async refreshToken(token: string, ip: string, userAgent: string) {
