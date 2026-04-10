@@ -36,7 +36,7 @@ export class AuthController {
   @Public()
   @Post('refresh-token')
   refreshToken(
-    @Cookies('refreshToken') refreshToken: string,
+    @Body('refreshToken') refreshToken: string,
     @Ip() ip: string,
     @Headers('user-agent') userAgent: string,
   ) {
