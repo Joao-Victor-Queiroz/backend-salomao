@@ -102,7 +102,11 @@ export class AuthService {
   }
 
   async refreshToken(token: string, ip: string, userAgent: string) {
+    console.log('--- REFRESH TOKEN INICIADO ---');
+    console.log('Token original recebido pelo front:', token);
+
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    console.log('Hash gerado para busca:', hashedToken);
 
     const tokenData = await this.prisma.refreshToken.findFirst({
       where: { token: hashedToken },
@@ -110,8 +114,14 @@ export class AuthService {
     });
 
     if (!tokenData) {
+      console.log('Erro: Nenhum tokenData encontrado no banco para este hash.');
       throw new UnauthorizedException('Token inválido');
     }
+
+    console.log(
+      'Token encontrado no banco. Pertence ao usuário ID:',
+      tokenData.animadorId,
+    );
 
     if (tokenData.ipAdress !== ip || tokenData.userAgent !== userAgent) {
       await this.prisma.refreshToken.delete({

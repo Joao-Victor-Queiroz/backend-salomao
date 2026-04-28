@@ -11,7 +11,7 @@ import {
 import { CreateAnimadorDto } from 'src/animadores/dto/create-animador.dto';
 import { AuthService } from './auth.service';
 import { Public } from 'src/is-public.decorator';
-import { Cookies } from './decorators/cookie.decorator';
+
 
 @Controller('auth')
 export class AuthController {
@@ -49,7 +49,7 @@ export class AuthController {
 
   @Public()
   @Post('logout')
-  logout(@Cookies('refreshToken') refreshToken: string) {
+  logout(@Body('refreshToken') refreshToken: string) {
     if (refreshToken) {
       return this.authService.logout(refreshToken);
     }

@@ -21,6 +21,8 @@ export class CrismandoService {
         idade: true,
         dataNascimento: true,
         ativo: true,
+        batizado: true,
+        primeiraEucaristia: true,
         grupo: {
           select: {
             nomeGrupo: true,
