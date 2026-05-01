@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCrismandoDto } from './dto/create-crismando.dto';
 import { UpdateCrismandoDto } from './dto/update-crismando.dto';
 import { PrismaService } from 'src/prisma.service';
+import { QueryCrismandoDto } from './dto/query-crismando.dto';
 
 @Injectable()
 export class CrismandoService {
@@ -13,8 +14,14 @@ export class CrismandoService {
     });
   }
 
-  async findAllCrismandos() {
+  async findAllCrismandos(query: QueryCrismandoDto) {
+    const {limit, page} = query;
+
+    const skip = (page - 1) * limit;
+
     const crismandos = await this.prisma.crismando.findMany({
+      skip: skip,
+      take: limit,
       select: {
         id: true,
         nomeCrismando: true,
@@ -31,6 +38,10 @@ export class CrismandoService {
       },
     });
 
+    const totalCrismandos = await this.prisma.crismando.count();
+
+
+
     return crismandos.map((crismando) => ({
       id: crismando.id,
       nomeCrismando: crismando.nomeCrismando,
@@ -38,6 +49,9 @@ export class CrismandoService {
       dataNascimento: crismando.dataNascimento,
       ativo: crismando.ativo,
       nomeGrupo: crismando.grupo?.nomeGrupo || 'Sem Grupo',
+      totalCrismandos,
+      totalPages: Math.ceil(totalCrismandos / limit),
+      currentPage: page,
     }));
   }
 
