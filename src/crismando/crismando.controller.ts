@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  Query
 } from '@nestjs/common';
 import { CrismandoService } from './crismando.service';
 import { CreateCrismandoDto } from './dto/create-crismando.dto';
@@ -24,7 +23,6 @@ import {
   CrismandosSemGrupoDto,
 } from './dto/responses/crismandos-list.dto';
 import { CrismandoEntity } from './entities/crismando.entity';
-import { QueryCrismandoDto } from './dto/query-crismando.dto';
 
 @ApiBearerAuth()
 @Controller('crismando')
@@ -43,9 +41,9 @@ export class CrismandoController {
 
   @Get('todos-crismandos')
   @ApiOkResponse({ type: CrismandosListResponseDto, isArray: true })
-  findAll(@Query() query: QueryCrismandoDto) {
+  findAll() {
     console.log('Controller executado');
-    return this.crismandoService.findAllCrismandos(query);
+    return this.crismandoService.findAllCrismandos();
   }
 
   @Get('crismandos-sem-grupo')
