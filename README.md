@@ -1,9 +1,17 @@
 <p align="center">
-  <h1 align="center">🕊️ Coroinhas MR - Backend API</h1>
+  <h1 align="center">🕊️ Projeto Salomão - Backend API</h1>
 </p>
 
 <p align="center">
-  <strong>Uma API RESTful robusta desenvolvida em NestJS para gestão e acompanhamento de coroinhas/crismandos, substituindo planilhas manuais por um sistema escalável e seguro.</strong>
+  <img src="https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS">
+  <img src="https://img.shields.io/badge/typescript-%230074c1.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white" alt="Prisma">
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
+  <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+</p>
+
+<p align="center">
+  <strong>Uma API RESTful robusta desenvolvida em NestJS para gestão e acompanhamento da pastoral de crisma, substituindo planilhas manuais por um sistema escalável e seguro.</strong>
 </p>
 
 ---
@@ -20,12 +28,19 @@ Para resolver esses problemas de frente e elevar o nível técnico do projeto, d
 - **Arquitetura Fortemente Opinada e Modular:** Facilita a separação de domínios (ex: `Auth`, `Crismando`), injeção de dependências nativa (IoC) e uma base de código clara, testável e pronta para escalar, alinhada com padrões de mercado.
 - **TypeScript-First:** Segurança de tipos de ponta a ponta, desde a validação de entrada (DTOs com `class-validator`) até a persistência no banco de dados.
 
-## ✨ Novidades e Melhorias (Autenticação e Segurança)
+## ✨ Principais Funcionalidades e Melhorias
 
-Aproveitei o processo de reescrita para implementar funcionalidades críticas que a antiga versão em Express simplesmente não possuía:
+Aproveitei o processo de reescrita para não apenas melhorar a arquitetura, mas também implementar funcionalidades críticas e regras de negócio essenciais para a pastoral:
 
+### 🛡️ Segurança e Autenticação
 - 🔐 **Autenticação Própria:** Anteriormente o sistema não possuía um módulo de autenticação. Agora, conta com um fluxo completo de login seguro e validação de rotas.
 - 🎟️ **JWT e Refresh Tokens:** Autenticação baseada em JSON Web Tokens (Access Tokens de curta duração). As sessões são gerenciadas de forma segura com **Refresh Tokens**, que são validados e armazenados no banco de dados, permitindo a rotação segura de credenciais e revogação de acessos quando necessário.
+- 🚧 **Controle de Acesso (RBAC):** Implementação de *Role-Based Access Control* utilizando **Decorators customizados** do NestJS, garantindo que apenas usuários com as permissões e cargos corretos acessem determinadas rotas.
+
+### 📋 Gestão da Pastoral
+- 👥 **Gerenciamento de Grupos:** Criação e administração estruturada das turmas de crisma.
+- ✅ **Registro de Frequência:** Sistema otimizado para o lançamento e acompanhamento de presença focado por grupo, facilitando a gestão pelos catequistas.
+- 💰 **Controle Financeiro:** Registro e acompanhamento dos valores pagos por cada crismando (ex: taxas, retiros, camisas).
 - 🗄️ **Integração com Supabase:** Migração do armazenamento de dados para o **Supabase** (PostgreSQL), manipulado via **Prisma ORM**, o que garante queries otimizadas, seguras contra injeções e estritamente tipadas.
 
 ## 🛠️ Tecnologias Utilizadas
@@ -63,7 +78,6 @@ Crie um arquivo `.env` na raiz do projeto contendo as chaves necessárias (use o
 ```env
 DATABASE_URL="sua_string_de_conexao_postgresql"
 JWT_SECRET="sua_chave_secreta_jwt"
-JWT_REFRESH_SECRET="sua_chave_secreta_refresh_jwt"
 # Outras variáveis necessárias (ex: portas, etc)
 ```
 
