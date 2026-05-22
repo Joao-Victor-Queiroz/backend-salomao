@@ -18,6 +18,12 @@ export class CrismandosListResponseDto {
 
   @ApiProperty()
   ativo: boolean;
+
+  @ApiProperty()
+  primeiraEucaristia: string;
+
+  @ApiProperty()
+  batizado: string;
 }
 
 export class CrismandosSemGrupoDto {

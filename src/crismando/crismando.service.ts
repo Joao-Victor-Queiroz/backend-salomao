@@ -35,6 +35,8 @@ export class CrismandoService {
       }
     });
 
+    console.log('Crismandos retornados: ', crismandos)
+
 
     return crismandos.map((crismando) => ({
       id: crismando.id,
@@ -43,6 +45,8 @@ export class CrismandoService {
       dataNascimento: crismando.dataNascimento,
       ativo: crismando.ativo,
       nomeGrupo: crismando.grupo?.nomeGrupo || 'Sem Grupo',
+      batizado: crismando.batizado,
+      primeiraEucaristia: crismando.primeiraEucaristia,
     }));
   }
 

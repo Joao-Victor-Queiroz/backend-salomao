@@ -42,7 +42,6 @@ export class CrismandoController {
   @Get('todos-crismandos')
   @ApiOkResponse({ type: CrismandosListResponseDto, isArray: true })
   findAll() {
-    console.log('Controller executado');
     return this.crismandoService.findAllCrismandos();
   }
 
@@ -67,6 +66,7 @@ export class CrismandoController {
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
     Cargo.ANIMADOR_FREQUENCIA,
+    Cargo.FORMADOR,
   )
   update(
     @Param('id') id: string,
