@@ -26,7 +26,7 @@ export class GrupoController {
   constructor(private readonly grupoService: GrupoService) {}
 
   @Post('criar-grupo')
-  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA)
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.FORMADOR)
   create(@Body() createGrupoDto: CreateGrupoDto) {
     return this.grupoService.createGrupo(createGrupoDto);
   }
@@ -51,6 +51,7 @@ export class GrupoController {
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
     Cargo.ANIMADOR_FREQUENCIA,
+    Cargo.FORMADOR,
   )
   addCrismandos(
     @Param('id') id: string,

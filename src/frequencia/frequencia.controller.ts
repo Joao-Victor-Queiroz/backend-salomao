@@ -25,6 +25,7 @@ export class FrequenciaController {
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
     Cargo.ANIMADOR_FREQUENCIA,
+    Cargo.FORMADOR,
   )
   registerFrequencia(@Body() createFrequenciaDto: CreateFrequenciaDto) {
     return this.frequenciaService.registerFrequenciaCrismando(

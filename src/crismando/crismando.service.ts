@@ -53,6 +53,9 @@ export class CrismandoService {
   findCrismandosSemGrupo() {
     return this.prisma.crismando.findMany({
       where: { grupoId: null },
+      orderBy:{
+        idade: 'asc',
+      }
     });
   }
 

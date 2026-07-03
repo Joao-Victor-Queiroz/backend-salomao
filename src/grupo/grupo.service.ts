@@ -38,6 +38,10 @@ export class GrupoService {
             id: true,
             nomeCrismando: true,
             idade: true,
+            caixinhas: true,
+            frequencias: true,
+            batizado: true,
+            primeiraEucaristia: true,
           },
         },
         animadoresMinisterio: {
