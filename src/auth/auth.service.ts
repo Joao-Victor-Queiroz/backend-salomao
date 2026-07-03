@@ -11,6 +11,8 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import * as crypto from 'node:crypto';
 import { SignInDto } from './dto/sign-in.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { Payload } from './jwt.strategy';
 
 export type AnimadorSemSenha = Omit<Animador, 'password'>;
 
@@ -189,9 +191,32 @@ export class AuthService {
     return { message: 'Logout realizado com sucesso.' };
   }
 
-  async changePassword() {
+  async changePassword(changePasswordDto: ChangePasswordDto, user: Payload) {
+    const { senhaAtual, novaSenha } = changePasswordDto
+    const animador = await this.animadoresService.findById(user.sub);
 
-  }
+    if (!animador) {
+      throw new UnauthorizedException('Usuário não encontrado');
+    } 
+
+    const doesPasswordMatch = await bcrypt.compare(senhaAtual, animador.password);
+
+    if (!doesPasswordMatch) {
+      throw new UnauthorizedException('Houve um erro ao tentar atualizar a senha.')
+    }
+
+    const newHashedPassword = await bcrypt.hash(novaSenha, 10);
+
+    if (newHashedPassword === animador.password) {
+      throw new UnauthorizedException('A nova senha não pode ser igual a senha atual.')
+    }
+    
+    await this.animadoresService.update(user.sub, {
+      password: newHashedPassword,
+    }, user);
+
+    return { message: 'Senha atualizada com sucesso.'}
+  } 
 
   async validateUser(email: string, password: string) {
     const animador = await this.animadoresService.findAnimador(email);
