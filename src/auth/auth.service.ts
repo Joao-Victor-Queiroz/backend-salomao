@@ -10,6 +10,7 @@ import { CreateAnimadorDto } from 'src/animadores/dto/create-animador.dto';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import * as crypto from 'node:crypto';
+import { SignInDto } from './dto/sign-in.dto';
 
 export type AnimadorSemSenha = Omit<Animador, 'password'>;
 
@@ -39,7 +40,8 @@ export class AuthService {
     });
   }
 
-  async signIn(email: string, password: string, ip: string, userAgent: string) {
+  async signIn(signInDto: SignInDto, ip: string, userAgent: string) {
+    const {email, password} = signInDto;
     const animador = await this.animadoresService.findAnimador(email);
 
     if (!animador) {
@@ -185,6 +187,10 @@ export class AuthService {
     }
 
     return { message: 'Logout realizado com sucesso.' };
+  }
+
+  async changePassword() {
+
   }
 
   async validateUser(email: string, password: string) {

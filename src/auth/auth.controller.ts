@@ -11,6 +11,7 @@ import {
 import { CreateAnimadorDto } from 'src/animadores/dto/create-animador.dto';
 import { AuthService } from './auth.service';
 import { Public } from 'src/is-public.decorator';
+import { SignInDto } from './dto/sign-in.dto';
 
 
 @Controller('auth')
@@ -26,11 +27,11 @@ export class AuthController {
   @Public()
   @Post('signin')
   signin(
-    @Body() body: { email: string; password: string },
+    @Body() body: { signInDto: SignInDto },
     @Ip() ip: string,
     @Headers('user-agent') userAgent: string,
   ) {
-    return this.authService.signIn(body.email, body.password, ip, userAgent);
+    return this.authService.signIn(body.signInDto, ip, userAgent);
   }
 
   @Public()
