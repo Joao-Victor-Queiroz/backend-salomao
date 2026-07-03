@@ -31,11 +31,11 @@ export class AuthController {
   @Public()
   @Post('signin')
   signin(
-    @Body() body: { signInDto: SignInDto },
+    @Body() signInDto: SignInDto,
     @Ip() ip: string,
     @Headers('user-agent') userAgent: string,
   ) {
-    return this.authService.signIn(body.signInDto, ip, userAgent);
+    return this.authService.signIn(signInDto, ip, userAgent);
   }
 
   @Public()
@@ -60,12 +60,12 @@ export class AuthController {
     }
   }
 
-  @Patch()
+  @Patch('change-password')
   changePassword(
-    @Body() body: { changePasswordDto: ChangePasswordDto },
+    @Body() changePasswordDto: ChangePasswordDto,
     @GetUser() user: AnimadorSemSenha,
   ) {
-    return this.authService.changePassword(body.changePasswordDto, user);
+    return this.authService.changePassword(changePasswordDto, user);
   }
 
   @Get('me')
