@@ -7,11 +7,15 @@ import {
   Ip,
   Request,
   Get,
+  Patch,
 } from '@nestjs/common';
 import { CreateAnimadorDto } from 'src/animadores/dto/create-animador.dto';
 import { AuthService } from './auth.service';
 import { Public } from 'src/is-public.decorator';
 import { SignInDto } from './dto/sign-in.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { type AnimadorSemSenha } from './jwt.strategy';
+import { GetUser } from './decorators/user.decorator';
 
 
 @Controller('auth')
@@ -54,6 +58,14 @@ export class AuthController {
     if (refreshToken) {
       return this.authService.logout(refreshToken);
     }
+  }
+
+  @Patch()
+  changePassword(
+    @Body() body: { changePasswordDto: ChangePasswordDto },
+    @GetUser() user: AnimadorSemSenha,
+  ) {
+    return this.authService.changePassword(body.changePasswordDto, user);
   }
 
   @Get('me')

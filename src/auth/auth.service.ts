@@ -12,9 +12,7 @@ import { PrismaService } from 'src/prisma.service';
 import * as crypto from 'node:crypto';
 import { SignInDto } from './dto/sign-in.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
-import { Payload } from './jwt.strategy';
-
-export type AnimadorSemSenha = Omit<Animador, 'password'>;
+import { AnimadorSemSenha } from './jwt.strategy';
 
 @Injectable()
 export class AuthService {
@@ -191,9 +189,9 @@ export class AuthService {
     return { message: 'Logout realizado com sucesso.' };
   }
 
-  async changePassword(changePasswordDto: ChangePasswordDto, user: Payload) {
+  async changePassword(changePasswordDto: ChangePasswordDto, user: AnimadorSemSenha) {
     const { senhaAtual, novaSenha } = changePasswordDto
-    const animador = await this.animadoresService.findById(user.sub);
+    const animador = await this.animadoresService.findById(user.id);
 
     if (!animador) {
       throw new UnauthorizedException('Usuário não encontrado');
@@ -211,7 +209,7 @@ export class AuthService {
       throw new UnauthorizedException('A nova senha não pode ser igual a senha atual.')
     }
     
-    await this.animadoresService.update(user.sub, {
+    await this.animadoresService.update(user.id, {
       password: newHashedPassword,
     }, user);
 

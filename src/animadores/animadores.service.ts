@@ -7,7 +7,7 @@ import { CreateAnimadorDto } from './dto/create-animador.dto';
 import { UpdateAnimadorDto } from './dto/update-animador.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Animador, Cargo } from '../generated/prisma/client';
-import type { Payload } from 'src/auth/jwt.strategy';
+import type { AnimadorSemSenha } from 'src/auth/jwt.strategy';
 
 const GRUPO_ID = process.env.GRUPO_ANIMADORES_ID;
 @Injectable()
@@ -64,7 +64,7 @@ export class AnimadoresService {
     return animador;
   }
 
-  update(id: string, updateAnimadorDto: UpdateAnimadorDto, user: Payload) {
+  update(id: string, updateAnimadorDto: UpdateAnimadorDto, user: AnimadorSemSenha) {
     if (!this.canAccess(id, user)) {
       throw new ForbiddenException('Você não pode atualizar este animador');
     }
@@ -75,7 +75,7 @@ export class AnimadoresService {
     });
   }
 
-  removeAnimador(id: string, user: Payload) {
+  removeAnimador(id: string, user: AnimadorSemSenha) {
     if (!this.canAccess(id, user)) {
       throw new ForbiddenException('Você não pode excluir este animador');
     }
@@ -84,8 +84,8 @@ export class AnimadoresService {
       where: { id: id },
     });
   }
-  private canAccess(targetId: string, user: Payload): boolean {
-    const isUser = user.sub === targetId;
+  private canAccess(targetId: string, user: AnimadorSemSenha): boolean {
+    const isUser = user.id === targetId;
     const hasRequiredRole = (
       [Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA] as Cargo[]
     ).includes(user.cargo);

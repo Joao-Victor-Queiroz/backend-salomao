@@ -3,12 +3,15 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Cargo } from 'src/generated/prisma/enums';
 import { PrismaService } from 'src/prisma.service';
+import { Animador } from 'src/generated/prisma/client';
 
 export interface Payload {
   sub: string;
   cargo: Cargo;
   grupoId: string;
 }
+
+export type AnimadorSemSenha = Omit<Animador, 'password'>;
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
