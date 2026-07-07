@@ -65,7 +65,7 @@ export class AnimadoresService {
   }
 
   update(id: string, updateAnimadorDto: UpdateAnimadorDto, user: AnimadorSemSenha) {
-    if (!this.canAccess(id, user)) {
+    if (!this.canAccess(id, user) || user.cargo !== Cargo.COORDENADOR_GERAL) {
       throw new ForbiddenException('Você não pode atualizar este animador');
     }
 
@@ -76,7 +76,7 @@ export class AnimadoresService {
   }
 
   removeAnimador(id: string, user: AnimadorSemSenha) {
-    if (!this.canAccess(id, user)) {
+    if (!this.canAccess(id, user) || user.cargo !== Cargo.COORDENADOR_GERAL) {
       throw new ForbiddenException('Você não pode excluir este animador');
     }
 
@@ -84,6 +84,7 @@ export class AnimadoresService {
       where: { id: id },
     });
   }
+
   private canAccess(targetId: string, user: AnimadorSemSenha): boolean {
     const isUser = user.id === targetId;
     const hasRequiredRole = (
