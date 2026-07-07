@@ -14,6 +14,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { CreateAnimadorFrequenciaDto } from './dto/register-frequencia-animador.dto';
 import { Role } from 'src/auth/decorators/roles.decorator';
 import { Cargo } from 'src/generated/prisma/enums';
+import { Public } from 'src/is-public.decorator';
 
 @ApiBearerAuth()
 @Controller('frequencia')
@@ -46,6 +47,11 @@ export class FrequenciaController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.frequenciaService.findOne(id);
+  }
+
+  @Get('frequencia-crismando/:idCrismando')
+  findFrequenciaFromUniqueCrismando(@Param('idCrismando') idCrismando: string){
+    return this.frequenciaService.findFrequenciaFromUniqueCrismando(idCrismando);
   }
 
   @Patch(':id')

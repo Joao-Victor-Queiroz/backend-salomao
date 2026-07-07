@@ -42,6 +42,12 @@ export class FrequenciaService {
       skipDuplicates: true,
     });
   }
+  
+  findFrequenciaFromUniqueCrismando(idCrismando: string){
+    return this.prisma.frequencia.findMany({
+      where: {crismandoId: idCrismando},
+    })
+  }
 
   findOne(id: string) {
     return this.prisma.frequencia.findUnique({

@@ -9,6 +9,7 @@ import {
   Get,
   Patch,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateAnimadorDto } from 'src/animadores/dto/create-animador.dto';
 import { AuthService } from './auth.service';
 import { Public } from 'src/is-public.decorator';
@@ -16,18 +17,28 @@ import { SignInDto } from './dto/sign-in.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { type AnimadorSemSenha } from './jwt.strategy';
 import { GetUser } from './decorators/user.decorator';
+import {
+  ApiSignupDecorator,
+  ApiSigninDecorator,
+  ApiRefreshTokenDecorator,
+  ApiLogoutDecorator,
+  ApiChangePasswordDecorator,
+  ApiMeDecorator,
+} from './decorators/api-swagger.decorator';
 
-
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @ApiSignupDecorator()
   @Public()
   @Post('signup')
   async signup(@Body() body: CreateAnimadorDto) {
     return this.authService.signUp(body);
   }
 
+  @ApiSigninDecorator()
   @Public()
   @Post('signin')
   signin(
@@ -38,6 +49,7 @@ export class AuthController {
     return this.authService.signIn(signInDto, ip, userAgent);
   }
 
+  @ApiRefreshTokenDecorator()
   @Public()
   @Post('refresh-token')
   refreshToken(
@@ -52,6 +64,7 @@ export class AuthController {
     return this.authService.refreshToken(refreshToken, ip, userAgent);
   }
 
+  @ApiLogoutDecorator()
   @Public()
   @Post('logout')
   logout(@Body('refreshToken') refreshToken: string) {
@@ -60,6 +73,7 @@ export class AuthController {
     }
   }
 
+  @ApiChangePasswordDecorator()
   @Patch('change-password')
   changePassword(
     @Body() changePasswordDto: ChangePasswordDto,
@@ -68,6 +82,7 @@ export class AuthController {
     return this.authService.changePassword(changePasswordDto, user);
   }
 
+  @ApiMeDecorator()
   @Get('me')
   myProfile(@Request() req: { user: { id: string } }) {
     return this.authService.myProfile(req.user.id);
