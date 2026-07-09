@@ -65,16 +65,16 @@ export class CrismandoEntity {
   @ApiProperty()
   ativo: boolean;
 
-  @ApiProperty()
-  grupo: {
+  @ApiProperty({ required: false, nullable: true })
+  grupo?: {
     nomeGrupo: string;
-  };
+  } | null;
 
-  @ApiProperty({ type: () => Frequencia, isArray: true })
-  frequencias: Frequencia[];
+  @ApiProperty({ type: () => Frequencia, isArray: true, required: false })
+  frequencias?: Frequencia[];
 
-  @ApiProperty({ type: () => Caixinha, isArray: true })
-  caixinhas: Caixinha[];
+  @ApiProperty({ type: () => Caixinha, isArray: true, required: false })
+  caixinhas?: Caixinha[];
 
   grupoId: string | null;
 }

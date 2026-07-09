@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCrismandoDto } from './dto/create-crismando.dto';
 import { UpdateCrismandoDto } from './dto/update-crismando.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -59,8 +59,8 @@ export class CrismandoService {
     });
   }
 
-  findOneCrismando(id: string) {
-    return this.prisma.crismando.findUnique({
+  async findOneCrismando(id: string) {
+    const crismando = await this.prisma.crismando.findUnique({
       where: { id: id },
       include: {
         grupo: {
@@ -72,6 +72,12 @@ export class CrismandoService {
         caixinhas: true,
       },
     });
+
+    if (!crismando) {
+      throw new NotFoundException('Crismando não encontrado.');
+    }
+
+    return crismando;
   }
 
   updateCrismando(idCrismando: string, updateCrismandoDto: UpdateCrismandoDto) {
