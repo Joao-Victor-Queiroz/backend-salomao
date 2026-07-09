@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCaixinhaDto } from './dto/create-caixinha.dto';
 import { UpdateCaixinhaDto } from './dto/update-caixinha.dto';
 import { PrismaService } from '../prisma.service';
@@ -13,10 +13,16 @@ export class CaixinhaService {
     });
   }
 
-  findOne(id: string) {
-    return this.prisma.caixinha.findFirst({
+  async findOne(id: string) {
+    const caixinha = await this.prisma.caixinha.findUnique({
       where: { id: id },
     });
+
+    if (!caixinha) {
+      throw new NotFoundException('Registro de caixinha não encontrado.');
+    }
+
+    return caixinha;
   }
 
   update(id: string, updateCaixinhaDto: UpdateCaixinhaDto) {
