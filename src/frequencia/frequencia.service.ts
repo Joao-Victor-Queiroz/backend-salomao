@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFrequenciaDto } from './dto/create-frequencia.dto';
 import { UpdateFrequenciaDto } from './dto/update-frequencia.dto';
 import { CreateAnimadorFrequenciaDto } from './dto/register-frequencia-animador.dto';
@@ -49,10 +49,16 @@ export class FrequenciaService {
     })
   }
 
-  findOne(id: string) {
-    return this.prisma.frequencia.findUnique({
+  async findOne(id: string) {
+    const frequencia = await this.prisma.frequencia.findUnique({
       where: { id: id },
     });
+
+    if (!frequencia) {
+      throw new NotFoundException('Frequência não encontrada.');
+    }
+
+    return frequencia;
   }
 
   updateFrequencia(id: string, updateFrequenciaDto: UpdateFrequenciaDto) {
