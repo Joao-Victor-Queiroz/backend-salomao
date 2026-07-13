@@ -43,10 +43,22 @@ export class FrequenciaService {
     });
   }
   
-  findFrequenciaFromUniqueCrismando(idCrismando: string){
-    return this.prisma.frequencia.findMany({
-      where: {crismandoId: idCrismando},
-    })
+  async findFrequenciaFromUniqueCrismando(idCrismando: string) {
+    const crismando = await this.prisma.crismando.findUnique({
+      where: { id: idCrismando },
+      include: {
+        frequencias: true,
+      },
+    });
+
+    if (!crismando) {
+      throw new NotFoundException('Crismando não encontrado.');
+    }
+
+    return {
+      frequencias: crismando.frequencias,
+      nomeCrismando: crismando.nomeCrismando,
+    };
   }
 
   async findOne(id: string) {

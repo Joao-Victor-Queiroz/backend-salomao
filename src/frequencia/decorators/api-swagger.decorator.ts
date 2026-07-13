@@ -10,6 +10,7 @@ import {
 } from '@nestjs/swagger';
 import { Frequencia } from '../entities/frequencia.entity';
 import { BatchPayloadDto } from '../dto/batch-payload.dto';
+import { FrequenciaCrismandoResponseDto } from '../dto/frequencia-crismando-response.dto';
 
 export function ApiRegisterFrequenciaDecorator() {
   return applyDecorators(
@@ -73,7 +74,7 @@ export function ApiFindFrequenciaFromUniqueCrismandoDecorator() {
     }),
     ApiOkResponse({
       description: 'Frequências do crismando retornadas com sucesso.',
-      type: [Frequencia],
+      type: FrequenciaCrismandoResponseDto,
     }),
   );
 }

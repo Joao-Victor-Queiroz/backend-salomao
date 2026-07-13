@@ -16,6 +16,7 @@ import { Role } from 'src/auth/decorators/roles.decorator';
 import { Cargo } from 'src/generated/prisma/enums';
 import { Frequencia } from './entities/frequencia.entity';
 import { BatchPayloadDto } from './dto/batch-payload.dto';
+import { FrequenciaCrismandoResponseDto } from './dto/frequencia-crismando-response.dto';
 import {
   ApiRegisterFrequenciaDecorator,
   ApiRegisterFrequenciaAnimadorDecorator,
@@ -64,7 +65,7 @@ export class FrequenciaController {
 
   @ApiFindFrequenciaFromUniqueCrismandoDecorator()
   @Get('frequencia-crismando/:idCrismando')
-  findFrequenciaFromUniqueCrismando(@Param('idCrismando') idCrismando: string): Promise<Frequencia[]> {
+  findFrequenciaFromUniqueCrismando(@Param('idCrismando') idCrismando: string): Promise<FrequenciaCrismandoResponseDto> {
     return this.frequenciaService.findFrequenciaFromUniqueCrismando(idCrismando);
   }
 
