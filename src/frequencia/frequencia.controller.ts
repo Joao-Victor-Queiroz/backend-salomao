@@ -74,7 +74,7 @@ export class FrequenciaController {
   @Role(
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
-    Cargo.ANIMADOR_CAIXINHA,
+    Cargo.ANIMADOR_FREQUENCIA,
   )
   update(
     @Param('id') id: string,
@@ -88,7 +88,7 @@ export class FrequenciaController {
   @Role(
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
-    Cargo.ANIMADOR_CAIXINHA,
+    Cargo.ANIMADOR_FREQUENCIA,
   )
   remove(@Param('id') id: string): Promise<Frequencia> {
     return this.frequenciaService.removeFrequencia(id);
