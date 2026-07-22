@@ -13,7 +13,7 @@ async function bootstrap() {
       transform: true,
       whitelist: true,
       forbidNonWhitelisted: true,
-      transformOptions: { enableImplicitConversion: true }
+      transformOptions: { enableImplicitConversion: true },
     }),
   );
 
@@ -37,6 +37,8 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Accept, Authorization',
   });
 
-  await app.listen(process.env.PORT ?? 4000);
+  const port = process.env.PORT || 4000;
+
+  await app.listen(port, '0.0.0.0');
 }
 bootstrap();
