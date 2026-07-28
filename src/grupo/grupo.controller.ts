@@ -40,7 +40,7 @@ export class GrupoController {
 
   @ApiCreateGrupoDecorator()
   @Post('criar-grupo')
-  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.FORMADOR)
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ADMIN)
   create(@Body() createGrupoDto: CreateGrupoDto): Promise<UniqueGrupoResponseDto> {
     return this.grupoService.createGrupo(createGrupoDto);
   }
@@ -69,7 +69,7 @@ export class GrupoController {
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
     Cargo.ANIMADOR_FREQUENCIA,
-    Cargo.FORMADOR,
+    Cargo.ADMIN,
   )
   addCrismandos(
     @Param('id') id: string,
@@ -80,7 +80,7 @@ export class GrupoController {
 
   @ApiAddAnimadoresDecorator()
   @Patch('adicionar-animadores/:id')
-  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA)
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ADMIN)
   addAnimadores(
     @Param('id') id: string,
     @Body() addAnimadoresDto: AddAnimadoresDto,
@@ -90,7 +90,7 @@ export class GrupoController {
 
   @ApiRemoverCrismandoDecorator()
   @Patch('remover-crismando/:idGrupo/:idCrismando')
-  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA)
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ADMIN)
   removerCrismando(
     @Param('idGrupo') idGrupo: string,
     @Param('idCrismando') idCrismando: string,
@@ -100,14 +100,14 @@ export class GrupoController {
 
   @ApiUpdateGrupoDecorator()
   @Patch('atualizar-grupo/:id')
-  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA)
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ADMIN)
   update(@Param('id') id: string, @Body() updateGrupoDto: UpdateGrupoDto): Promise<UniqueGrupoResponseDto> {
     return this.grupoService.update(id, updateGrupoDto);
   }
 
   @ApiRemoveGrupoDecorator()
   @Delete('remover-grupo/:id')
-  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA)
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ADMIN)
   remove(@Param('id') id: string): Promise<UniqueGrupoResponseDto> {
     return this.grupoService.remove(id);
   }

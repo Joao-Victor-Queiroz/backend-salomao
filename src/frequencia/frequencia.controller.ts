@@ -38,7 +38,7 @@ export class FrequenciaController {
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
     Cargo.ANIMADOR_FREQUENCIA,
-    Cargo.FORMADOR,
+    Cargo.ADMIN
   )
   registerFrequencia(@Body() createFrequenciaDto: CreateFrequenciaDto): Promise<BatchPayloadDto> {
     return this.frequenciaService.registerFrequenciaCrismando(
@@ -48,7 +48,7 @@ export class FrequenciaController {
 
   @ApiRegisterFrequenciaAnimadorDecorator()
   @Post('frequencia-animadores')
-  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA)
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ADMIN)
   registerFrequenciaAnimador(
     @Body() createFrequenciaAnimadorDto: CreateAnimadorFrequenciaDto,
   ): Promise<BatchPayloadDto> {
