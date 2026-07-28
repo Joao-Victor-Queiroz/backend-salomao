@@ -22,6 +22,8 @@ import {
   ApiUpdateAnimadorDecorator,
   ApiRemoveAnimadorDecorator,
 } from './decorators/api-swagger.decorator';
+import { Cargo } from 'src/generated/prisma/enums';
+import { Role } from 'src/auth/decorators/roles.decorator';
 
 @ApiTags('Animadores')
 @ApiBearerAuth()
@@ -31,30 +33,35 @@ export class AnimadoresController {
 
   @ApiCreateAnimadorDecorator()
   @Post('criar-animador')
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.ADMIN, Cargo.COORDENADOR_FREQUENCIA)
   create(@Body() createAnimadorDto: CreateAnimadorDto) {
     return this.animadoresService.criarAnimador(createAnimadorDto);
   }
 
   @ApiFindAllAnimadoresDecorator()
   @Get()
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.ADMIN, Cargo.COORDENADOR_FREQUENCIA)
   findAll(): Promise<AnimadorResponseDto[]> {
     return this.animadoresService.findAll();
   }
 
   @ApiFindAnimadoresSemGrupoDecorator()
   @Get('animadores-sem-grupo')
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.ADMIN, Cargo.COORDENADOR_FREQUENCIA)
   findAnimadoresSemGrupo(): Promise<AnimadorResponseDto[]> {
     return this.animadoresService.findAnimadoresSemGrupo();
   }
 
   @ApiFindOneAnimadorDecorator()
   @Get(':id')
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.ADMIN, Cargo.COORDENADOR_FREQUENCIA)
   findOne(@Param('id') id: string): Promise<AnimadorResponseDto> {
     return this.animadoresService.findOne(id);
   }
 
   @ApiUpdateAnimadorDecorator()
   @Patch('atualizar-animador/:id')
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.ADMIN, Cargo.COORDENADOR_FREQUENCIA)
   update(
     @Param('id') id: string,
     @Body() updateAnimadorDto: UpdateAnimadorDto,
@@ -65,6 +72,7 @@ export class AnimadoresController {
 
   @ApiRemoveAnimadorDecorator()
   @Delete('remover-animador/:id')
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.ADMIN, Cargo.COORDENADOR_FREQUENCIA)
   remove(@Param('id') id: string, @GetUser() user: AnimadorSemSenha) {
     return this.animadoresService.removeAnimador(id, user);
   }
