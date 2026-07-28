@@ -33,7 +33,6 @@ export class CaixinhaController {
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_CAIXINHA,
     Cargo.ANIMADOR_CAIXINHA,
-    Cargo.FORMADOR,
   )
   create(@Body() createCaixinhaDto: CreateCaixinhaDto): Promise<CaixinhaResponseDto> {
     return this.caixinhaService.create(createCaixinhaDto);

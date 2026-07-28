@@ -35,6 +35,7 @@ export class CrismandoController {
 
   @ApiCreateCrismandoDecorator()
   @Post('criar-crismando')
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ANIMADOR_FREQUENCIA, Cargo.ADMIN)
   create(@Body() createCrismandoDto: CreateCrismandoDto): Promise<CrismandoEntity> {
     return this.crismandoService.createCrismando(createCrismandoDto);
   }
@@ -47,6 +48,7 @@ export class CrismandoController {
 
   @ApiFindCrismandosSemGrupoDecorator()
   @Get('crismandos-sem-grupo')
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ANIMADOR_FREQUENCIA, Cargo.ADMIN)
   findCrismandosSemGrupo(): Promise<CrismandosSemGrupoDto[]> {
     return this.crismandoService.findCrismandosSemGrupo();
   }
@@ -63,7 +65,7 @@ export class CrismandoController {
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
     Cargo.ANIMADOR_FREQUENCIA,
-    Cargo.FORMADOR,
+    Cargo.ADMIN,
   )
   update(
     @Param('id') id: string,
@@ -77,7 +79,6 @@ export class CrismandoController {
   @Role(
     Cargo.COORDENADOR_GERAL,
     Cargo.COORDENADOR_FREQUENCIA,
-    Cargo.ANIMADOR_FREQUENCIA,
   )
   remove(@Param('id') id: string): Promise<CrismandoEntity> {
     return this.crismandoService.removeCrismando(id);
