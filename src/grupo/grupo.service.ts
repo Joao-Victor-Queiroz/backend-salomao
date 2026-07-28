@@ -25,6 +25,9 @@ export class GrupoService {
   findAll() {
     return this.prisma.grupo.findMany({
       orderBy: { nomeGrupo: 'asc' },
+      where: {nomeGrupo: {not: 
+        { equals: 'ANIMADORES'}
+      }}
     });
   }
 
