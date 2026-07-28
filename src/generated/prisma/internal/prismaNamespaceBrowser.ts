@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Usuario: 'Usuario',
   Animador: 'Animador',
   Grupo: 'Grupo',
   Crismando: 'Crismando',
@@ -76,11 +77,21 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const UsuarioScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  email: 'email',
+  password: 'password',
+  cargo: 'cargo',
+  animadorId: 'animadorId'
+} as const
+
+export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
 export const AnimadorScalarFieldEnum = {
   id: 'id',
   nomeAnimador: 'nomeAnimador',
-  email: 'email',
-  password: 'password',
   cargo: 'cargo',
   dataNascimento: 'dataNascimento',
   grupoAnimadorId: 'grupoAnimadorId',
@@ -162,7 +173,7 @@ export type CaixinhaScalarFieldEnum = (typeof CaixinhaScalarFieldEnum)[keyof typ
 export const RefreshTokenScalarFieldEnum = {
   id: 'id',
   token: 'token',
-  animadorId: 'animadorId',
+  usuarioId: 'usuarioId',
   createdAt: 'createdAt',
   expiresAt: 'expiresAt',
   revokedAt: 'revokedAt',

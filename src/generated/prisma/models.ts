@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Usuario.js'
 export type * from './models/Animador.js'
 export type * from './models/Grupo.js'
 export type * from './models/Crismando.js'

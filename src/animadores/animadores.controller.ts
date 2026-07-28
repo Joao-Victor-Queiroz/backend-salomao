@@ -13,7 +13,7 @@ import { UpdateAnimadorDto } from './dto/update-animador.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AnimadorResponseDto } from './dto/animador-response.dto';
 import { GetUser } from 'src/auth/decorators/user.decorator';
-import type { AnimadorSemSenha } from 'src/auth/jwt.strategy';
+import type { UsuarioSemSenha } from 'src/auth/jwt.strategy';
 import {
   ApiCreateAnimadorDecorator,
   ApiFindAllAnimadoresDecorator,
@@ -65,7 +65,7 @@ export class AnimadoresController {
   update(
     @Param('id') id: string,
     @Body() updateAnimadorDto: UpdateAnimadorDto,
-    @GetUser() user: AnimadorSemSenha,
+    @GetUser() user: UsuarioSemSenha,
   ) {
     return this.animadoresService.update(id, updateAnimadorDto, user);
   }
@@ -73,7 +73,7 @@ export class AnimadoresController {
   @ApiRemoveAnimadorDecorator()
   @Delete('remover-animador/:id')
   @Role(Cargo.COORDENADOR_GERAL, Cargo.ADMIN, Cargo.COORDENADOR_FREQUENCIA)
-  remove(@Param('id') id: string, @GetUser() user: AnimadorSemSenha) {
+  remove(@Param('id') id: string, @GetUser() user: UsuarioSemSenha) {
     return this.animadoresService.removeAnimador(id, user);
   }
 }

@@ -10,12 +10,12 @@ import {
   Patch,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateAnimadorDto } from 'src/animadores/dto/create-animador.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { Public } from 'src/is-public.decorator';
 import { SignInDto } from './dto/sign-in.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
-import { type AnimadorSemSenha } from './jwt.strategy';
+import { type UsuarioSemSenha } from './jwt.strategy';
 import { GetUser } from './decorators/user.decorator';
 import {
   ApiSignupDecorator,
@@ -34,7 +34,7 @@ export class AuthController {
   @ApiSignupDecorator()
   @Public()
   @Post('signup')
-  async signup(@Body() body: CreateAnimadorDto) {
+  async signup(@Body() body: CreateUserDto) {
     return this.authService.signUp(body);
   }
 
@@ -77,7 +77,7 @@ export class AuthController {
   @Patch('change-password')
   changePassword(
     @Body() changePasswordDto: ChangePasswordDto,
-    @GetUser() user: AnimadorSemSenha,
+    @GetUser() user: UsuarioSemSenha,
   ) {
     return this.authService.changePassword(changePasswordDto, user);
   }

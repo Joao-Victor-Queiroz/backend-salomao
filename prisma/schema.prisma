@@ -44,11 +44,20 @@ enum DescricaoFrequenciaAnimador {
   ENCONTRO
 }
 
+model Usuario {
+  id String @id @default(uuid())
+  nome String
+  email String @unique
+  password String
+  cargo Cargo @default(ANIMADOR)
+  animadorId String? @unique
+  animador Animador? @relation(fields: [animadorId], references: [id], onDelete: SetNull)
+  sessions RefreshToken[]
+}
+
 model Animador {
   id    String   @id @default(uuid())
   nomeAnimador String
-  email String @unique
-  password String
   cargo Cargo @default(ANIMADOR)
   dataNascimento DateTime @db.Date
   frequencias FrequenciaAnimador[]
@@ -56,7 +65,7 @@ model Animador {
   grupoAnimador Grupo? @relation("GrupoFrequencia", fields: [grupoAnimadorId], references: [id])
   grupoCrismandoId String?
   grupoCrismando Grupo? @relation("GrupoCrismando", fields: [grupoCrismandoId], references: [id])
-  sessions RefreshToken[]
+  usuario Usuario?
 }
 
 model Grupo {
@@ -129,8 +138,8 @@ model Caixinha {
 model RefreshToken {
   id String @id @default(uuid())
   token String
-  animadorId String
-  animador Animador @relation(fields: [animadorId], references: [id])
+  usuarioId String
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   expiresAt DateTime 
   revokedAt DateTime?

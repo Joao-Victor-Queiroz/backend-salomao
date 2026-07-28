@@ -7,7 +7,7 @@ import { CreateAnimadorDto } from './dto/create-animador.dto';
 import { UpdateAnimadorDto } from './dto/update-animador.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Animador, Cargo } from '../generated/prisma/client';
-import type { AnimadorSemSenha } from 'src/auth/jwt.strategy';
+import type { UsuarioSemSenha } from 'src/auth/jwt.strategy';
 
 const GRUPO_ID = process.env.GRUPO_ANIMADORES_ID;
 @Injectable()
@@ -18,18 +18,20 @@ export class AnimadoresService {
     return this.prisma.animador.create({
       data: {
         ...data,
-        grupoAnimador: {
-          connect: {
-            id: GRUPO_ID,
-          },
-        },
+        ...(GRUPO_ID
+          ? {
+              grupoAnimador: {
+                connect: { id: GRUPO_ID },
+              },
+            }
+          : {}),
       },
     });
   }
 
   findAll() {
     return this.prisma.animador.findMany({
-      omit: { password: true },
+      include: { usuario: true },
     });
   }
 
@@ -39,22 +41,17 @@ export class AnimadoresService {
     });
   }
 
-  async findAnimador(email: string): Promise<Animador | null> {
-    return this.prisma.animador.findUnique({
-      where: { email: email },
-    });
-  }
-
   async findById(id: string): Promise<Animador | null> {
     return this.prisma.animador.findUnique({
       where: { id: id },
+      include: { usuario: true },
     });
   }
 
   async findOne(id: string) {
     const animador = await this.prisma.animador.findUnique({
       where: { id: id },
-      omit: { password: true },
+      include: { usuario: true },
     });
 
     if (!animador) {
@@ -64,7 +61,7 @@ export class AnimadoresService {
     return animador;
   }
 
-  update(id: string, updateAnimadorDto: UpdateAnimadorDto, user: AnimadorSemSenha) {
+  update(id: string, updateAnimadorDto: UpdateAnimadorDto, user: UsuarioSemSenha) {
     if (!this.canAccess(id, user)) {
       throw new ForbiddenException('Você não pode atualizar este animador');
     }
@@ -75,7 +72,7 @@ export class AnimadoresService {
     });
   }
 
-  removeAnimador(id: string, user: AnimadorSemSenha) {
+  removeAnimador(id: string, user: UsuarioSemSenha) {
     if (!this.canAccess(id, user)) {
       throw new ForbiddenException('Você não pode excluir este animador');
     }
@@ -85,12 +82,12 @@ export class AnimadoresService {
     });
   }
 
-  private canAccess(targetId: string, user: AnimadorSemSenha): boolean {
-    const isUser = user.id === targetId;
+  private canAccess(targetId: string, user: UsuarioSemSenha): boolean {
+    const isOwner = user.animadorId === targetId;
     const hasRequiredRole = (
-      [Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA] as Cargo[]
+      [Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ADMIN] as Cargo[]
     ).includes(user.cargo);
 
-    return isUser || hasRequiredRole;
+    return isOwner || hasRequiredRole;
   }
 }

@@ -12,18 +12,18 @@ import {
 import { SignInResponseDto } from '../dto/sign-in-response.dto';
 import { RefreshTokenResponseDto } from '../dto/refresh-token-response.dto';
 import { MessageResponseDto } from '../dto/message-response.dto';
-import { AnimadorResponseDto } from '../../animadores/dto/animador-response.dto';
+import { UserResponseDto } from '../dto/user-response.dto';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
 
 export function ApiSignupDecorator() {
   return applyDecorators(
     ApiOperation({
-      summary: 'Cadastro de animador',
-      description: 'Realiza o cadastro de um novo animador no sistema.',
+      summary: 'Cadastro de usuário',
+      description: 'Realiza o cadastro de um novo usuário no sistema.',
     }),
     ApiCreatedResponse({
-      description: 'Animador cadastrado com sucesso.',
-      type: AnimadorResponseDto,
+      description: 'Usuário cadastrado com sucesso.',
+      type: UserResponseDto,
     }),
     ApiBadRequestResponse({ description: 'Dados de entrada inválidos.' }),
     ApiConflictResponse({ description: 'Email já está em uso.' }),
@@ -34,7 +34,7 @@ export function ApiSigninDecorator() {
   return applyDecorators(
     ApiOperation({
       summary: 'Login do usuário',
-      description: 'Autentica o animador com e-mail e senha, retornando tokens de acesso e refresh.',
+      description: 'Autentica o usuário com e-mail e senha, retornando tokens de acesso e refresh.',
     }),
     ApiCreatedResponse({
       description: 'Autenticação realizada com sucesso.',
@@ -79,7 +79,7 @@ export function ApiChangePasswordDecorator() {
     ApiBearerAuth(),
     ApiOperation({
       summary: 'Alterar senha do usuário',
-      description: 'Altera a senha do animador autenticado.',
+      description: 'Altera a senha do usuário autenticado.',
     }),
     ApiOkResponse({
       description: 'Senha atualizada com sucesso.',
@@ -95,11 +95,11 @@ export function ApiMeDecorator() {
     ApiBearerAuth(),
     ApiOperation({
       summary: 'Perfil do usuário',
-      description: 'Retorna as informações de perfil do animador autenticado.',
+      description: 'Retorna as informações de perfil do usuário autenticado.',
     }),
     ApiOkResponse({
       description: 'Perfil retornado com sucesso.',
-      type: AnimadorResponseDto,
+      type: UserResponseDto,
     }),
     ApiUnauthorizedResponse({ description: 'Usuário não autenticado.' }),
   );

@@ -3,75 +3,85 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AnimadoresService } from 'src/animadores/animadores.service';
 import * as bcrypt from 'bcrypt';
-import { Animador } from 'src/generated/prisma/client';
-import { CreateAnimadorDto } from 'src/animadores/dto/create-animador.dto';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import * as crypto from 'node:crypto';
 import { SignInDto } from './dto/sign-in.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
-import { AnimadorSemSenha } from './jwt.strategy';
+import { UsuarioSemSenha } from './jwt.strategy';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private animadoresService: AnimadoresService,
     private jwtService: JwtService,
     private prisma: PrismaService,
   ) {}
 
-  async signUp(createAnimadorDto: CreateAnimadorDto) {
-    const doesUserExist = await this.animadoresService.findAnimador(
-      createAnimadorDto.email,
-    );
+  async signUp(createUserDto: CreateUserDto) {
+    const doesUserExist = await this.prisma.usuario.findUnique({
+      where: { email: createUserDto.email },
+    });
 
     if (doesUserExist) {
       throw new ConflictException('Este email já está em uso.');
     }
 
-    const { password, ...animadorData } = createAnimadorDto;
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
-    return this.animadoresService.criarAnimador({
-      ...animadorData,
-      password: hashedPassword,
+    const usuario = await this.prisma.usuario.create({
+      data: {
+        nome: createUserDto.nome,
+        email: createUserDto.email,
+        password: hashedPassword,
+        cargo: createUserDto.cargo,
+        animadorId: createUserDto.animadorId || null,
+      },
+      include: { animador: true },
     });
+
+    const { password: _, ...userWithoutPassword } = usuario;
+    return userWithoutPassword;
   }
 
   async signIn(signInDto: SignInDto, ip: string, userAgent: string) {
-    const {email, password} = signInDto;
-    const animador = await this.animadoresService.findAnimador(email);
+    const { email, password } = signInDto;
+    const user = await this.prisma.usuario.findUnique({
+      where: { email },
+      include: { animador: true },
+    });
 
-    if (!animador) {
+    if (!user) {
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
-    const doesPasswordMatch = await bcrypt.compare(password, animador.password);
+    const doesPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!doesPasswordMatch) {
       throw new UnauthorizedException('Credenciais inválidas');
     }
 
-    const payload = { sub: animador.id, cargo: animador.cargo };
+    const payload = { sub: user.id, cargo: user.cargo };
 
     const accessToken = await this.jwtService.signAsync(payload);
 
     return {
       accessToken,
-      refreshToken: await this.createRefreshToken(animador.id, ip, userAgent),
+      refreshToken: await this.createRefreshToken(user.id, ip, userAgent),
       user: {
-        id: animador.id,
-        nome: animador.nomeAnimador,
-        cargo: animador.cargo,
-        grupoAnimadorId: animador.grupoAnimadorId,
-        grupoCrismandoId: animador.grupoCrismandoId,
+        id: user.id,
+        nome: user.nome,
+        email: user.email,
+        cargo: user.cargo,
+        animadorId: user.animadorId,
+        grupoAnimadorId: user.animador?.grupoAnimadorId || null,
+        grupoCrismandoId: user.animador?.grupoCrismandoId || null,
       },
     };
   }
 
-  async createRefreshToken(animadorId: string, ip: string, userAgent: string) {
+  async createRefreshToken(usuarioId: string, ip: string, userAgent: string) {
     const durationInDays = 7;
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + durationInDays);
@@ -82,7 +92,7 @@ export class AuthService {
     await this.prisma.refreshToken.create({
       data: {
         token: hashedToken,
-        animadorId: animadorId,
+        usuarioId: usuarioId,
         expiresAt: expiresAt,
         ipAdress: ip,
         userAgent: userAgent,
@@ -95,7 +105,11 @@ export class AuthService {
   async myProfile(userId: string) {
     console.log('Id recebido: ', userId);
 
-    const user = await this.animadoresService.findById(userId);
+    const user = await this.prisma.usuario.findUnique({
+      where: { id: userId },
+      omit: { password: true },
+      include: { animador: true },
+    });
 
     if (!user) {
       throw new UnauthorizedException('Usuário não encontrado');
@@ -112,7 +126,7 @@ export class AuthService {
 
     const tokenData = await this.prisma.refreshToken.findFirst({
       where: { token: hashedToken },
-      include: { animador: true },
+      include: { usuario: true },
     });
 
     if (!tokenData) {
@@ -122,7 +136,7 @@ export class AuthService {
 
     console.log(
       'Token encontrado no banco. Pertence ao usuário ID:',
-      tokenData.animadorId,
+      tokenData.usuarioId,
     );
 
     if (tokenData.ipAdress !== ip || tokenData.userAgent !== userAgent) {
@@ -153,14 +167,14 @@ export class AuthService {
     });
 
     const newRefreshToken = await this.createRefreshToken(
-      tokenData.animador.id,
+      tokenData.usuario.id,
       ip,
       userAgent,
     );
 
     const payload = {
-      sub: tokenData.animador.id,
-      cargo: tokenData.animador.cargo,
+      sub: tokenData.usuario.id,
+      cargo: tokenData.usuario.cargo,
     };
 
     const accessToken = await this.jwtService.signAsync(payload);
@@ -189,42 +203,47 @@ export class AuthService {
     return { message: 'Logout realizado com sucesso.' };
   }
 
-  async changePassword(changePasswordDto: ChangePasswordDto, user: AnimadorSemSenha) {
-    const { senhaAtual, novaSenha } = changePasswordDto
-    const animador = await this.animadoresService.findById(user.id);
+  async changePassword(changePasswordDto: ChangePasswordDto, user: UsuarioSemSenha) {
+    const { senhaAtual, novaSenha } = changePasswordDto;
+    const usuario = await this.prisma.usuario.findUnique({
+      where: { id: user.id },
+    });
 
-    if (!animador) {
+    if (!usuario) {
       throw new UnauthorizedException('Usuário não encontrado');
-    } 
+    }
 
-    const doesPasswordMatch = await bcrypt.compare(senhaAtual, animador.password);
+    const doesPasswordMatch = await bcrypt.compare(senhaAtual, usuario.password);
 
     if (!doesPasswordMatch) {
-      throw new UnauthorizedException('Houve um erro ao tentar atualizar a senha.')
+      throw new UnauthorizedException('Houve um erro ao tentar atualizar a senha.');
     }
 
     const newHashedPassword = await bcrypt.hash(novaSenha, 10);
 
-    if (newHashedPassword === animador.password) {
-      throw new UnauthorizedException('A nova senha não pode ser igual a senha atual.')
+    if (newHashedPassword === usuario.password) {
+      throw new UnauthorizedException('A nova senha não pode ser igual a senha atual.');
     }
-    
-    await this.animadoresService.update(user.id, {
-      password: newHashedPassword,
-    }, user);
 
-    return { message: 'Senha atualizada com sucesso.'}
-  } 
+    await this.prisma.usuario.update({
+      where: { id: user.id },
+      data: { password: newHashedPassword },
+    });
+
+    return { message: 'Senha atualizada com sucesso.' };
+  }
 
   async validateUser(email: string, password: string) {
-    const animador = await this.animadoresService.findAnimador(email);
-    if (!animador) {
+    const user = await this.prisma.usuario.findUnique({
+      where: { email },
+    });
+    if (!user) {
       return null;
     }
-    const doesPasswordMatch = await bcrypt.compare(password, animador.password);
+    const doesPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (doesPasswordMatch) {
-      const { password: _password, ...result } = animador;
+      const { password: _password, ...result } = user;
       return result;
     }
     return null;
