@@ -35,6 +35,11 @@ export class CreateCrismandoDto {
   @ApiProperty()
   idade: number;
 
+  @IsEmail()
+  @IsNotEmpty()
+  @ApiProperty()
+  email: string;
+
   @IsNotEmpty()
   @Type(() => Date)
   @IsDate({ message: 'A data deve estar no formato YYYY-MM-DD' })

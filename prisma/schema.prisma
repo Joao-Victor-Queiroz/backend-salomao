@@ -80,6 +80,7 @@ model Crismando {
   id String @id @default(uuid())
   nomeCrismando String
   cpf String
+  email String @unique
   idade Int 
   dataNascimento DateTime @db.Date
   cidadeNascimento String

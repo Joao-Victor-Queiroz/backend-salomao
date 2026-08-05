@@ -114,7 +114,12 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Usuário não encontrado');
     }
-    return user;
+
+    return {
+      ...user,
+      grupoAnimadorId: user.animador?.grupoAnimadorId || null,
+      grupoCrismandoId: user.animador?.grupoCrismandoId || null,
+    };
   }
 
   async refreshToken(token: string, ip: string, userAgent: string) {
