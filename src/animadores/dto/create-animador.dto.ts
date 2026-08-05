@@ -9,10 +9,10 @@ export class CreateAnimadorDto {
   @IsNotEmpty()
   nomeAnimador: string;
 
-  @ApiProperty({ enum: Cargo, example: Cargo.ANIMADOR, required: false })
+  @ApiProperty({ enum: Cargo, example: Cargo.ANIMADOR })
   @IsEnum(Cargo)
-  @IsOptional()
-  cargo?: Cargo;
+  @IsNotEmpty()
+  cargo: Cargo;
 
   @ApiProperty({ example: '1995-08-25', description: 'Data de nascimento no formato YYYY-MM-DD' })
   @IsNotEmpty()
