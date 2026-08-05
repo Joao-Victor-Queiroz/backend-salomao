@@ -70,7 +70,11 @@ export class AnimadoresService {
 
   findAll() {
     return this.prisma.animador.findMany({
-      include: { usuario: true },
+      include: { usuario: true, grupoCrismando: {
+        select: {
+          nomeGrupo: true,
+        }
+      } },
     });
   }
 
@@ -80,17 +84,16 @@ export class AnimadoresService {
     });
   }
 
-  async findById(id: string): Promise<Animador | null> {
-    return this.prisma.animador.findUnique({
-      where: { id: id },
-      include: { usuario: true },
-    });
-  }
+
 
   async findOne(id: string) {
     const animador = await this.prisma.animador.findUnique({
       where: { id: id },
-      include: { usuario: true },
+      include: { usuario: true, grupoCrismando: {
+        select: {
+          nomeGrupo: true,
+        }
+      } },
     });
 
     if (!animador) {
