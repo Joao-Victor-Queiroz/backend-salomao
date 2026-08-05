@@ -6,6 +6,8 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiUnauthorizedResponse,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiBearerAuth,
   ApiBody,
 } from '@nestjs/swagger';
@@ -14,6 +16,7 @@ import { RefreshTokenResponseDto } from '../dto/refresh-token-response.dto';
 import { MessageResponseDto } from '../dto/message-response.dto';
 import { UserResponseDto } from '../dto/user-response.dto';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 
 export function ApiSignupDecorator() {
   return applyDecorators(
@@ -104,3 +107,40 @@ export function ApiMeDecorator() {
     ApiUnauthorizedResponse({ description: 'Usuário não autenticado.' }),
   );
 }
+
+export function ApiFindAllUsersDecorator() {
+  return applyDecorators(
+    ApiBearerAuth(),
+    ApiOperation({
+      summary: 'Listar usuários',
+      description: 'Retorna a lista de todos os usuários cadastrados sem a senha. Acesso restrito a ADMIN e COORDENADOR_GERAL.',
+    }),
+    ApiOkResponse({
+      description: 'Lista de usuários retornada com sucesso.',
+      type: [UserResponseDto],
+    }),
+    ApiUnauthorizedResponse({ description: 'Usuário não autenticado.' }),
+    ApiForbiddenResponse({ description: 'Acesso negado. Cargo insuficiente.' }),
+  );
+}
+
+export function ApiUpdateUserDecorator() {
+  return applyDecorators(
+    ApiBearerAuth(),
+    ApiOperation({
+      summary: 'Editar usuário',
+      description: 'Atualiza os dados de um usuário pelo ID. Acesso restrito a ADMIN e COORDENADOR_GERAL.',
+    }),
+    ApiBody({ type: UpdateUserDto }),
+    ApiOkResponse({
+      description: 'Usuário atualizado com sucesso.',
+      type: UserResponseDto,
+    }),
+    ApiBadRequestResponse({ description: 'Dados de entrada inválidos.' }),
+    ApiUnauthorizedResponse({ description: 'Usuário não autenticado.' }),
+    ApiForbiddenResponse({ description: 'Acesso negado. Cargo insuficiente.' }),
+    ApiNotFoundResponse({ description: 'Usuário não encontrado.' }),
+    ApiConflictResponse({ description: 'Email já está em uso por outro usuário.' }),
+  );
+}
+

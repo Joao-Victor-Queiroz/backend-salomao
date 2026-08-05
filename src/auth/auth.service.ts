@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
@@ -11,6 +12,7 @@ import { SignInDto } from './dto/sign-in.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { UsuarioSemSenha } from './jwt.strategy';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -253,4 +255,70 @@ export class AuthService {
     }
     return null;
   }
+
+  async findAllUsers() {
+    const usuarios = await this.prisma.usuario.findMany({
+      omit: { password: true },
+      include: { animador: true },
+      orderBy: { nome: 'asc' },
+    });
+
+    return usuarios.map((user) => ({
+      ...user,
+      grupoAnimadorId: user.animador?.grupoAnimadorId || null,
+      grupoCrismandoId: user.animador?.grupoCrismandoId || null,
+    }));
+  }
+
+  async updateUser(id: string, updateUserDto: UpdateUserDto) {
+    const usuarioExistente = await this.prisma.usuario.findUnique({
+      where: { id },
+    });
+
+    if (!usuarioExistente) {
+      throw new NotFoundException('Usuário não encontrado.');
+    }
+
+    if (updateUserDto.email && updateUserDto.email !== usuarioExistente.email) {
+      const emailEmUso = await this.prisma.usuario.findUnique({
+        where: { email: updateUserDto.email },
+      });
+
+      if (emailEmUso) {
+        throw new ConflictException('Este email já está em uso.');
+      }
+    }
+
+    const dataToUpdate: Record<string, any> = {};
+
+    if (updateUserDto.nome !== undefined) {
+      dataToUpdate.nome = updateUserDto.nome;
+    }
+    if (updateUserDto.email !== undefined) {
+      dataToUpdate.email = updateUserDto.email;
+    }
+    if (updateUserDto.cargo !== undefined) {
+      dataToUpdate.cargo = updateUserDto.cargo;
+    }
+    if (updateUserDto.animadorId !== undefined) {
+      dataToUpdate.animadorId = updateUserDto.animadorId || null;
+    }
+    if (updateUserDto.password) {
+      dataToUpdate.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
+
+    const usuarioAtualizado = await this.prisma.usuario.update({
+      where: { id },
+      data: dataToUpdate,
+      include: { animador: true },
+    });
+
+    const { password: _, ...userWithoutPassword } = usuarioAtualizado;
+    return {
+      ...userWithoutPassword,
+      grupoAnimadorId: usuarioAtualizado.animador?.grupoAnimadorId || null,
+      grupoCrismandoId: usuarioAtualizado.animador?.grupoCrismandoId || null,
+    };
+  }
 }
+

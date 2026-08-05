@@ -8,9 +8,11 @@ import {
   Request,
   Get,
   Patch,
+  Param,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from './auth.service';
 import { Public } from 'src/is-public.decorator';
 import { SignInDto } from './dto/sign-in.dto';
@@ -24,7 +26,11 @@ import {
   ApiLogoutDecorator,
   ApiChangePasswordDecorator,
   ApiMeDecorator,
+  ApiFindAllUsersDecorator,
+  ApiUpdateUserDecorator,
 } from './decorators/api-swagger.decorator';
+import { Cargo } from 'src/generated/prisma/enums';
+import { Role } from './decorators/roles.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -87,4 +93,22 @@ export class AuthController {
   myProfile(@Request() req: { user: { id: string } }) {
     return this.authService.myProfile(req.user.id);
   }
+
+  @ApiFindAllUsersDecorator()
+  @Get('usuarios')
+  @Role(Cargo.ADMIN, Cargo.COORDENADOR_GERAL)
+  findAllUsers() {
+    return this.authService.findAllUsers();
+  }
+
+  @ApiUpdateUserDecorator()
+  @Patch('usuarios/:id')
+  @Role(Cargo.ADMIN, Cargo.COORDENADOR_GERAL)
+  updateUser(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.authService.updateUser(id, updateUserDto);
+  }
 }
+
