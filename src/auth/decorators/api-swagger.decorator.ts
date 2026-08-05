@@ -17,6 +17,7 @@ import { MessageResponseDto } from '../dto/message-response.dto';
 import { UserResponseDto } from '../dto/user-response.dto';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
+import { AssociarAnimadorDto } from '../dto/associar-animador.dto';
 
 export function ApiSignupDecorator() {
   return applyDecorators(
@@ -143,4 +144,26 @@ export function ApiUpdateUserDecorator() {
     ApiConflictResponse({ description: 'Email já está em uso por outro usuário.' }),
   );
 }
+
+export function ApiAssociarAnimadorDecorator() {
+  return applyDecorators(
+    ApiBearerAuth(),
+    ApiOperation({
+      summary: 'Associar animador ao usuário',
+      description:
+        'Associa (ou desassocia se passar null) um usuário a um animador existente. Acesso restrito a ADMIN e COORDENADOR_GERAL.',
+    }),
+    ApiBody({ type: AssociarAnimadorDto }),
+    ApiOkResponse({
+      description: 'Usuário associado ao animador com sucesso.',
+      type: UserResponseDto,
+    }),
+    ApiBadRequestResponse({ description: 'Dados de entrada inválidos.' }),
+    ApiUnauthorizedResponse({ description: 'Usuário não autenticado.' }),
+    ApiForbiddenResponse({ description: 'Acesso negado. Cargo insuficiente.' }),
+    ApiNotFoundResponse({ description: 'Usuário ou animador não encontrado.' }),
+    ApiConflictResponse({ description: 'O animador informado já está associado a outro usuário.' }),
+  );
+}
+
 

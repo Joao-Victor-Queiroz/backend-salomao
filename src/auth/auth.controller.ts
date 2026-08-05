@@ -13,6 +13,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AssociarAnimadorDto } from './dto/associar-animador.dto';
 import { AuthService } from './auth.service';
 import { Public } from 'src/is-public.decorator';
 import { SignInDto } from './dto/sign-in.dto';
@@ -28,6 +29,7 @@ import {
   ApiMeDecorator,
   ApiFindAllUsersDecorator,
   ApiUpdateUserDecorator,
+  ApiAssociarAnimadorDecorator,
 } from './decorators/api-swagger.decorator';
 import { Cargo } from 'src/generated/prisma/enums';
 import { Role } from './decorators/roles.decorator';
@@ -110,5 +112,16 @@ export class AuthController {
   ) {
     return this.authService.updateUser(id, updateUserDto);
   }
+
+  @ApiAssociarAnimadorDecorator()
+  @Patch('usuarios/:id/associar-animador')
+  @Role(Cargo.ADMIN, Cargo.COORDENADOR_GERAL)
+  associarAnimador(
+    @Param('id') id: string,
+    @Body() associarAnimadorDto: AssociarAnimadorDto,
+  ) {
+    return this.authService.associarAnimador(id, associarAnimadorDto.animadorId);
+  }
 }
+
 

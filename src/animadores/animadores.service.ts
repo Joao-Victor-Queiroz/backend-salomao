@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -15,9 +16,47 @@ export class AnimadoresService {
   constructor(private prisma: PrismaService) {}
 
   async criarAnimador(data: CreateAnimadorDto): Promise<Animador> {
+    const { usuarioId, ...animadorData } = data;
+
+    if (usuarioId) {
+      const usuarioExistente = await this.prisma.usuario.findUnique({
+        where: { id: usuarioId },
+      });
+
+      if (!usuarioExistente) {
+        throw new NotFoundException('Usuário não encontrado.');
+      }
+
+      if (usuarioExistente.animadorId) {
+        throw new ConflictException('Este usuário já possui um animador associado.');
+      }
+
+      return this.prisma.$transaction(async (tx) => {
+        const animador = await tx.animador.create({
+          data: {
+            ...animadorData,
+            ...(GRUPO_ID
+              ? {
+                  grupoAnimador: {
+                    connect: { id: GRUPO_ID },
+                  },
+                }
+              : {}),
+          },
+        });
+
+        await tx.usuario.update({
+          where: { id: usuarioId },
+          data: { animadorId: animador.id },
+        });
+
+        return animador;
+      });
+    }
+
     return this.prisma.animador.create({
       data: {
-        ...data,
+        ...animadorData,
         ...(GRUPO_ID
           ? {
               grupoAnimador: {

@@ -320,5 +320,52 @@ export class AuthService {
       grupoCrismandoId: usuarioAtualizado.animador?.grupoCrismandoId || null,
     };
   }
+
+  async associarAnimador(usuarioId: string, animadorId?: string | null) {
+    const usuarioExistente = await this.prisma.usuario.findUnique({
+      where: { id: usuarioId },
+    });
+
+    if (!usuarioExistente) {
+      throw new NotFoundException('Usuário não encontrado.');
+    }
+
+    const targetAnimadorId = animadorId || null;
+
+    if (targetAnimadorId) {
+      const animadorExistente = await this.prisma.animador.findUnique({
+        where: { id: targetAnimadorId },
+      });
+
+      if (!animadorExistente) {
+        throw new NotFoundException('Animador não encontrado.');
+      }
+
+      const usuarioJaAssociado = await this.prisma.usuario.findFirst({
+        where: {
+          animadorId: targetAnimadorId,
+          NOT: { id: usuarioId },
+        },
+      });
+
+      if (usuarioJaAssociado) {
+        throw new ConflictException('Este animador já está associado a outro usuário.');
+      }
+    }
+
+    const usuarioAtualizado = await this.prisma.usuario.update({
+      where: { id: usuarioId },
+      data: { animadorId: targetAnimadorId },
+      include: { animador: true },
+    });
+
+    const { password: _, ...userWithoutPassword } = usuarioAtualizado;
+    return {
+      ...userWithoutPassword,
+      grupoAnimadorId: usuarioAtualizado.animador?.grupoAnimadorId || null,
+      grupoCrismandoId: usuarioAtualizado.animador?.grupoCrismandoId || null,
+    };
+  }
 }
+
 

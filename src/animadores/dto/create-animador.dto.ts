@@ -19,4 +19,10 @@ export class CreateAnimadorDto {
   @Type(() => Date)
   @IsDate({ message: 'A data deve estar no formato YYYY-MM-DD' })
   dataNascimento: Date;
+
+  @ApiProperty({ example: 'uuid-do-usuario-123', description: 'ID do usuário existente para vincular a este animador (opcional)', required: false })
+  @IsOptional()
+  @IsString()
+  usuarioId?: string;
 }
+
