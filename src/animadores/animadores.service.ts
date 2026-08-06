@@ -93,7 +93,7 @@ export class AnimadoresService {
         select: {
           nomeGrupo: true,
         }
-      } },
+      }, frequencias: true, },
     });
 
     if (!animador) {

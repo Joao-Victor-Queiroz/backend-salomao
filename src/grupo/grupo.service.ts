@@ -52,6 +52,8 @@ export class GrupoService {
           select: {
             id: true,
             nomeAnimador: true,
+            cargo: true,
+            frequencias: true,
           },
         },
       },
