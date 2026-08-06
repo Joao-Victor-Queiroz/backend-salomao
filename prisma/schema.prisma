@@ -64,9 +64,9 @@ model Animador {
   dataNascimento DateTime @db.Date
   frequencias FrequenciaAnimador[]
   grupoAnimadorId String?
-  grupoAnimador Grupo? @relation("GrupoFrequencia", fields: [grupoAnimadorId], references: [id])
+  grupoAnimador Grupo? @relation("GrupoFrequencia", fields: [grupoAnimadorId], references: [id], onDelete: SetNull)
   grupoCrismandoId String?
-  grupoCrismando Grupo? @relation("GrupoCrismando", fields: [grupoCrismandoId], references: [id])
+  grupoCrismando Grupo? @relation("GrupoCrismando", fields: [grupoCrismandoId], references: [id], onDelete: SetNull)
   usuario Usuario?
 }
 

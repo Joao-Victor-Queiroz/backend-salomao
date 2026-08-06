@@ -192,8 +192,33 @@ export class GrupoService {
   }
 
   async remove(id: string) {
-    return this.prisma.grupo.delete({
+    const grupo = await this.prisma.grupo.findUnique({
       where: { id: id },
+    });
+
+    if (!grupo) {
+      throw new NotFoundException('Grupo não encontrado.');
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      await tx.crismando.updateMany({
+        where: { grupoId: id },
+        data: { grupoId: null },
+      });
+
+      await tx.animador.updateMany({
+        where: { grupoCrismandoId: id },
+        data: { grupoCrismandoId: null },
+      });
+
+      await tx.animador.updateMany({
+        where: { grupoAnimadorId: id },
+        data: { grupoAnimadorId: null },
+      });
+
+      return tx.grupo.delete({
+        where: { id: id },
+      });
     });
   }
 }

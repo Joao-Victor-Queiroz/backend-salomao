@@ -38,6 +38,7 @@ export type CrismandoMinAggregateOutputType = {
   id: string | null
   nomeCrismando: string | null
   cpf: string | null
+  email: string | null
   idade: number | null
   dataNascimento: Date | null
   cidadeNascimento: string | null
@@ -63,6 +64,7 @@ export type CrismandoMaxAggregateOutputType = {
   id: string | null
   nomeCrismando: string | null
   cpf: string | null
+  email: string | null
   idade: number | null
   dataNascimento: Date | null
   cidadeNascimento: string | null
@@ -88,6 +90,7 @@ export type CrismandoCountAggregateOutputType = {
   id: number
   nomeCrismando: number
   cpf: number
+  email: number
   idade: number
   dataNascimento: number
   cidadeNascimento: number
@@ -123,6 +126,7 @@ export type CrismandoMinAggregateInputType = {
   id?: true
   nomeCrismando?: true
   cpf?: true
+  email?: true
   idade?: true
   dataNascimento?: true
   cidadeNascimento?: true
@@ -148,6 +152,7 @@ export type CrismandoMaxAggregateInputType = {
   id?: true
   nomeCrismando?: true
   cpf?: true
+  email?: true
   idade?: true
   dataNascimento?: true
   cidadeNascimento?: true
@@ -173,6 +178,7 @@ export type CrismandoCountAggregateInputType = {
   id?: true
   nomeCrismando?: true
   cpf?: true
+  email?: true
   idade?: true
   dataNascimento?: true
   cidadeNascimento?: true
@@ -285,6 +291,7 @@ export type CrismandoGroupByOutputType = {
   id: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date
   cidadeNascimento: string
@@ -333,6 +340,7 @@ export type CrismandoWhereInput = {
   id?: Prisma.StringFilter<"Crismando"> | string
   nomeCrismando?: Prisma.StringFilter<"Crismando"> | string
   cpf?: Prisma.StringFilter<"Crismando"> | string
+  email?: Prisma.StringFilter<"Crismando"> | string
   idade?: Prisma.IntFilter<"Crismando"> | number
   dataNascimento?: Prisma.DateTimeFilter<"Crismando"> | Date | string
   cidadeNascimento?: Prisma.StringFilter<"Crismando"> | string
@@ -361,6 +369,7 @@ export type CrismandoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nomeCrismando?: Prisma.SortOrder
   cpf?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   idade?: Prisma.SortOrder
   dataNascimento?: Prisma.SortOrder
   cidadeNascimento?: Prisma.SortOrder
@@ -387,6 +396,7 @@ export type CrismandoOrderByWithRelationInput = {
 
 export type CrismandoWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  email?: string
   AND?: Prisma.CrismandoWhereInput | Prisma.CrismandoWhereInput[]
   OR?: Prisma.CrismandoWhereInput[]
   NOT?: Prisma.CrismandoWhereInput | Prisma.CrismandoWhereInput[]
@@ -414,12 +424,13 @@ export type CrismandoWhereUniqueInput = Prisma.AtLeast<{
   frequencias?: Prisma.FrequenciaListRelationFilter
   caixinhas?: Prisma.CaixinhaListRelationFilter
   grupo?: Prisma.XOR<Prisma.GrupoNullableScalarRelationFilter, Prisma.GrupoWhereInput> | null
-}, "id">
+}, "id" | "email">
 
 export type CrismandoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nomeCrismando?: Prisma.SortOrder
   cpf?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   idade?: Prisma.SortOrder
   dataNascimento?: Prisma.SortOrder
   cidadeNascimento?: Prisma.SortOrder
@@ -453,6 +464,7 @@ export type CrismandoScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Crismando"> | string
   nomeCrismando?: Prisma.StringWithAggregatesFilter<"Crismando"> | string
   cpf?: Prisma.StringWithAggregatesFilter<"Crismando"> | string
+  email?: Prisma.StringWithAggregatesFilter<"Crismando"> | string
   idade?: Prisma.IntWithAggregatesFilter<"Crismando"> | number
   dataNascimento?: Prisma.DateTimeWithAggregatesFilter<"Crismando"> | Date | string
   cidadeNascimento?: Prisma.StringWithAggregatesFilter<"Crismando"> | string
@@ -478,6 +490,7 @@ export type CrismandoCreateInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -505,6 +518,7 @@ export type CrismandoUncheckedCreateInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -532,6 +546,7 @@ export type CrismandoUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -559,6 +574,7 @@ export type CrismandoUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -586,6 +602,7 @@ export type CrismandoCreateManyInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -611,6 +628,7 @@ export type CrismandoUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -635,6 +653,7 @@ export type CrismandoUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -670,6 +689,7 @@ export type CrismandoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nomeCrismando?: Prisma.SortOrder
   cpf?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   idade?: Prisma.SortOrder
   dataNascimento?: Prisma.SortOrder
   cidadeNascimento?: Prisma.SortOrder
@@ -699,6 +719,7 @@ export type CrismandoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nomeCrismando?: Prisma.SortOrder
   cpf?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   idade?: Prisma.SortOrder
   dataNascimento?: Prisma.SortOrder
   cidadeNascimento?: Prisma.SortOrder
@@ -724,6 +745,7 @@ export type CrismandoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nomeCrismando?: Prisma.SortOrder
   cpf?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   idade?: Prisma.SortOrder
   dataNascimento?: Prisma.SortOrder
   cidadeNascimento?: Prisma.SortOrder
@@ -844,6 +866,7 @@ export type CrismandoCreateWithoutGrupoInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -870,6 +893,7 @@ export type CrismandoUncheckedCreateWithoutGrupoInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -925,6 +949,7 @@ export type CrismandoScalarWhereInput = {
   id?: Prisma.StringFilter<"Crismando"> | string
   nomeCrismando?: Prisma.StringFilter<"Crismando"> | string
   cpf?: Prisma.StringFilter<"Crismando"> | string
+  email?: Prisma.StringFilter<"Crismando"> | string
   idade?: Prisma.IntFilter<"Crismando"> | number
   dataNascimento?: Prisma.DateTimeFilter<"Crismando"> | Date | string
   cidadeNascimento?: Prisma.StringFilter<"Crismando"> | string
@@ -950,6 +975,7 @@ export type CrismandoCreateWithoutFrequenciasInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -976,6 +1002,7 @@ export type CrismandoUncheckedCreateWithoutFrequenciasInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -1018,6 +1045,7 @@ export type CrismandoUpdateWithoutFrequenciasInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1044,6 +1072,7 @@ export type CrismandoUncheckedUpdateWithoutFrequenciasInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1070,6 +1099,7 @@ export type CrismandoCreateWithoutCaixinhasInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -1096,6 +1126,7 @@ export type CrismandoUncheckedCreateWithoutCaixinhasInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -1138,6 +1169,7 @@ export type CrismandoUpdateWithoutCaixinhasInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1164,6 +1196,7 @@ export type CrismandoUncheckedUpdateWithoutCaixinhasInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1190,6 +1223,7 @@ export type CrismandoCreateManyGrupoInput = {
   id?: string
   nomeCrismando: string
   cpf: string
+  email: string
   idade: number
   dataNascimento: Date | string
   cidadeNascimento: string
@@ -1214,6 +1248,7 @@ export type CrismandoUpdateWithoutGrupoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1240,6 +1275,7 @@ export type CrismandoUncheckedUpdateWithoutGrupoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1266,6 +1302,7 @@ export type CrismandoUncheckedUpdateManyWithoutGrupoInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomeCrismando?: Prisma.StringFieldUpdateOperationsInput | string
   cpf?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   idade?: Prisma.IntFieldUpdateOperationsInput | number
   dataNascimento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cidadeNascimento?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1330,6 +1367,7 @@ export type CrismandoSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   nomeCrismando?: boolean
   cpf?: boolean
+  email?: boolean
   idade?: boolean
   dataNascimento?: boolean
   cidadeNascimento?: boolean
@@ -1359,6 +1397,7 @@ export type CrismandoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   nomeCrismando?: boolean
   cpf?: boolean
+  email?: boolean
   idade?: boolean
   dataNascimento?: boolean
   cidadeNascimento?: boolean
@@ -1385,6 +1424,7 @@ export type CrismandoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   nomeCrismando?: boolean
   cpf?: boolean
+  email?: boolean
   idade?: boolean
   dataNascimento?: boolean
   cidadeNascimento?: boolean
@@ -1411,6 +1451,7 @@ export type CrismandoSelectScalar = {
   id?: boolean
   nomeCrismando?: boolean
   cpf?: boolean
+  email?: boolean
   idade?: boolean
   dataNascimento?: boolean
   cidadeNascimento?: boolean
@@ -1432,7 +1473,7 @@ export type CrismandoSelectScalar = {
   grupoId?: boolean
 }
 
-export type CrismandoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomeCrismando" | "cpf" | "idade" | "dataNascimento" | "cidadeNascimento" | "estadoNascimento" | "endereco" | "numEndereco" | "complemento" | "bairro" | "cep" | "telefoneCrismando" | "nomePai" | "nomeMae" | "telefonePai" | "telefoneMae" | "batizado" | "primeiraEucaristia" | "justificativa" | "ativo" | "grupoId", ExtArgs["result"]["crismando"]>
+export type CrismandoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomeCrismando" | "cpf" | "email" | "idade" | "dataNascimento" | "cidadeNascimento" | "estadoNascimento" | "endereco" | "numEndereco" | "complemento" | "bairro" | "cep" | "telefoneCrismando" | "nomePai" | "nomeMae" | "telefonePai" | "telefoneMae" | "batizado" | "primeiraEucaristia" | "justificativa" | "ativo" | "grupoId", ExtArgs["result"]["crismando"]>
 export type CrismandoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   frequencias?: boolean | Prisma.Crismando$frequenciasArgs<ExtArgs>
   caixinhas?: boolean | Prisma.Crismando$caixinhasArgs<ExtArgs>
@@ -1457,6 +1498,7 @@ export type $CrismandoPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     id: string
     nomeCrismando: string
     cpf: string
+    email: string
     idade: number
     dataNascimento: Date
     cidadeNascimento: string
@@ -1905,6 +1947,7 @@ export interface CrismandoFieldRefs {
   readonly id: Prisma.FieldRef<"Crismando", 'String'>
   readonly nomeCrismando: Prisma.FieldRef<"Crismando", 'String'>
   readonly cpf: Prisma.FieldRef<"Crismando", 'String'>
+  readonly email: Prisma.FieldRef<"Crismando", 'String'>
   readonly idade: Prisma.FieldRef<"Crismando", 'Int'>
   readonly dataNascimento: Prisma.FieldRef<"Crismando", 'DateTime'>
   readonly cidadeNascimento: Prisma.FieldRef<"Crismando", 'String'>

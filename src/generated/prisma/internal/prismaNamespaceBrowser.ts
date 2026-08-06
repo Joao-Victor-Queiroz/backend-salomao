@@ -113,6 +113,7 @@ export const CrismandoScalarFieldEnum = {
   id: 'id',
   nomeCrismando: 'nomeCrismando',
   cpf: 'cpf',
+  email: 'email',
   idade: 'idade',
   dataNascimento: 'dataNascimento',
   cidadeNascimento: 'cidadeNascimento',
