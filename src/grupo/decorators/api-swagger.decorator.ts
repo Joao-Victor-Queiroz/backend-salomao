@@ -142,6 +142,31 @@ export function ApiRemoverCrismandoDecorator() {
   );
 }
 
+export function ApiRemoverAnimadorDecorator() {
+  return applyDecorators(
+    ApiOperation({
+      summary: 'Remover animador do grupo',
+      description: 'Desassocia um animador específico de seu grupo.',
+    }),
+    ApiParam({
+      name: 'idGrupo',
+      description: 'ID do grupo',
+      example: 'd3b07384-d113-4ec5-a5e2-9e8c45963283',
+    }),
+    ApiParam({
+      name: 'idAnimador',
+      description: 'ID do animador',
+      example: 'a1b07384-b113-4ec5-c5e2-9e8c45963212',
+    }),
+    ApiOkResponse({
+      description: 'Animador removido do grupo com sucesso.',
+      type: UniqueGrupoResponseDto,
+    }),
+    ApiForbiddenResponse({ description: 'Acesso negado para esta operação.' }),
+    ApiNotFoundResponse({ description: 'Grupo ou Animador não encontrado.' }),
+  );
+}
+
 export function ApiUpdateGrupoDecorator() {
   return applyDecorators(
     ApiOperation({

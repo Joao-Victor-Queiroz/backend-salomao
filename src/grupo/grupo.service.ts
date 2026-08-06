@@ -169,6 +169,19 @@ export class GrupoService {
     });
   }
 
+  removerAnimador(idGrupo: string, idAnimador: string) {
+    return this.prisma.grupo.update({
+      where: { id: idGrupo },
+      data: {
+        animadoresMinisterio: {
+          disconnect: {
+            id: idAnimador,
+          },
+        },
+      },
+    });
+  }
+
   update(id: string, updateGrupoDto: UpdateGrupoDto) {
     return this.prisma.grupo.update({
       where: { id: id },

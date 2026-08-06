@@ -28,6 +28,7 @@ import {
   ApiAddCrismandosDecorator,
   ApiAddAnimadoresDecorator,
   ApiRemoverCrismandoDecorator,
+  ApiRemoverAnimadorDecorator,
   ApiUpdateGrupoDecorator,
   ApiRemoveGrupoDecorator,
 } from './decorators/api-swagger.decorator';
@@ -96,6 +97,16 @@ export class GrupoController {
     @Param('idCrismando') idCrismando: string,
   ): Promise<UniqueGrupoResponseDto> {
     return this.grupoService.removerCrismando(idGrupo, idCrismando);
+  }
+
+  @ApiRemoverAnimadorDecorator()
+  @Patch('remover-animador/:idGrupo/:idAnimador')
+  @Role(Cargo.COORDENADOR_GERAL, Cargo.COORDENADOR_FREQUENCIA, Cargo.ADMIN)
+  removerAnimador(
+    @Param('idGrupo') idGrupo: string,
+    @Param('idAnimador') idAnimador: string,
+  ): Promise<UniqueGrupoResponseDto> {
+    return this.grupoService.removerAnimador(idGrupo, idAnimador);
   }
 
   @ApiUpdateGrupoDecorator()
