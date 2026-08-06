@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { CreateFrequenciaDto } from './dto/create-frequencia.dto';
 import { UpdateFrequenciaDto } from './dto/update-frequencia.dto';
 import { CreateAnimadorFrequenciaDto } from './dto/register-frequencia-animador.dto';
@@ -24,17 +24,39 @@ export class FrequenciaService {
     });
   }
 
-  registerFrequenciaAnimador(
+  async registerFrequenciaAnimador(
     createFrequenciaAnimadorDto: CreateAnimadorFrequenciaDto,
   ) {
     const { dataFrequencia, frequencias } = createFrequenciaAnimadorDto;
+    const targetDate = new Date(dataFrequencia);
+
+    const tipos = Array.from(new Set(frequencias.map((f) => f.tipo)));
+    const animadorIds = frequencias.map((f) => f.animadorId);
+
+    const existing = await this.prisma.frequenciaAnimador.findFirst({
+      where: {
+        dataFrequencia: targetDate,
+        tipo: { in: tipos },
+        animadorId: { in: animadorIds },
+      },
+    });
+
+    if (existing) {
+      const dataFormatada = targetDate.toLocaleDateString('pt-BR', {
+        timeZone: 'UTC',
+      });
+      const tipoNome = existing.tipo === 'ENCONTRO' ? 'ENCONTRO' : 'FORMAÇÃO';
+      throw new ConflictException(
+        `Já existe um registro de frequência do tipo ${tipoNome} para a data ${dataFormatada}.`,
+      );
+    }
 
     const dadosConvertidos = frequencias.map((frequencia) => ({
       animadorId: frequencia.animadorId,
       status: frequencia.status,
       tipo: frequencia.tipo,
       justificativa: frequencia.justificativa,
-      dataFrequencia: new Date(dataFrequencia),
+      dataFrequencia: targetDate,
     }));
 
     return this.prisma.frequenciaAnimador.createMany({
